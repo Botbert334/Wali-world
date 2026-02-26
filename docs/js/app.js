@@ -104,18 +104,55 @@ function renderProducts(list){
     grid.appendChild(card);
   });
 
-  qsa('[data-add]').forEach(btn => {
+  // Bind only inside the products grid to avoid collisions with other pages
+  qsa('#productsGrid [data-add]').forEach(btn => {
     btn.addEventListener('click', () => {
       addToCart(btn.getAttribute('data-add'), 1);
       openDrawer();
     });
   });
 
-  qsa('[data-view]').forEach(btn => {
+  qsa('#productsGrid [data-view]').forEach(btn => {
     btn.addEventListener('click', () => {
       const id = btn.getAttribute('data-view');
       const p = STATE.products.find(x => x.id === id);
       if (p) openProductModal(p);
+    });
+  });
+}
+
+function renderFeatured(count=6){
+  const grid = qs('#featuredGrid');
+  if (!grid) return;
+
+  const featured = [...STATE.products]
+    .sort((a,b) => (b.rating||0) - (a.rating||0))
+    .slice(0, count);
+
+  grid.innerHTML = featured.map(p => `
+    <article class="product product--compact">
+      <div class="product__img" aria-hidden="true">
+        <img src="${p.image}" alt="" loading="lazy" decoding="async" />
+      </div>
+      <div class="product__body">
+        <div class="product__top">
+          <div style="min-width:0;">
+            <p class="product__name">${escapeHtml(p.name)}</p>
+            <div class="product__meta">${escapeHtml(p.category)} • <span class="product__price">${money(p.price)}</span></div>
+          </div>
+        </div>
+        <div class="product__actions">
+          <a class="btn btn--ghost btn--pill" href="./shop.html?cat=${encodeURIComponent(p.category)}">Shop category</a>
+          <button class="btn btn--primary btn--pill" data-add="${p.id}">Add</button>
+        </div>
+      </div>
+    </article>
+  `).join('');
+
+  qsa('#featuredGrid [data-add]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      addToCart(btn.getAttribute('data-add'), 1);
+      openDrawer();
     });
   });
 }
@@ -133,6 +170,16 @@ function uniqueCategories(){
   return Array.from(new Set(STATE.products.map(p=>p.category))).sort();
 }
 
+function getQueryParams(){
+  const params = new URLSearchParams(window.location.search);
+  return {
+    cat: (params.get('cat') || '').trim(),
+    sort: (params.get('sort') || '').trim(),
+    price: (params.get('price') || '').trim(),
+    q: (params.get('q') || '').trim(),
+  };
+}
+
 function initFilters(){
   const cat = qs('#filterCategory');
   if (cat){
@@ -140,14 +187,29 @@ function initFilters(){
       uniqueCategories().map(c => `<option value="${escapeHtml(c)}">${escapeHtml(c)}</option>`).join('');
   }
 
+  // Preselect from URL params (useful for category chips on Home)
+  const qp = getQueryParams();
+  if (qp.cat && qs('#filterCategory')) qs('#filterCategory').value = qp.cat;
+  if (qp.sort && qs('#filterSort')) qs('#filterSort').value = qp.sort;
+  if (qp.price && qs('#filterPrice')) qs('#filterPrice').value = qp.price;
+  if (qp.q && qs('#filterSearch')) qs('#filterSearch').value = qp.q;
+
   const apply = () => {
     const catVal = (qs('#filterCategory')?.value || '').trim();
     const sortVal = (qs('#filterSort')?.value || 'featured').trim();
     const priceVal = (qs('#filterPrice')?.value || '').trim();
+    const qVal = (qs('#filterSearch')?.value || '').trim().toLowerCase();
 
     let out = [...STATE.products];
 
     if (catVal) out = out.filter(p => p.category === catVal);
+
+    if (qVal){
+      out = out.filter(p =>
+        String(p.name||'').toLowerCase().includes(qVal) ||
+        String(p.category||'').toLowerCase().includes(qVal)
+      );
+    }
 
     if (priceVal){
       const [lo, hi] = priceVal.split('-').map(x => Number(x));
@@ -168,6 +230,8 @@ function initFilters(){
   };
 
   qsa('#filterCategory,#filterSort,#filterPrice').forEach(el => el?.addEventListener('change', apply));
+  qs('#filterSearch')?.addEventListener('input', apply);
+
   apply();
 }
 
@@ -285,6 +349,9 @@ async function boot(){
   if (qs('#productsGrid') && qs('#filterCategory') && qs('#filterSort') && qs('#filterPrice')){
     initFilters();
   }
+
+  // Home page: render featured products if present
+  renderFeatured(6);
 
   renderCartDrawer();
 
