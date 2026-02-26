@@ -87,6 +87,9 @@ a{color:inherit; text-decoration:none;}
 
 .nav__cta{display:flex; align-items:center; gap:10px;}
 
+.nav__toggle{display:inline-flex;}
+@media(min-width:900px){.nav__toggle{display:none;}}
+
 @media(max-width:560px){
   .nav__row{padding:10px 0; gap:10px;}
   .brand{min-width:0;}
@@ -96,6 +99,7 @@ a{color:inherit; text-decoration:none;}
 }
 @media(max-width:420px){
   .nav__cta .btn--ghost span{display:none;}
+  .nav__toggle span{display:none;}
 }
 
 /* Buttons */
@@ -166,6 +170,41 @@ h1{font-family: Poppins, Inter, system-ui, sans-serif; letter-spacing:-0.04em; l
 
 /* Hero */
 .hero{padding: 72px 0 38px; overflow:hidden;}
+
+/* Trust strip */
+.trust{display:grid; gap:12px; grid-template-columns:1fr; margin-top:18px;}
+@media(min-width:800px){.trust{grid-template-columns: repeat(4, 1fr);} }
+.trust__item{border-radius: var(--r-lg); border:1px solid rgba(255,255,255,0.10); background: rgba(255,255,255,0.04); padding:14px; box-shadow: var(--shadow2);} 
+.trust__k{font-weight:950; letter-spacing:-0.02em;}
+.trust__v{margin-top:6px; color: rgba(255,255,255,0.72); font-size:13.5px;}
+
+/* Collections */
+.collections{display:grid; gap:14px; grid-template-columns:1fr; margin-top:16px;}
+@media(min-width:760px){.collections{grid-template-columns: repeat(3, 1fr);} }
+.collection{border-radius: var(--r-lg); border:1px solid rgba(255,255,255,0.10); overflow:hidden; background: rgba(255,255,255,0.04); box-shadow: var(--shadow2); position:relative; padding:16px; min-height: 130px;}
+.collection::before{content:""; position:absolute; inset:-40px; background:
+  radial-gradient(520px 220px at 20% 20%, rgba(255,176,138,0.22), rgba(255,255,255,0) 62%),
+  radial-gradient(420px 240px at 80% 40%, rgba(255,138,91,0.18), rgba(255,255,255,0) 66%);
+  opacity:0.9;
+}
+.collection > *{position:relative;}
+.collection__t{font-family:Poppins, Inter, system-ui; font-weight:800; letter-spacing:-0.03em; font-size:18px; margin:0;}
+.collection__d{margin-top:6px; color: rgba(255,255,255,0.74); font-size:13.5px;}
+.collection__cta{margin-top:14px; display:inline-flex;}
+
+/* Mobile menu */
+.mnav-backdrop{position:fixed; inset:0; background: rgba(0,0,0,0.55); display:none; z-index:120;}
+.mnav{position:fixed; top:0; right:0; height:100%; width:min(380px, 92vw); transform: translateX(102%);
+  background: rgba(10,12,18,0.98); border-left: 1px solid rgba(255,255,255,0.10); z-index:130; box-shadow: var(--shadow);
+  transition: transform 240ms ease; display:flex; flex-direction:column;}
+.mnav.is-open{transform: translateX(0);} 
+.mnav-backdrop.is-open{display:block;}
+.mnav__head{padding:16px; display:flex; align-items:center; justify-content:space-between; border-bottom:1px solid rgba(255,255,255,0.10);} 
+.mnav__head b{letter-spacing:-0.02em;}
+.mnav__body{padding:16px; display:grid; gap:10px;}
+.mnav__body a{padding:12px 12px; border-radius:14px; border:1px solid rgba(255,255,255,0.10); background: rgba(255,255,255,0.04); font-weight:900;}
+.mnav__body a:hover{background: rgba(255,176,138,0.14); border-color: rgba(255,176,138,0.22);} 
+.mnav__foot{padding:16px; border-top:1px solid rgba(255,255,255,0.10); display:grid; gap:10px;}
 .hero__card{padding:22px; border-radius: var(--r-lg); border:1px solid rgba(255,255,255,0.10);
   background: rgba(255,255,255,0.05);
   box-shadow: var(--shadow);
@@ -190,6 +229,19 @@ h1{font-family: Poppins, Inter, system-ui, sans-serif; letter-spacing:-0.04em; l
 @media(min-width:700px){.shopbar{grid-template-columns: 1fr 1fr 1fr 1.2fr;}}
 
 .label{font-weight:900; font-size:13px; color: rgba(255,255,255,0.78); display:block; margin-bottom:6px;}
+
+.crumbs{display:flex; align-items:center; flex-wrap:wrap; gap:8px; color: rgba(255,255,255,0.70); font-weight:800; font-size:13.5px;}
+.crumbs a{color: rgba(255,255,255,0.80); text-decoration:underline; text-decoration-color: rgba(255,176,138,0.50);} 
+.crumbs b{color:#fff;}
+
+.shophero{border-radius: var(--r-lg); border:1px solid rgba(255,255,255,0.10); background: rgba(255,255,255,0.04);
+  box-shadow: var(--shadow2); padding:18px; margin-top:14px; position:relative; overflow:hidden;}
+.shophero::before{content:""; position:absolute; inset:-60px; background:
+  radial-gradient(640px 260px at 20% 20%, rgba(255,176,138,0.20), rgba(255,255,255,0) 60%),
+  radial-gradient(520px 280px at 80% 40%, rgba(255,138,91,0.16), rgba(255,255,255,0) 66%);
+  opacity:0.95;
+}
+.shophero > *{position:relative;}
 .input, select, textarea{width:100%; padding:12px 12px; border-radius:14px;
   border:1px solid rgba(255,255,255,0.14);
   background: rgba(0,0,0,0.18);

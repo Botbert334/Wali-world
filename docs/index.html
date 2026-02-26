@@ -48,7 +48,8 @@
       </nav>
 
       <div class="nav__cta">
-        <a class="btn btn--ghost btn--small" href="./shop.html"><span>Shop Products</span></a>
+        <button class="btn btn--ghost btn--small nav__toggle" id="openMenu" type="button" aria-label="Open menu"><span>Menu</span> ☰</button>
+        <a class="btn btn--ghost btn--small" href="#create"><span>Create Merch</span></a>
         <a class="btn btn--primary btn--small" href="#consultation"><span>Book Consultation</span></a>
         <a class="btn btn--ghost btn--small cartbtn" href="#" id="openCart" aria-label="Open cart">
           <span>Cart</span>
@@ -64,12 +65,14 @@
       <div class="container grid grid-2">
         <div class="hero__card">
           <span class="kicker">Premium + creator-friendly</span>
-          <h1>Shop products. Launch merch drops. Get expert help.</h1>
-          <p class="lead">Wali World helps creators and brands sell products, produce custom merch, and book strategy support—without the usual friction.</p>
+          <h1>Launch merch drops. Build your brand. Get expert help.</h1>
+          <p class="lead">Wali World helps creators and brands produce custom merch and book strategy support—without the usual friction.</p>
           <div class="hero__actions">
-            <a class="btn btn--primary" href="./shop.html">Shop Products</a>
-            <a class="btn btn--ghost" href="#create">Create Your Merch</a>
+            <a class="btn btn--primary" href="#create">Create Your Merch</a>
             <a class="btn btn--ghost" href="#consultation">Book Consultation</a>
+          </div>
+          <div style="margin-top:12px; color: rgba(255,255,255,0.70); font-weight:800;">
+            Want to browse products? <a href="./shop.html" style="text-decoration:underline; text-decoration-color: rgba(255,176,138,0.55);">Visit the shop</a>.
           </div>
           <div class="pills">
             <span class="pill">Small batches supported</span>
@@ -91,30 +94,21 @@
       </div>
     </section>
 
-    <!-- Featured products -->
-    <section class="section section--alt" aria-label="Featured products">
+    <section class="section section--tight section--alt" aria-label="Trust">
       <div class="container">
-        <p class="eyebrow">Featured</p>
-        <h2 class="h2">Top-rated picks</h2>
-        <p class="lead">A quick preview of what’s in the shop. Add to cart in one tap, or browse by category.</p>
+        <p class="eyebrow">Trusted</p>
+        <h2 class="h2">A clean, reliable merch experience</h2>
+        <p class="lead">Premium presentation, clear timelines, and support that makes drops smoother.</p>
 
-        <div class="chips" aria-label="Shop by category">
-          <a class="chip" href="./shop.html">All</a>
-          <a class="chip" href="./shop.html?cat=Tees">Tees</a>
-          <a class="chip" href="./shop.html?cat=Hoodies">Hoodies</a>
-          <a class="chip" href="./shop.html?cat=Hats">Hats</a>
-          <a class="chip" href="./shop.html?cat=Accessories">Accessories</a>
-          <a class="chip" href="./shop.html?cat=Prints">Prints</a>
-        </div>
-
-        <div class="featured" id="featuredGrid" aria-label="Featured product grid"></div>
-
-        <div style="margin-top:16px; display:flex; gap:12px; flex-wrap:wrap;">
-          <a class="btn btn--primary" href="./shop.html">Shop all products</a>
-          <a class="btn btn--ghost" href="./index.html#consultation">Need help? Book a consult</a>
+        <div class="trust" role="list">
+          <div class="trust__item" role="listitem"><div class="trust__k">Quality control</div><div class="trust__v">Print checks + consistent sizing expectations.</div></div>
+          <div class="trust__item" role="listitem"><div class="trust__k">Small batches</div><div class="trust__v">Test a drop before scaling production.</div></div>
+          <div class="trust__item" role="listitem"><div class="trust__k">Design help</div><div class="trust__v">Bring your logo or request creative support.</div></div>
+          <div class="trust__item" role="listitem"><div class="trust__k">Fast workflow</div><div class="trust__v">Clear steps from concept → production → delivery.</div></div>
         </div>
       </div>
     </section>
+
 
     <!-- Create merch -->
     <section class="section section--tight" id="create">
@@ -269,10 +263,29 @@
       </div>
     </footer>
 
-    <div class="floating-cta" aria-label="Mobile shop button">
-      <a class="btn btn--primary" href="./shop.html">Shop Products</a>
+    <div class="floating-cta" aria-label="Mobile consultation button">
+      <a class="btn btn--primary" href="#consultation">Book Consultation</a>
     </div>
   </main>
+
+
+  <!-- Mobile menu -->
+  <div class="mnav-backdrop" id="menuBackdrop" aria-hidden="true"></div>
+  <aside class="mnav" id="mobileMenu" aria-label="Mobile menu">
+    <div class="mnav__head"><b>Menu</b><button class="btn btn--ghost btn--small" id="closeMenu" type="button">Close</button></div>
+    <div class="mnav__body">
+      <a href="./index.html">Home</a>
+      <a href="./about.html">About</a>
+      <a href="./shop.html">Shop</a>
+      <a href="./faq.html">FAQ</a>
+      <a href="./index.html#create">Create Merch</a>
+      <a href="./index.html#consultation">Consultation</a>
+    </div>
+    <div class="mnav__foot">
+      <a class="btn btn--primary" href="./shop.html">Shop Products</a>
+      <a class="btn btn--ghost" href="./index.html#consultation">Book Consultation</a>
+    </div>
+  </aside>
 
   <!-- Cart drawer (available on every page) -->
   <div class="drawer__backdrop" id="drawerBackdrop" aria-hidden="true"></div>

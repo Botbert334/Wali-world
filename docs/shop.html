@@ -41,6 +41,7 @@
       </nav>
 
       <div class="nav__cta">
+        <button class="btn btn--ghost btn--small nav__toggle" id="openMenu" type="button" aria-label="Open menu"><span>Menu</span> ☰</button>
         <a class="btn btn--ghost btn--small" href="./index.html#consultation"><span>Book Consultation</span></a>
         <a class="btn btn--ghost btn--small cartbtn" href="#" id="openCart" aria-label="Open cart">
           <span>Cart</span>
@@ -52,9 +53,40 @@
 
   <main class="section" role="main" id="shop">
     <div class="container">
-      <p class="eyebrow">Shop Products</p>
-      <h1 style="margin:0 0 10px; font-family:Poppins, Inter, system-ui; letter-spacing:-0.04em;">Premium products, ready to ship</h1>
-      <p class="lead">Products are demo data in <code>docs/data/products.json</code>. Swap names/prices/images anytime.</p>
+      <div class="crumbs" aria-label="Breadcrumbs">
+        <a href="./index.html">Home</a>
+        <span aria-hidden="true">/</span>
+        <b>Shop</b>
+        <span id="crumbCat" style="display:none;"><span aria-hidden="true">/</span> <b id="crumbCatText"></b></span>
+      </div>
+
+      <div class="shophero" aria-label="Shop hero">
+        <p class="eyebrow">Shop Products</p>
+        <h1 style="margin:0 0 10px; font-family:Poppins, Inter, system-ui; letter-spacing:-0.04em;">Premium products, built for drops</h1>
+        <p class="lead">Browse categories, search, and add to cart. Checkout is a placeholder (Stripe-ready when you’re ready).</p>
+      </div>
+
+      
+
+      <section class="section section--tight section--alt" aria-label="Collections" style="padding-top:28px; padding-bottom:28px;">
+        <div class="collections">
+          <a class="collection" href="./shop.html?cat=Hoodies" aria-label="Shop hoodies">
+            <h3 class="collection__t">Hoodies</h3>
+            <div class="collection__d">Premium weight. Best for drops.</div>
+            <div class="collection__cta"><span class="btn btn--primary btn--small">Shop Hoodies</span></div>
+          </a>
+          <a class="collection" href="./shop.html?cat=Tees" aria-label="Shop tees">
+            <h3 class="collection__t">Tees</h3>
+            <div class="collection__d">Soft fit. Clean prints.</div>
+            <div class="collection__cta"><span class="btn btn--primary btn--small">Shop Tees</span></div>
+          </a>
+          <a class="collection" href="./shop.html?cat=Accessories" aria-label="Shop accessories">
+            <h3 class="collection__t">Accessories</h3>
+            <div class="collection__d">Add-ons that increase AOV.</div>
+            <div class="collection__cta"><span class="btn btn--primary btn--small">Shop Accessories</span></div>
+          </a>
+        </div>
+      </section>
 
       <div class="shopbar" aria-label="Shop filters">
         <div>
@@ -111,6 +143,25 @@
   <div class="floating-cta" aria-label="Mobile cart button">
     <a class="btn btn--primary" href="#" id="openCart2">Open Cart</a>
   </div>
+
+
+  <!-- Mobile menu -->
+  <div class="mnav-backdrop" id="menuBackdrop" aria-hidden="true"></div>
+  <aside class="mnav" id="mobileMenu" aria-label="Mobile menu">
+    <div class="mnav__head"><b>Menu</b><button class="btn btn--ghost btn--small" id="closeMenu" type="button">Close</button></div>
+    <div class="mnav__body">
+      <a href="./index.html">Home</a>
+      <a href="./about.html">About</a>
+      <a href="./shop.html">Shop</a>
+      <a href="./faq.html">FAQ</a>
+      <a href="./index.html#create">Create Merch</a>
+      <a href="./index.html#consultation">Consultation</a>
+    </div>
+    <div class="mnav__foot">
+      <a class="btn btn--primary" href="./shop.html">Shop Products</a>
+      <a class="btn btn--ghost" href="./index.html#consultation">Book Consultation</a>
+    </div>
+  </aside>
 
   <!-- Cart drawer -->
   <div class="drawer__backdrop" id="drawerBackdrop" aria-hidden="true"></div>

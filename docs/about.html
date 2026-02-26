@@ -41,6 +41,7 @@
       </nav>
 
       <div class="nav__cta">
+        <button class="btn btn--ghost btn--small nav__toggle" id="openMenu" type="button" aria-label="Open menu"><span>Menu</span> ☰</button>
         <a class="btn btn--ghost btn--small" href="./shop.html"><span>Shop Products</span></a>
         <a class="btn btn--primary btn--small" href="./index.html#consultation"><span>Book Consultation</span></a>
         <a class="btn btn--ghost btn--small cartbtn" href="#" id="openCart" aria-label="Open cart">
@@ -120,6 +121,25 @@
       <a class="btn btn--primary" href="./shop.html">Shop Products</a>
     </div>
   </main>
+
+
+  <!-- Mobile menu -->
+  <div class="mnav-backdrop" id="menuBackdrop" aria-hidden="true"></div>
+  <aside class="mnav" id="mobileMenu" aria-label="Mobile menu">
+    <div class="mnav__head"><b>Menu</b><button class="btn btn--ghost btn--small" id="closeMenu" type="button">Close</button></div>
+    <div class="mnav__body">
+      <a href="./index.html">Home</a>
+      <a href="./about.html">About</a>
+      <a href="./shop.html">Shop</a>
+      <a href="./faq.html">FAQ</a>
+      <a href="./index.html#create">Create Merch</a>
+      <a href="./index.html#consultation">Consultation</a>
+    </div>
+    <div class="mnav__foot">
+      <a class="btn btn--primary" href="./shop.html">Shop Products</a>
+      <a class="btn btn--ghost" href="./index.html#consultation">Book Consultation</a>
+    </div>
+  </aside>
 
   <!-- Cart drawer -->
   <div class="drawer__backdrop" id="drawerBackdrop" aria-hidden="true"></div>
