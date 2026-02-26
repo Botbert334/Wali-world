@@ -28,6 +28,11 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
 
   <link rel="stylesheet" href="./css/styles.css" />
+
+  <!-- Supabase CDN (Option B) -->
+  <script src="https://unpkg.com/@supabase/supabase-js@2" defer></script>
+  <script src="./js/supabase-config.js" defer></script>
+  <script src="./js/supabase-client.js" defer></script>
 </head>
 <body>
   <header class="nav" role="banner" id="top">
@@ -374,7 +379,40 @@
     </div>
   </aside>
 
-  <script>document.getElementById('year').textContent = String(new Date().getFullYear());</script>
+  <script>
+    document.getElementById('year').textContent = String(new Date().getFullYear());
+
+    // Consultation form → Supabase (if configured). Falls back to demo alert.
+    const consultForm = document.getElementById('consultForm');
+    if (consultForm){
+      consultForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+
+        const payload = {
+          name: document.getElementById('cName')?.value?.trim() || '',
+          email: document.getElementById('cEmail')?.value?.trim() || '',
+          phone: document.getElementById('cPhone')?.value?.trim() || null,
+          session_type: document.getElementById('cType')?.value?.trim() || '',
+          timeline: document.getElementById('cTimeline')?.value?.trim() || null,
+          notes: document.getElementById('cNotes')?.value?.trim() || null,
+        };
+
+        if (window.waliSupabase?.hasSupabaseConfig?.()){
+          const res = await window.waliSupabase.supabaseInsertConsultation(payload);
+          if (res.ok){
+            alert('Request sent. We’ll reach out shortly.');
+            consultForm.reset();
+            return;
+          }
+          alert('Could not submit right now: ' + (res.error || 'unknown error'));
+          return;
+        }
+
+        alert('Captured (demo). Add Supabase keys to enable real submissions.');
+        consultForm.reset();
+      });
+    }
+  </script>
   <script src="./js/app.js" defer></script>
 </body>
 </html>

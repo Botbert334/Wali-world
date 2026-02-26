@@ -357,9 +357,17 @@ async function boot(){
   initAnchors();
   initModal();
 
-  // Load products (used for Shop page + cart rendering across all pages)
-  const res = await fetch('./data/products.json', {cache:'no-store'});
-  const data = await res.json();
+  // Load products (Supabase Option B if configured, otherwise local JSON)
+  let data = null;
+  if (window.waliSupabase?.hasSupabaseConfig?.()){
+    data = await window.waliSupabase.supabaseFetchProducts();
+  }
+
+  if (!data){
+    const res = await fetch('./data/products.json', {cache:'no-store'});
+    data = await res.json();
+  }
+
   STATE.products = data.products || [];
   STATE.currency = data.currency || 'USD';
 
