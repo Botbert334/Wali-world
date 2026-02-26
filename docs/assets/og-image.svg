@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#05070C"/>
+      <stop offset="60%" stop-color="#070A0F"/>
+      <stop offset="100%" stop-color="#05070C"/>
+    </linearGradient>
+    <radialGradient id="p1" cx="20%" cy="10%" r="70%">
+      <stop offset="0%" stop-color="#FFB08A" stop-opacity="0.55"/>
+      <stop offset="55%" stop-color="#FFB08A" stop-opacity="0.10"/>
+      <stop offset="100%" stop-color="#FFB08A" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="p2" cx="88%" cy="18%" r="70%">
+      <stop offset="0%" stop-color="#FF8A5B" stop-opacity="0.48"/>
+      <stop offset="55%" stop-color="#FF8A5B" stop-opacity="0.10"/>
+      <stop offset="100%" stop-color="#FF8A5B" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <rect width="1200" height="630" fill="url(#p1)"/>
+  <rect width="1200" height="630" fill="url(#p2)"/>
+
+  <g transform="translate(84,86)">
+    <rect x="0" y="0" width="144" height="144" rx="44" fill="#0B0F18" opacity="0.95"/>
+    <rect x="0" y="0" width="144" height="144" rx="44" fill="#FFB08A" opacity="0.12"/>
+    <path d="M34 50l18 82 22-54 22 54 18-82" fill="none" stroke="#FFD3BE" stroke-width="14" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M112 40l6 14 14 6-14 6-6 14-6-14-14-6 14-6z" fill="#FFB08A" opacity="0.92"/>
+  </g>
+
+  <text x="84" y="300" fill="#FFFFFF" font-family="Poppins, Inter, system-ui, -apple-system, Segoe UI" font-size="64" font-weight="800" letter-spacing="-1.5">Wali World</text>
+  <text x="84" y="364" fill="rgba(255,255,255,0.78)" font-family="Inter, system-ui, -apple-system, Segoe UI" font-size="30" font-weight="600">Shop products • Custom merch creation • Consultation booking</text>
+
+  <g transform="translate(84,410)">
+    <rect x="0" y="0" width="260" height="68" rx="22" fill="#FFB08A"/>
+    <rect x="0" y="0" width="260" height="68" rx="22" fill="#FF8A5B" opacity="0.55"/>
+    <text x="28" y="45" fill="#1B0C06" font-family="Inter, system-ui" font-size="26" font-weight="800">Shop Products</text>
+
+    <rect x="286" y="0" width="320" height="68" rx="22" fill="rgba(255,255,255,0.10)" stroke="rgba(255,255,255,0.18)"/>
+    <text x="314" y="45" fill="#FFFFFF" font-family="Inter, system-ui" font-size="26" font-weight="800">Book Consultation</text>
+  </g>
+</svg>

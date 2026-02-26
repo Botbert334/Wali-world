@@ -1,0 +1,104 @@
+{
+  "currency": "USD",
+  "products": [
+    {
+      "id": "wali-hoodie-01",
+      "name": "Wali World Hoodie",
+      "category": "Hoodies",
+      "price": 54.0,
+      "rating": 4.8,
+      "reviews": 126,
+      "badge": "Best seller",
+      "image": "./assets/product-hoodie.svg",
+      "description": "Heavyweight hoodie with premium embroidery. Built for everyday wear and merch drops."
+    },
+    {
+      "id": "wali-tee-01",
+      "name": "Creator Tee",
+      "category": "Tees",
+      "price": 28.0,
+      "rating": 4.7,
+      "reviews": 210,
+      "badge": "New",
+      "image": "./assets/product-tee.svg",
+      "description": "Soft, modern fit tee that prints clean and holds up after washes."
+    },
+    {
+      "id": "wali-hat-01",
+      "name": "Logo Cap",
+      "category": "Hats",
+      "price": 24.0,
+      "rating": 4.6,
+      "reviews": 78,
+      "badge": "",
+      "image": "./assets/product-hat.svg",
+      "description": "Structured cap with adjustable strap. Perfect for brand visibility."
+    },
+    {
+      "id": "wali-tote-01",
+      "name": "Drop Day Tote",
+      "category": "Accessories",
+      "price": 18.0,
+      "rating": 4.5,
+      "reviews": 44,
+      "badge": "",
+      "image": "./assets/product-tote.svg",
+      "description": "Durable tote for events, pop-ups, and everyday carry."
+    },
+    {
+      "id": "wali-sweats-01",
+      "name": "Premium Joggers",
+      "category": "Bottoms",
+      "price": 46.0,
+      "rating": 4.7,
+      "reviews": 59,
+      "badge": "",
+      "image": "./assets/product-joggers.svg",
+      "description": "Tapered joggers with a premium hand-feel. Great for bundles."
+    },
+    {
+      "id": "wali-crewneck-01",
+      "name": "Crewneck Sweatshirt",
+      "category": "Sweatshirts",
+      "price": 44.0,
+      "rating": 4.6,
+      "reviews": 88,
+      "badge": "",
+      "image": "./assets/product-crewneck.svg",
+      "description": "Classic crewneck with clean prints and consistent sizing."
+    },
+    {
+      "id": "wali-stickers-01",
+      "name": "Sticker Pack (10)",
+      "category": "Accessories",
+      "price": 12.0,
+      "rating": 4.9,
+      "reviews": 302,
+      "badge": "Fan favorite",
+      "image": "./assets/product-stickers.svg",
+      "description": "Matte + glossy mix. Great add-on to increase AOV."
+    },
+    {
+      "id": "wali-mug-01",
+      "name": "Studio Mug",
+      "category": "Accessories",
+      "price": 16.0,
+      "rating": 4.4,
+      "reviews": 31,
+      "badge": "",
+      "image": "./assets/product-mug.svg",
+      "description": "Ceramic mug for creators who build brands (and drink coffee)."
+    },
+    {
+      "id": "wali-poster-01",
+      "name": "Limited Poster",
+      "category": "Prints",
+      "price": 22.0,
+      "rating": 4.6,
+      "reviews": 22,
+      "badge": "Limited",
+      "image": "./assets/product-poster.svg",
+      "description": "High-quality print for your studio or space."
+    }
+  ]
+}

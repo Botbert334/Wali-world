@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#070A0F" />
+  <title>Checkout — Wali World</title>
+  <meta name="description" content="Checkout placeholder for Wali World." />
+  <link rel="icon" type="image/svg+xml" href="./assets/logo.svg" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="./css/styles.css" />
+</head>
+<body>
+  <header class="nav" role="banner">
+    <div class="container nav__row">
+      <a class="brand" href="./index.html#shop" aria-label="Back to shop">
+        <span class="brand__mark" aria-hidden="true"><img src="./assets/logo.svg" alt="" /></span>
+        <span class="brand__meta">
+          <div class="brand__name">Wali World</div>
+          <div class="brand__tag">Secure checkout (placeholder)</div>
+        </span>
+      </a>
+      <div class="nav__cta">
+        <a class="btn btn--ghost btn--small" href="./index.html#shop">Continue shopping</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="section" role="main">
+    <div class="container grid grid-2">
+      <div class="card card--soft">
+        <p class="eyebrow">Checkout</p>
+        <h1 style="margin:10px 0; font-size: clamp(30px, 4vw, 44px);">Shipping details</h1>
+        <p class="lead">This is a demo checkout flow. Next step is wiring payment with Stripe.</p>
+
+        <form id="shipForm" style="margin-top:16px; display:grid; gap:12px;">
+          <div>
+            <label class="label" for="sName">Full name</label>
+            <input class="input" id="sName" required placeholder="Name" />
+          </div>
+          <div>
+            <label class="label" for="sEmail">Email</label>
+            <input class="input" id="sEmail" type="email" required placeholder="you@example.com" />
+          </div>
+          <div>
+            <label class="label" for="sAddr">Address</label>
+            <input class="input" id="sAddr" required placeholder="123 Main St" />
+          </div>
+          <div class="grid" style="grid-template-columns:1fr 1fr; gap:12px;">
+            <div>
+              <label class="label" for="sCity">City</label>
+              <input class="input" id="sCity" required placeholder="City" />
+            </div>
+            <div>
+              <label class="label" for="sZip">ZIP</label>
+              <input class="input" id="sZip" required placeholder="00000" />
+            </div>
+          </div>
+
+          <button class="btn btn--primary" type="submit">Continue to payment (placeholder)</button>
+          <small style="color: rgba(255,255,255,0.68);">Stripe-ready note: we’ll replace this with a Stripe Checkout Session or Payment Element.</small>
+        </form>
+      </div>
+
+      <aside class="card card--glass">
+        <p class="eyebrow">Order summary</p>
+        <h2 class="h2" style="margin-top:0;">Cart</h2>
+        <div id="summary"></div>
+        <div style="margin-top:12px; display:flex; justify-content:space-between; font-weight:950;">
+          <span>Subtotal</span>
+          <span id="sub">$0.00</span>
+        </div>
+        <div style="margin-top:8px; color: rgba(255,255,255,0.70);">Shipping/taxes calculated at payment.</div>
+      </aside>
+    </div>
+  </main>
+
+  <script>
+    const money = (n) => {
+      try { return new Intl.NumberFormat(undefined, {style:'currency', currency:'USD'}).format(n); }
+      catch { return `$${Number(n).toFixed(2)}`; }
+    };
+
+    function loadCart(){
+      try{ return JSON.parse(localStorage.getItem('wali_cart_v1')||'{}'); }
+      catch { return {}; }
+    }
+
+    async function boot(){
+      const cart = loadCart();
+      const res = await fetch('./data/products.json', {cache:'no-store'});
+      const data = await res.json();
+      const map = new Map((data.products||[]).map(p=>[p.id,p]));
+
+      const wrap = document.getElementById('summary');
+      let sum = 0;
+      wrap.innerHTML = '';
+
+      const ids = Object.keys(cart);
+      if (!ids.length){
+        wrap.innerHTML = '<div class="card card--glass"><b>Cart is empty.</b><div style="margin-top:8px; color: rgba(255,255,255,0.72);">Go back and add items.</div></div>';
+      }
+
+      ids.forEach(id => {
+        const p = map.get(id);
+        const q = Number(cart[id]||0);
+        if (!p || !q) return;
+        sum += p.price * q;
+        const row = document.createElement('div');
+        row.className = 'cartitem';
+        row.innerHTML = `
+          <img src="${p.image}" alt="" aria-hidden="true" />
+          <div class="cartitem__meta">
+            <p class="cartitem__title">${p.name}</p>
+            <div class="cartitem__sub">${p.category} • ${money(p.price)} • Qty ${q}</div>
+          </div>
+        `;
+        wrap.appendChild(row);
+      });
+
+      document.getElementById('sub').textContent = money(sum);
+
+      document.getElementById('shipForm').addEventListener('submit', (e)=>{
+        e.preventDefault();
+        alert('Payment step is a placeholder. Next: integrate Stripe.');
+      });
+    }
+
+    boot().catch(console.error);
+  </script>
+</body>
+</html>
