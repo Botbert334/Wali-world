@@ -275,12 +275,17 @@ async function boot(){
   initAnchors();
   initModal();
 
+  // Load products (used for Shop page + cart rendering across all pages)
   const res = await fetch('./data/products.json', {cache:'no-store'});
   const data = await res.json();
   STATE.products = data.products || [];
   STATE.currency = data.currency || 'USD';
 
-  initFilters();
+  // Only initialize shop UI if this page has the shop elements
+  if (qs('#productsGrid') && qs('#filterCategory') && qs('#filterSort') && qs('#filterPrice')){
+    initFilters();
+  }
+
   renderCartDrawer();
 
   // Checkout button

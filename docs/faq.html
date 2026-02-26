@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#070A0F" />
+  <title>Wali World — FAQ</title>
+  <meta name="description" content="FAQ for Wali World: pricing, MOQ, design help, shipping, timelines, returns." />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Wali World — FAQ" />
+  <meta property="og:description" content="Quick answers about merch creation and shopping." />
+  <meta property="og:image" content="https://botbert334.github.io/Wali-world/assets/og-image.svg" />
+  <meta property="og:url" content="https://botbert334.github.io/Wali-world/faq.html" />
+
+  <link rel="icon" type="image/svg+xml" href="./assets/logo.svg" />
+  <link rel="apple-touch-icon" href="./assets/logo.svg" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="./css/styles.css" />
+</head>
+<body>
+  <header class="nav" role="banner">
+    <div class="container nav__row">
+      <a class="brand" href="./index.html" aria-label="Home">
+        <span class="brand__mark" aria-hidden="true"><img src="./assets/logo.svg" alt="" decoding="async" /></span>
+        <span class="brand__meta">
+          <div class="brand__name">Wali World</div>
+          <div class="brand__tag">Shop • Merch creation • Consultation</div>
+        </span>
+      </a>
+
+      <nav class="nav__links" aria-label="Primary">
+        <a href="./index.html">Home</a>
+        <a href="./about.html">About</a>
+        <a href="./shop.html">Shop</a>
+        <a href="./faq.html" aria-current="page">FAQ</a>
+      </nav>
+
+      <div class="nav__cta">
+        <a class="btn btn--ghost btn--small" href="./shop.html"><span>Shop Products</span></a>
+        <a class="btn btn--primary btn--small" href="./index.html#consultation"><span>Book Consultation</span></a>
+        <a class="btn btn--ghost btn--small cartbtn" href="#" id="openCart" aria-label="Open cart">
+          <span>Cart</span>
+          <span class="cartcount" id="cartCount" style="display:none;">0</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <main class="section" role="main">
+    <div class="container">
+      <p class="eyebrow">FAQ</p>
+      <h1 style="margin:0 0 10px; font-family:Poppins, Inter, system-ui; letter-spacing:-0.04em;">Quick answers</h1>
+      <p class="lead">If you don’t see your question, book a consultation and we’ll walk through your exact project.</p>
+
+      <div class="grid grid-2" style="margin-top:18px;">
+        <div class="card card--glass"><b>What’s the MOQ?</b><div style="margin-top:8px; color: rgba(255,255,255,0.74);">Typical MOQ is 12–50 depending on product and print method.</div></div>
+        <div class="card card--glass"><b>Do you help with design?</b><div style="margin-top:8px; color: rgba(255,255,255,0.74);">Yes—either polish your art or help you create it from scratch.</div></div>
+        <div class="card card--glass"><b>How long does production take?</b><div style="margin-top:8px; color: rgba(255,255,255,0.74);">Most orders are 7–21 days depending on complexity + quantities.</div></div>
+        <div class="card card--glass"><b>Can I do small test drops?</b><div style="margin-top:8px; color: rgba(255,255,255,0.74);">Yes—small batches are supported so you can validate demand.</div></div>
+        <div class="card card--glass"><b>Do you ship?</b><div style="margin-top:8px; color: rgba(255,255,255,0.74);">US shipping standard. International options available depending on the project.</div></div>
+        <div class="card card--glass"><b>What about returns?</b><div style="margin-top:8px; color: rgba(255,255,255,0.74);">Return policy depends on custom vs stocked items. Add your policy here.</div></div>
+        <div class="card card--glass"><b>Can you help me sell my merch?</b><div style="margin-top:8px; color: rgba(255,255,255,0.74);">Yes—optional support: product pages, pricing guidance, and drop planning.</div></div>
+        <div class="card card--glass"><b>What info do you need to quote?</b><div style="margin-top:8px; color: rgba(255,255,255,0.74);">Product types, quantities, design files (or description), and your timeline.</div></div>
+      </div>
+
+      <div style="margin-top:18px;">
+        <a class="btn btn--primary" href="./index.html#consultation">Book a consultation</a>
+        <a class="btn btn--ghost" href="./shop.html" style="margin-left:10px;">Shop products</a>
+      </div>
+    </div>
+
+    <footer class="footer" role="contentinfo" style="margin-top:44px;">
+      <div class="container footer__grid">
+        <div>
+          <div class="brand" style="min-width:0;">
+            <span class="brand__mark" aria-hidden="true"><img src="./assets/logo.svg" alt="" loading="lazy" /></span>
+            <span class="brand__meta">
+              <div class="brand__name">Wali World</div>
+              <div class="brand__tag">Premium shop + merch creation + consulting</div>
+            </span>
+          </div>
+          <small>© <span id="year"></span> Wali World.</small>
+        </div>
+        <div style="text-align:left;">
+          <small><b>Contact</b><br/>hello@waliworld.example<br/>(000) 000-0000</small>
+        </div>
+      </div>
+    </footer>
+
+    <div class="floating-cta" aria-label="Mobile shop button">
+      <a class="btn btn--primary" href="./shop.html">Shop Products</a>
+    </div>
+  </main>
+
+  <!-- Cart drawer -->
+  <div class="drawer__backdrop" id="drawerBackdrop" aria-hidden="true"></div>
+  <aside class="drawer" id="cartDrawer" aria-label="Cart drawer">
+    <div class="drawer__head">
+      <h3>Your cart</h3>
+      <button class="btn btn--ghost btn--small" id="closeDrawer" type="button">Close</button>
+    </div>
+    <div class="drawer__body" id="cartItems"></div>
+    <div class="drawer__foot">
+      <div class="totals"><span>Subtotal</span><span id="cartSubtotal">$0.00</span></div>
+      <button class="btn btn--primary" id="checkoutBtn" type="button">Checkout</button>
+      <small style="color: rgba(255,255,255,0.68);">Taxes/shipping calculated at checkout (placeholder).</small>
+    </div>
+  </aside>
+
+  <script>document.getElementById('year').textContent = String(new Date().getFullYear());</script>
+  <script src="./js/app.js" defer></script>
+</body>
+</html>

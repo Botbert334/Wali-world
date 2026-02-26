@@ -1,0 +1,157 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#070A0F" />
+  <title>Wali World — Shop</title>
+  <meta name="description" content="Shop Wali World products. Add to cart and checkout (placeholder)." />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Wali World — Shop" />
+  <meta property="og:description" content="Shop products and add to cart." />
+  <meta property="og:image" content="https://botbert334.github.io/Wali-world/assets/og-image.svg" />
+  <meta property="og:url" content="https://botbert334.github.io/Wali-world/shop.html" />
+
+  <link rel="icon" type="image/svg+xml" href="./assets/logo.svg" />
+  <link rel="apple-touch-icon" href="./assets/logo.svg" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="./css/styles.css" />
+</head>
+<body>
+  <header class="nav" role="banner">
+    <div class="container nav__row">
+      <a class="brand" href="./index.html" aria-label="Home">
+        <span class="brand__mark" aria-hidden="true"><img src="./assets/logo.svg" alt="" decoding="async" /></span>
+        <span class="brand__meta">
+          <div class="brand__name">Wali World</div>
+          <div class="brand__tag">Shop • Merch creation • Consultation</div>
+        </span>
+      </a>
+
+      <nav class="nav__links" aria-label="Primary">
+        <a href="./index.html">Home</a>
+        <a href="./about.html">About</a>
+        <a href="./shop.html" aria-current="page">Shop</a>
+        <a href="./faq.html">FAQ</a>
+      </nav>
+
+      <div class="nav__cta">
+        <a class="btn btn--ghost btn--small" href="./index.html#consultation"><span>Book Consultation</span></a>
+        <a class="btn btn--ghost btn--small cartbtn" href="#" id="openCart" aria-label="Open cart">
+          <span>Cart</span>
+          <span class="cartcount" id="cartCount" style="display:none;">0</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <main class="section" role="main" id="shop">
+    <div class="container">
+      <p class="eyebrow">Shop Products</p>
+      <h1 style="margin:0 0 10px; font-family:Poppins, Inter, system-ui; letter-spacing:-0.04em;">Premium products, ready to ship</h1>
+      <p class="lead">Products are demo data in <code>docs/data/products.json</code>. Swap names/prices/images anytime.</p>
+
+      <div class="shopbar" aria-label="Shop filters">
+        <div>
+          <label class="label" for="filterCategory">Category</label>
+          <select id="filterCategory"></select>
+        </div>
+        <div>
+          <label class="label" for="filterPrice">Price</label>
+          <select id="filterPrice">
+            <option value="">All prices</option>
+            <option value="0-20">Under $20</option>
+            <option value="20-35">$20–$35</option>
+            <option value="35-60">$35–$60</option>
+            <option value="60-999">$60+</option>
+          </select>
+        </div>
+        <div>
+          <label class="label" for="filterSort">Sort</label>
+          <select id="filterSort">
+            <option value="featured" selected>Featured</option>
+            <option value="rating">Top rated</option>
+            <option value="price-asc">Price: low → high</option>
+            <option value="price-desc">Price: high → low</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="products" id="productsGrid" aria-label="Product grid"></div>
+    </div>
+  </main>
+
+  <footer class="footer" role="contentinfo">
+    <div class="container footer__grid">
+      <div>
+        <div class="brand" style="min-width:0;">
+          <span class="brand__mark" aria-hidden="true"><img src="./assets/logo.svg" alt="" loading="lazy" /></span>
+          <span class="brand__meta">
+            <div class="brand__name">Wali World</div>
+            <div class="brand__tag">Premium shop + merch creation + consulting</div>
+          </span>
+        </div>
+        <small>© <span id="year"></span> Wali World.</small>
+      </div>
+      <div style="text-align:left;">
+        <small><b>Contact</b><br/>hello@waliworld.example<br/>(000) 000-0000</small>
+      </div>
+    </div>
+  </footer>
+
+  <div class="floating-cta" aria-label="Mobile cart button">
+    <a class="btn btn--primary" href="#" id="openCart2">Open Cart</a>
+  </div>
+
+  <!-- Cart drawer -->
+  <div class="drawer__backdrop" id="drawerBackdrop" aria-hidden="true"></div>
+  <aside class="drawer" id="cartDrawer" aria-label="Cart drawer">
+    <div class="drawer__head">
+      <h3>Your cart</h3>
+      <button class="btn btn--ghost btn--small" id="closeDrawer" type="button">Close</button>
+    </div>
+    <div class="drawer__body" id="cartItems"></div>
+    <div class="drawer__foot">
+      <div class="totals"><span>Subtotal</span><span id="cartSubtotal">$0.00</span></div>
+      <button class="btn btn--primary" id="checkoutBtn" type="button">Checkout</button>
+      <small style="color: rgba(255,255,255,0.68);">Taxes/shipping calculated at checkout (placeholder).</small>
+    </div>
+  </aside>
+
+  <!-- Product modal -->
+  <dialog id="productModal" style="border:none; border-radius:18px; width:min(680px, 92vw); background: rgba(10,12,18,0.96); color:#fff; box-shadow: var(--shadow);">
+    <div style="padding:16px; display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid rgba(255,255,255,0.10);">
+      <b id="pmTitle">Product</b>
+      <button class="btn btn--ghost btn--small" id="pmClose" type="button">Close</button>
+    </div>
+    <div style="padding:16px; display:grid; gap:12px;">
+      <div style="display:flex; gap:14px; align-items:center;">
+        <img id="pmImg" src="" alt="" style="width:72px; height:72px;" />
+        <div>
+          <div style="color: rgba(255,255,255,0.72);" id="pmCategory">Category</div>
+          <div style="font-weight:950; font-size:18px;" id="pmPrice">$0.00</div>
+        </div>
+      </div>
+      <div style="color: rgba(255,255,255,0.78);" id="pmDesc">Description</div>
+      <div style="display:flex; gap:10px;">
+        <button class="btn btn--primary" id="pmAdd" type="button" data-add="">Add to cart</button>
+        <a class="btn btn--ghost" href="./index.html#consultation">Need help? Book a consult</a>
+      </div>
+    </div>
+  </dialog>
+
+  <script>
+    document.getElementById('year').textContent = String(new Date().getFullYear());
+    document.getElementById('openCart2')?.addEventListener('click', (e)=>{
+      e.preventDefault();
+      document.getElementById('openCart')?.click();
+    });
+  </script>
+  <script src="./js/app.js" defer></script>
+</body>
+</html>
