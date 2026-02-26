@@ -3,19 +3,19 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="theme-color" content="#070A0F" />
+  <meta name="theme-color" content="#F5F7FB" />
   <title>Wali World — Home</title>
-  <meta name="description" content="Wali World is a premium, creator-friendly platform for shopping products plus custom merch creation and consultation." />
+  <meta name="description" content="Wali World: a modern storefront with coaching & consultations." />
 
   <!-- OpenGraph / Twitter preview -->
   <meta property="og:type" content="website" />
   <meta property="og:title" content="Wali World" />
-  <meta property="og:description" content="Shop products, create custom merch, and book a consultation." />
+  <meta property="og:description" content="Shop products, book sessions, and join the community." />
   <meta property="og:image" content="https://botbert334.github.io/Wali-world/assets/og-image.svg" />
   <meta property="og:url" content="https://botbert334.github.io/Wali-world/" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Wali World" />
-  <meta name="twitter:description" content="Shop + custom merch + consultation." />
+  <meta name="twitter:description" content="Modern e‑commerce + coaching." />
   <meta name="twitter:image" content="https://botbert334.github.io/Wali-world/assets/og-image.svg" />
 
   <!-- Icons -->
@@ -31,116 +31,234 @@
 </head>
 <body>
   <header class="nav" role="banner" id="top">
+    <div class="topbar">
+      <div class="container topbar__row">
+        <div>Welcome to Wali World</div>
+        <div class="topbar__right">
+          <a class="topbar__link" href="#consultation">Book a session</a>
+          <span class="topbar__sep">•</span>
+          <a class="topbar__link" href="#contact">Support</a>
+        </div>
+      </div>
+    </div>
+
     <div class="container nav__row">
+      <button class="iconbtn nav__toggle" id="openMenu" type="button" aria-label="Open menu">☰</button>
+
       <a class="brand" href="./index.html" aria-label="Home">
         <span class="brand__mark" aria-hidden="true"><img src="./assets/logo.svg" alt="" decoding="async" /></span>
         <span class="brand__meta">
           <div class="brand__name">Wali World</div>
-          <div class="brand__tag">Shop • Merch creation • Consultation</div>
+          <div class="brand__tag">Shop • Coaching • Consultations</div>
         </span>
       </a>
 
-      <nav class="nav__links" aria-label="Primary">
-        <a href="./index.html">Home</a>
-        <a href="./about.html">About</a>
-        <a href="./shop.html">Shop</a>
-        <a href="./faq.html">FAQ</a>
-      </nav>
+      <form class="search" id="siteSearch" action="./shop.html" method="get" role="search" aria-label="Site search">
+        <input class="search__input" name="q" id="navSearch" placeholder="Search essentials, sessions, and more…" />
+        <button class="iconbtn search__btn" type="submit" aria-label="Search">⌕</button>
+      </form>
 
-      <div class="nav__cta">
-        <button class="btn btn--ghost btn--small nav__toggle" id="openMenu" type="button" aria-label="Open menu"><span>Menu</span> ☰</button>
-                <a class="btn btn--primary btn--small" href="#consultation"><span>Book Consultation</span></a>
-        <a class="btn btn--ghost btn--small cartbtn" href="#" id="openCart" aria-label="Open cart">
-          <span>Cart</span>
+      <div class="nav__actions">
+        <a class="navlink" href="./about.html">About</a>
+        <a class="navlink" href="./faq.html">FAQ</a>
+        <a class="iconbtn" href="#" aria-label="Account">👤</a>
+        <a class="iconbtn cartbtn" href="#" id="openCart" aria-label="Open cart">🛒
           <span class="cartcount" id="cartCount" style="display:none;">0</span>
         </a>
       </div>
     </div>
+
+    <div class="container catnav" aria-label="Categories">
+      <a class="catpill" href="./shop.html">All</a>
+      <a class="catpill" href="./shop.html?cat=Tees">Tees</a>
+      <a class="catpill" href="./shop.html?cat=Hoodies">Hoodies</a>
+      <a class="catpill" href="./shop.html?cat=Hats">Hats</a>
+      <a class="catpill" href="./shop.html?cat=Accessories">Accessories</a>
+      <a class="catpill" href="./shop.html?cat=Prints">Prints</a>
+    </div>
   </header>
 
   <main role="main">
-    <!-- Hero -->
-    <section class="hero section">
-      <div class="container grid grid-2">
-        <div class="hero__card">
-          <span class="kicker">Premium + creator-friendly</span>
-          <h1>Launch merch drops. Build your brand. Get expert help.</h1>
-          <p class="lead">Wali World helps creators and brands produce custom merch and book strategy support—without the usual friction.</p>
-          <div class="hero__actions">
-            <a class="btn btn--primary" href="#consultation">Book Consultation</a>
-            <a class="btn btn--ghost" href="./about.html">Learn more</a>
-          </div>
-          <div style="margin-top:12px; color: rgba(255,255,255,0.70); font-weight:800;">
-            Want to browse products? <a href="./shop.html" style="text-decoration:underline; text-decoration-color: rgba(255,176,138,0.55);">Visit the shop</a>.
-          </div>
-          <div class="pills">
-            <span class="pill">Small batches supported</span>
-            <span class="pill">Design help available</span>
-            <span class="pill">Quality control</span>
-          </div>
-        </div>
-
-        <aside class="hero__art" aria-label="Hero image">
-          <div>
-            <h3>Hero image style: merch lifestyle</h3>
-            <p>Swap this for your own photo/video later (studio shots, product flatlays, creators wearing merch).</p>
-          </div>
-          <div class="card card--soft" style="margin-top:14px;">
-            <div style="font-weight:950; letter-spacing:-0.02em;">Quick start</div>
-            <div style="margin-top:6px; color: rgba(255,255,255,0.76);">Browse the shop, or request custom merch with your logo/design.</div>
-          </div>
-        </aside>
-      </div>
-    </section>
-
-    <section class="section section--tight section--alt" aria-label="Trust">
+    <section class="hero">
       <div class="container">
-        <p class="eyebrow">Trusted</p>
-        <h2 class="h2">A clean, reliable merch experience</h2>
-        <p class="lead">Premium presentation, clear timelines, and support that makes drops smoother.</p>
-
-        <div class="trust" role="list">
-          <div class="trust__item" role="listitem"><div class="trust__k">Quality control</div><div class="trust__v">Print checks + consistent sizing expectations.</div></div>
-          <div class="trust__item" role="listitem"><div class="trust__k">Small batches</div><div class="trust__v">Test a drop before scaling production.</div></div>
-          <div class="trust__item" role="listitem"><div class="trust__k">Design help</div><div class="trust__v">Bring your logo or request creative support.</div></div>
-          <div class="trust__item" role="listitem"><div class="trust__k">Fast workflow</div><div class="trust__v">Clear steps from concept → production → delivery.</div></div>
+        <div class="banner" aria-label="Hero banner">
+          <div class="banner__inner">
+            <div>
+              <div class="banner__k">Best deal online on creator essentials</div>
+              <div class="banner__t">LEVEL UP YOUR BRAND.</div>
+              <div class="banner__sub">Shop drops-ready pieces + book a session to plan your next move.</div>
+              <div style="margin-top:14px; display:flex; gap:10px; flex-wrap:wrap;">
+                <a class="btn btn--primary" href="#consultation">Book a Session</a>
+                <a class="btn btn--ghost" href="./shop.html">Browse Shop</a>
+              </div>
+            </div>
+            <div class="banner__img" aria-hidden="true">
+              <img src="./assets/product-hoodie.svg" alt="" />
+            </div>
+          </div>
+          <div class="banner__dots" aria-hidden="true">
+            <span class="dot is-on"></span>
+            <span class="dot"></span>
+            <span class="dot"></span>
+          </div>
         </div>
       </div>
     </section>
 
-    <!-- Consultation -->
-    <section class="section" id="consultation">
-      <div class="container grid grid-2">
-        <div>
-          <p class="eyebrow">Consultation</p>
-          <h2 class="h2">Book a merch strategy call</h2>
-          <p class="lead">Add a Calendly embed later. For now, capture requests with a simple form.</p>
-
-          <div class="card card--glass" style="margin-top:16px;">
-            <b>What’s covered</b>
-            <ul style="margin:10px 0 0; padding-left:18px; color: rgba(255,255,255,0.76);">
-              <li>Product selection + pricing targets</li>
-              <li>Drop timeline + production plan</li>
-              <li>Brand positioning + offer clarity</li>
-              <li>Quality + packaging recommendations</li>
-            </ul>
-            <div class="pills" style="margin-top:14px;">
-              <span class="pill">30–60 min</span>
-              <span class="pill">$0 intro call or paid consult</span>
-            </div>
+    <section class="section" aria-label="Deals">
+      <div class="container">
+        <div class="rowhead">
+          <div>
+            <div class="eyebrow">Deals</div>
+            <h2 class="h2">Grab the best deal</h2>
           </div>
+          <a href="./shop.html">View all →</a>
+        </div>
 
-          <div class="card card--soft" style="margin-top:16px;">
-            <b>Booking widget placeholder</b>
-            <p class="lead" style="margin-top:8px;">Embed Calendly here.</p>
-            <div style="height:220px; border-radius: var(--r-md); border:1px dashed rgba(255,255,255,0.18); display:grid; place-items:center; color: rgba(255,255,255,0.70); margin-top:12px;">
-              Calendly embed goes here
+        <div class="carousel" id="dealCarousel" aria-label="Deal carousel"></div>
+      </div>
+    </section>
+
+    <section class="section section--tight" aria-label="Top categories">
+      <div class="container">
+        <div class="rowhead">
+          <div>
+            <div class="eyebrow">Categories</div>
+            <h2 class="h2">Shop from top categories</h2>
+          </div>
+          <a href="./shop.html">View all →</a>
+        </div>
+
+        <div class="cats" role="list">
+          <a class="cat" role="listitem" href="./shop.html?cat=Tees">
+            <span class="cat__icon" aria-hidden="true"><img src="./assets/product-tee.svg" alt="" /></span>
+            <span class="cat__name">Tees</span>
+          </a>
+          <a class="cat" role="listitem" href="./shop.html?cat=Hoodies">
+            <span class="cat__icon" aria-hidden="true"><img src="./assets/product-hoodie.svg" alt="" /></span>
+            <span class="cat__name">Hoodies</span>
+          </a>
+          <a class="cat" role="listitem" href="./shop.html?cat=Hats">
+            <span class="cat__icon" aria-hidden="true"><img src="./assets/product-hat.svg" alt="" /></span>
+            <span class="cat__name">Hats</span>
+          </a>
+          <a class="cat" role="listitem" href="./shop.html?cat=Accessories">
+            <span class="cat__icon" aria-hidden="true"><img src="./assets/product-stickers.svg" alt="" /></span>
+            <span class="cat__name">Accessories</span>
+          </a>
+          <a class="cat" role="listitem" href="./shop.html?cat=Bottoms">
+            <span class="cat__icon" aria-hidden="true"><img src="./assets/product-joggers.svg" alt="" /></span>
+            <span class="cat__name">Bottoms</span>
+          </a>
+          <a class="cat" role="listitem" href="./shop.html?cat=Sweatshirts">
+            <span class="cat__icon" aria-hidden="true"><img src="./assets/product-crewneck.svg" alt="" /></span>
+            <span class="cat__name">Sweatshirts</span>
+          </a>
+          <a class="cat" role="listitem" href="./shop.html?cat=Prints">
+            <span class="cat__icon" aria-hidden="true"><img src="./assets/product-poster.svg" alt="" /></span>
+            <span class="cat__name">Prints</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" aria-label="Top brands">
+      <div class="container">
+        <div class="rowhead">
+          <div>
+            <div class="eyebrow">Brands</div>
+            <h2 class="h2">Top picks</h2>
+          </div>
+          <a href="./shop.html">View all →</a>
+        </div>
+
+        <div class="brands" aria-label="Brand cards">
+          <div class="brandcard">
+            <div class="brandcard__left">
+              <span class="brandcard__tag">UP TO 80% OFF</span>
+              <div class="brandcard__t">Creator Essentials</div>
+              <div style="color: rgba(11,27,43,0.68); font-weight:800; font-size:13px;">Limited-time bundle deals</div>
             </div>
+            <div class="brandcard__img" aria-hidden="true"><img src="./assets/product-tee.svg" alt="" /></div>
+          </div>
+          <div class="brandcard">
+            <div class="brandcard__left">
+              <span class="brandcard__tag">UP TO 60% OFF</span>
+              <div class="brandcard__t">Drop Day Hoodies</div>
+              <div style="color: rgba(11,27,43,0.68); font-weight:800; font-size:13px;">Best sellers this week</div>
+            </div>
+            <div class="brandcard__img" aria-hidden="true"><img src="./assets/product-hoodie.svg" alt="" /></div>
+          </div>
+          <div class="brandcard">
+            <div class="brandcard__left">
+              <span class="brandcard__tag">UP TO 50% OFF</span>
+              <div class="brandcard__t">Accessories</div>
+              <div style="color: rgba(11,27,43,0.68); font-weight:800; font-size:13px;">Add-ons to boost AOV</div>
+            </div>
+            <div class="brandcard__img" aria-hidden="true"><img src="./assets/product-stickers.svg" alt="" /></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" aria-label="Daily essentials">
+      <div class="container">
+        <div class="rowhead">
+          <div>
+            <div class="eyebrow">Daily Essentials</div>
+            <h2 class="h2">Build your stack</h2>
+          </div>
+          <a href="./shop.html">View all →</a>
+        </div>
+
+        <div class="essentials" role="list">
+          <a class="ess" role="listitem" href="./shop.html?cat=Accessories">
+            <div class="ess__img" aria-hidden="true"><img src="./assets/product-stickers.svg" alt="" /></div>
+            <div class="ess__name">Sticker packs</div>
+            <div class="ess__off">Up to 50% OFF</div>
+          </a>
+          <a class="ess" role="listitem" href="./shop.html?cat=Tees">
+            <div class="ess__img" aria-hidden="true"><img src="./assets/product-tee.svg" alt="" /></div>
+            <div class="ess__name">Everyday tees</div>
+            <div class="ess__off">Up to 50% OFF</div>
+          </a>
+          <a class="ess" role="listitem" href="./shop.html?cat=Hoodies">
+            <div class="ess__img" aria-hidden="true"><img src="./assets/product-hoodie.svg" alt="" /></div>
+            <div class="ess__name">Hoodies</div>
+            <div class="ess__off">Up to 50% OFF</div>
+          </a>
+          <a class="ess" role="listitem" href="./shop.html?cat=Prints">
+            <div class="ess__img" aria-hidden="true"><img src="./assets/product-poster.svg" alt="" /></div>
+            <div class="ess__name">Posters</div>
+            <div class="ess__off">Up to 50% OFF</div>
+          </a>
+          <a class="ess" role="listitem" href="./shop.html?cat=Hats">
+            <div class="ess__img" aria-hidden="true"><img src="./assets/product-hat.svg" alt="" /></div>
+            <div class="ess__name">Caps</div>
+            <div class="ess__off">Up to 50% OFF</div>
+          </a>
+          <a class="ess" role="listitem" href="./shop.html?cat=Bottoms">
+            <div class="ess__img" aria-hidden="true"><img src="./assets/product-joggers.svg" alt="" /></div>
+            <div class="ess__name">Joggers</div>
+            <div class="ess__off">Up to 50% OFF</div>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="consultation" aria-label="Consultation booking">
+      <div class="container grid grid-2">
+        <div class="card">
+          <div class="eyebrow">Consultations</div>
+          <h2 class="h2">Book a session</h2>
+          <p class="lead">Pick a session type and submit your request. (Demo form — we can wire this to Calendly/Stripe later.)</p>
+          <div style="margin-top:14px; height:220px; border-radius: var(--r-md); border:1px dashed rgba(11,27,43,0.18); display:grid; place-items:center; color: rgba(11,27,43,0.70);">
+            Booking widget placeholder
           </div>
         </div>
 
-        <div class="card card--soft">
-          <b>Request a consultation</b>
+        <div class="card">
+          <b>Request a session</b>
           <form style="margin-top:14px; display:grid; gap:12px;" id="consultForm">
             <div>
               <label class="label" for="cName">Name</label>
@@ -165,78 +283,83 @@
               </select>
             </div>
             <div>
-              <label class="label" for="cBudget">Budget</label>
-              <input class="input" id="cBudget" placeholder="$500 / $2k / $10k…" />
-            </div>
-            <div>
               <label class="label" for="cTimeline">Timeline</label>
               <input class="input" id="cTimeline" placeholder="This week / next month…" />
             </div>
             <div>
-              <label class="label" for="cNotes">What are you trying to build?</label>
-              <textarea id="cNotes" placeholder="I want to launch a hoodie drop for my community…"></textarea>
+              <label class="label" for="cNotes">What do you want help with?</label>
+              <textarea id="cNotes" placeholder="Goal, current situation, what you want to change…"></textarea>
             </div>
-            <button class="btn btn--primary" type="submit">Submit request (placeholder)</button>
-            <small style="color: rgba(255,255,255,0.68);">Demo only—wire to a backend/CRM later.</small>
+            <button class="btn btn--primary" type="submit">Submit request (demo)</button>
+            <small style="color: rgba(11,27,43,0.62);">This demo doesn’t send emails yet.</small>
           </form>
         </div>
       </div>
     </section>
 
-    <!-- FAQ preview -->
-    <section class="section section--tight">
-      <div class="container">
-        <p class="eyebrow">FAQ</p>
-        <h2 class="h2">Quick answers</h2>
-        <p class="lead">See the full FAQ page for pricing, MOQ, design help, shipping, and timelines.</p>
-        <div style="margin-top:16px;">
-          <a class="btn btn--ghost" href="./faq.html">Go to FAQ</a>
-        </div>
-      </div>
-    </section>
-
-    <footer class="footer" role="contentinfo">
+    <footer class="footer" role="contentinfo" id="contact">
       <div class="container footer__grid">
-        <div>
+        <div class="footer__brand">
           <div class="brand" style="min-width:0;">
             <span class="brand__mark" aria-hidden="true"><img src="./assets/logo.svg" alt="" loading="lazy" /></span>
             <span class="brand__meta">
               <div class="brand__name">Wali World</div>
-              <div class="brand__tag">Premium shop + merch creation + consulting</div>
+              <div class="brand__tag">A premium community e‑commerce + coaching platform.</div>
             </span>
           </div>
-          <small>© <span id="year"></span> Wali World. <a href="#" style="text-decoration:underline; text-decoration-color: rgba(255,176,138,0.55);">Terms</a> • <a href="#" style="text-decoration:underline; text-decoration-color: rgba(255,176,138,0.55);">Privacy</a></small>
+          <div class="footer__contact">
+            <div><b>Contact</b></div>
+            <div>hello@waliworld.example</div>
+            <div>(000) 000-0000</div>
+          </div>
         </div>
-        <div style="text-align:left;">
-          <small><b>Contact</b><br/>hello@waliworld.example<br/>(000) 000-0000</small>
+
+        <div class="footer__cols">
+          <div>
+            <div class="footer__head">Most Popular</div>
+            <a class="footer__link" href="./shop.html?cat=Tees">Tees</a>
+            <a class="footer__link" href="./shop.html?cat=Hoodies">Hoodies</a>
+            <a class="footer__link" href="./shop.html?cat=Accessories">Accessories</a>
+            <a class="footer__link" href="./shop.html?cat=Prints">Prints</a>
+          </div>
+          <div>
+            <div class="footer__head">Customer Services</div>
+            <a class="footer__link" href="./about.html">About</a>
+            <a class="footer__link" href="./faq.html">FAQ</a>
+            <a class="footer__link" href="#">Privacy Policy</a>
+            <a class="footer__link" href="#">Terms &amp; Conditions</a>
+          </div>
         </div>
+      </div>
+
+      <div class="container footer__bottom">
+        <small>© <span id="year"></span> Wali World. All rights reserved.</small>
       </div>
     </footer>
 
-    <div class="floating-cta" aria-label="Mobile consultation button">
-      <a class="btn btn--primary" href="#consultation">Book Consultation</a>
+    <div class="floating-cta" aria-label="Mobile booking button">
+      <a class="btn btn--primary" href="#consultation">Book a Session</a>
     </div>
   </main>
-
 
   <!-- Mobile menu -->
   <div class="mnav-backdrop" id="menuBackdrop" aria-hidden="true"></div>
   <aside class="mnav" id="mobileMenu" aria-label="Mobile menu">
-    <div class="mnav__head"><b>Menu</b><button class="btn btn--ghost btn--small" id="closeMenu" type="button">Close</button></div>
+    <div class="mnav__head"><b>Menu</b><button class="iconbtn" id="closeMenu" type="button" aria-label="Close menu">✕</button></div>
     <div class="mnav__body">
       <a href="./index.html">Home</a>
-      <a href="./about.html">About</a>
       <a href="./shop.html">Shop</a>
+      <a href="./about.html">About</a>
       <a href="./faq.html">FAQ</a>
-            <a href="./index.html#consultation">Consultation</a>
+      <a href="#consultation">Book a Session</a>
     </div>
     <div class="mnav__foot">
       <a class="btn btn--primary" href="./shop.html">Shop Products</a>
-      <a class="btn btn--ghost" href="./index.html#consultation">Book Consultation</a>
+      <a class="btn btn--ghost" href="#consultation">Book a Session</a>
     </div>
   </aside>
 
-  <!-- Cart drawer (available on every page) -->
+  <!-- Cart drawer (shared) -->
   <div class="drawer__backdrop" id="drawerBackdrop" aria-hidden="true"></div>
   <aside class="drawer" id="cartDrawer" aria-label="Cart drawer">
     <div class="drawer__head">
@@ -247,26 +370,11 @@
     <div class="drawer__foot">
       <div class="totals"><span>Subtotal</span><span id="cartSubtotal">$0.00</span></div>
       <button class="btn btn--primary" id="checkoutBtn" type="button">Checkout</button>
-      <small style="color: rgba(255,255,255,0.68);">Taxes/shipping calculated at checkout (placeholder).</small>
+      <small style="color: rgba(11,27,43,0.62);">Taxes/shipping calculated at checkout (placeholder).</small>
     </div>
   </aside>
 
-  <script>
-    document.getElementById('year').textContent = String(new Date().getFullYear());
-
-    // Placeholder forms (no backend)
-    const swallow = (id) => {
-      const f = document.getElementById(id);
-      if (!f) return;
-      f.addEventListener('submit', (e) => {
-        e.preventDefault();
-        alert('Captured (demo). We can wire this to email/CRM next.');
-        f.reset();
-      });
-    };
-    swallow('merchForm');
-    swallow('consultForm');
-  </script>
+  <script>document.getElementById('year').textContent = String(new Date().getFullYear());</script>
   <script src="./js/app.js" defer></script>
 </body>
 </html>

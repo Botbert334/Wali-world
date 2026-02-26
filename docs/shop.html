@@ -3,13 +3,13 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="theme-color" content="#070A0F" />
+  <meta name="theme-color" content="#F5F7FB" />
   <title>Wali World — Shop</title>
   <meta name="description" content="Shop Wali World products. Add to cart and checkout (placeholder)." />
 
   <meta property="og:type" content="website" />
   <meta property="og:title" content="Wali World — Shop" />
-  <meta property="og:description" content="Shop products and add to cart." />
+  <meta property="og:description" content="Browse products and add to cart." />
   <meta property="og:image" content="https://botbert334.github.io/Wali-world/assets/og-image.svg" />
   <meta property="og:url" content="https://botbert334.github.io/Wali-world/shop.html" />
 
@@ -24,119 +24,146 @@
 </head>
 <body>
   <header class="nav" role="banner">
+    <div class="topbar">
+      <div class="container topbar__row">
+        <div>Welcome to Wali World</div>
+        <div class="topbar__right">
+          <a class="topbar__link" href="./index.html#consultation">Book a session</a>
+          <span class="topbar__sep">•</span>
+          <a class="topbar__link" href="./index.html#contact">Support</a>
+        </div>
+      </div>
+    </div>
+
     <div class="container nav__row">
+      <button class="iconbtn nav__toggle" id="openMenu" type="button" aria-label="Open menu">☰</button>
+
       <a class="brand" href="./index.html" aria-label="Home">
         <span class="brand__mark" aria-hidden="true"><img src="./assets/logo.svg" alt="" decoding="async" /></span>
         <span class="brand__meta">
           <div class="brand__name">Wali World</div>
-          <div class="brand__tag">Shop • Merch creation • Consultation</div>
+          <div class="brand__tag">Shop • Coaching • Consultations</div>
         </span>
       </a>
 
-      <nav class="nav__links" aria-label="Primary">
-        <a href="./index.html">Home</a>
-        <a href="./about.html">About</a>
-        <a href="./shop.html" aria-current="page">Shop</a>
-        <a href="./faq.html">FAQ</a>
-      </nav>
+      <form class="search" id="siteSearch" action="./shop.html" method="get" role="search" aria-label="Site search">
+        <input class="search__input" name="q" id="navSearch" placeholder="Search essentials, sessions, and more…" />
+        <button class="iconbtn search__btn" type="submit" aria-label="Search">⌕</button>
+      </form>
 
-      <div class="nav__cta">
-        <button class="btn btn--ghost btn--small nav__toggle" id="openMenu" type="button" aria-label="Open menu"><span>Menu</span> ☰</button>
-        <a class="btn btn--ghost btn--small" href="./index.html#consultation"><span>Book Consultation</span></a>
-        <a class="btn btn--ghost btn--small cartbtn" href="#" id="openCart" aria-label="Open cart">
-          <span>Cart</span>
+      <div class="nav__actions">
+        <a class="navlink" href="./about.html">About</a>
+        <a class="navlink" href="./faq.html">FAQ</a>
+        <a class="iconbtn" href="#" aria-label="Account">👤</a>
+        <a class="iconbtn cartbtn" href="#" id="openCart" aria-label="Open cart">🛒
           <span class="cartcount" id="cartCount" style="display:none;">0</span>
         </a>
       </div>
+    </div>
+
+    <div class="container catnav" aria-label="Categories">
+      <a class="catpill" href="./shop.html">All</a>
+      <a class="catpill" href="./shop.html?cat=Tees">Tees</a>
+      <a class="catpill" href="./shop.html?cat=Hoodies">Hoodies</a>
+      <a class="catpill" href="./shop.html?cat=Hats">Hats</a>
+      <a class="catpill" href="./shop.html?cat=Accessories">Accessories</a>
+      <a class="catpill" href="./shop.html?cat=Prints">Prints</a>
     </div>
   </header>
 
   <main class="section" role="main" id="shop">
     <div class="container">
-      <div class="crumbs" aria-label="Breadcrumbs">
-        <a href="./index.html">Home</a>
-        <span aria-hidden="true">/</span>
-        <b>Shop</b>
-        <span id="crumbCat" style="display:none;"><span aria-hidden="true">/</span> <b id="crumbCatText"></b></span>
+      <div class="rowhead">
+        <div>
+          <div class="eyebrow">Shop</div>
+          <h2 class="h2">Browse products</h2>
+          <p class="lead">Filter, search, and add to cart. Checkout is a placeholder (Stripe-ready later).</p>
+        </div>
+        <a href="./index.html#consultation">Book a session →</a>
       </div>
 
-      <div class="shophero" aria-label="Shop hero">
-        <p class="eyebrow">Shop Products</p>
-        <h1 style="margin:0 0 10px; font-family:Poppins, Inter, system-ui; letter-spacing:-0.04em;">Premium products, built for drops</h1>
-        <p class="lead">Browse categories, search, and add to cart. Checkout is a placeholder (Stripe-ready when you’re ready).</p>
-      </div>
+      <div class="card" style="margin-top:16px;">
+        <div class="rowhead">
+          <div style="font-weight:950; letter-spacing:-0.02em;">Filters</div>
+          <a href="./shop.html">Reset</a>
+        </div>
 
-      
-
-      <section class="section section--tight section--alt" aria-label="Collections" style="padding-top:28px; padding-bottom:28px;">
-        <div class="collections">
-          <a class="collection" href="./shop.html?cat=Hoodies" aria-label="Shop hoodies">
-            <h3 class="collection__t">Hoodies</h3>
-            <div class="collection__d">Premium weight. Best for drops.</div>
-            <div class="collection__cta"><span class="btn btn--primary btn--small">Shop Hoodies</span></div>
-          </a>
-          <a class="collection" href="./shop.html?cat=Tees" aria-label="Shop tees">
-            <h3 class="collection__t">Tees</h3>
-            <div class="collection__d">Soft fit. Clean prints.</div>
-            <div class="collection__cta"><span class="btn btn--primary btn--small">Shop Tees</span></div>
-          </a>
-          <a class="collection" href="./shop.html?cat=Accessories" aria-label="Shop accessories">
-            <h3 class="collection__t">Accessories</h3>
-            <div class="collection__d">Add-ons that increase AOV.</div>
-            <div class="collection__cta"><span class="btn btn--primary btn--small">Shop Accessories</span></div>
-          </a>
-        </div>
-      </section>
-
-      <div class="shopbar" aria-label="Shop filters">
-        <div>
-          <label class="label" for="filterCategory">Category</label>
-          <select id="filterCategory"></select>
-        </div>
-        <div>
-          <label class="label" for="filterPrice">Price</label>
-          <select id="filterPrice">
-            <option value="">All prices</option>
-            <option value="0-20">Under $20</option>
-            <option value="20-35">$20–$35</option>
-            <option value="35-60">$35–$60</option>
-            <option value="60-999">$60+</option>
-          </select>
-        </div>
-        <div>
-          <label class="label" for="filterSort">Sort</label>
-          <select id="filterSort">
-            <option value="featured" selected>Featured</option>
-            <option value="rating">Top rated</option>
-            <option value="price-asc">Price: low → high</option>
-            <option value="price-desc">Price: high → low</option>
-          </select>
-        </div>
-        <div>
-          <label class="label" for="filterSearch">Search</label>
-          <input class="input" id="filterSearch" placeholder="Search products…" />
+        <div class="grid" style="grid-template-columns: 1fr; gap:12px; margin-top:12px;">
+          <div>
+            <label class="label" for="filterCategory">Category</label>
+            <select id="filterCategory"></select>
+          </div>
+          <div>
+            <label class="label" for="filterPrice">Price</label>
+            <select id="filterPrice">
+              <option value="">All prices</option>
+              <option value="0-20">Under $20</option>
+              <option value="20-35">$20–$35</option>
+              <option value="35-60">$35–$60</option>
+              <option value="60-999">$60+</option>
+            </select>
+          </div>
+          <div>
+            <label class="label" for="filterSort">Sort</label>
+            <select id="filterSort">
+              <option value="featured" selected>Featured</option>
+              <option value="rating">Top rated</option>
+              <option value="price-asc">Price: low → high</option>
+              <option value="price-desc">Price: high → low</option>
+            </select>
+          </div>
+          <div>
+            <label class="label" for="filterSearch">Search</label>
+            <input class="input" id="filterSearch" placeholder="Search products…" />
+          </div>
         </div>
       </div>
 
-      <div class="products" id="productsGrid" aria-label="Product grid"></div>
+      <div class="grid" style="margin-top:16px;">
+        <div class="carousel" id="productsGrid" aria-label="Product grid" style="grid-auto-columns: minmax(240px, 1fr);"></div>
+      </div>
+
+      <div style="margin-top:16px; color: rgba(11,27,43,0.62); font-weight:800;">Checkout is a placeholder. We can integrate Stripe next.</div>
     </div>
   </main>
 
-  <footer class="footer" role="contentinfo">
+  <footer class="footer" role="contentinfo" id="contact">
     <div class="container footer__grid">
-      <div>
+      <div class="footer__brand">
         <div class="brand" style="min-width:0;">
           <span class="brand__mark" aria-hidden="true"><img src="./assets/logo.svg" alt="" loading="lazy" /></span>
           <span class="brand__meta">
             <div class="brand__name">Wali World</div>
-            <div class="brand__tag">Premium shop + merch creation + consulting</div>
+            <div class="brand__tag">A premium community e‑commerce + coaching platform.</div>
           </span>
         </div>
-        <small>© <span id="year"></span> Wali World.</small>
+        <div class="footer__contact">
+          <div><b>Contact</b></div>
+          <div>hello@waliworld.example</div>
+          <div>(000) 000-0000</div>
+        </div>
       </div>
-      <div style="text-align:left;">
-        <small><b>Contact</b><br/>hello@waliworld.example<br/>(000) 000-0000</small>
+
+      <div class="footer__cols">
+        <div>
+          <div class="footer__head">Most Popular</div>
+          <a class="footer__link" href="./shop.html?cat=Tees">Tees</a>
+          <a class="footer__link" href="./shop.html?cat=Hoodies">Hoodies</a>
+          <a class="footer__link" href="./shop.html?cat=Accessories">Accessories</a>
+          <a class="footer__link" href="./shop.html?cat=Prints">Prints</a>
+        </div>
+        <div>
+          <div class="footer__head">Customer Services</div>
+          <a class="footer__link" href="./about.html">About</a>
+          <a class="footer__link" href="./faq.html">FAQ</a>
+          <a class="footer__link" href="#">Privacy Policy</a>
+          <a class="footer__link" href="#">Terms &amp; Conditions</a>
+        </div>
       </div>
+    </div>
+
+    <div class="container footer__bottom">
+      <small>© <span id="year"></span> Wali World. All rights reserved.</small>
     </div>
   </footer>
 
@@ -144,21 +171,20 @@
     <a class="btn btn--primary" href="#" id="openCart2">Open Cart</a>
   </div>
 
-
   <!-- Mobile menu -->
   <div class="mnav-backdrop" id="menuBackdrop" aria-hidden="true"></div>
   <aside class="mnav" id="mobileMenu" aria-label="Mobile menu">
-    <div class="mnav__head"><b>Menu</b><button class="btn btn--ghost btn--small" id="closeMenu" type="button">Close</button></div>
+    <div class="mnav__head"><b>Menu</b><button class="iconbtn" id="closeMenu" type="button" aria-label="Close menu">✕</button></div>
     <div class="mnav__body">
       <a href="./index.html">Home</a>
-      <a href="./about.html">About</a>
       <a href="./shop.html">Shop</a>
+      <a href="./about.html">About</a>
       <a href="./faq.html">FAQ</a>
-            <a href="./index.html#consultation">Consultation</a>
+      <a href="./index.html#consultation">Book a Session</a>
     </div>
     <div class="mnav__foot">
       <a class="btn btn--primary" href="./shop.html">Shop Products</a>
-      <a class="btn btn--ghost" href="./index.html#consultation">Book Consultation</a>
+      <a class="btn btn--ghost" href="./index.html#consultation">Book a Session</a>
     </div>
   </aside>
 
@@ -173,13 +199,13 @@
     <div class="drawer__foot">
       <div class="totals"><span>Subtotal</span><span id="cartSubtotal">$0.00</span></div>
       <button class="btn btn--primary" id="checkoutBtn" type="button">Checkout</button>
-      <small style="color: rgba(255,255,255,0.68);">Taxes/shipping calculated at checkout (placeholder).</small>
+      <small style="color: rgba(11,27,43,0.62);">Taxes/shipping calculated at checkout (placeholder).</small>
     </div>
   </aside>
 
   <!-- Product modal -->
-  <dialog id="productModal" style="border:none; border-radius:18px; width:min(680px, 92vw); background: rgba(10,12,18,0.96); color:#fff; box-shadow: var(--shadow);">
-    <div style="padding:16px; display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid rgba(255,255,255,0.10);">
+  <dialog id="productModal" style="border:none; border-radius:18px; width:min(680px, 92vw); background: rgba(255,255,255,0.98); color: var(--text); box-shadow: var(--shadow);">
+    <div style="padding:16px; display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid rgba(11,27,43,0.10);">
       <b id="pmTitle">Product</b>
       <button class="btn btn--ghost btn--small" id="pmClose" type="button">Close</button>
     </div>
@@ -187,14 +213,14 @@
       <div style="display:flex; gap:14px; align-items:center;">
         <img id="pmImg" src="" alt="" style="width:72px; height:72px;" />
         <div>
-          <div style="color: rgba(255,255,255,0.72);" id="pmCategory">Category</div>
+          <div style="color: rgba(11,27,43,0.66);" id="pmCategory">Category</div>
           <div style="font-weight:950; font-size:18px;" id="pmPrice">$0.00</div>
         </div>
       </div>
-      <div style="color: rgba(255,255,255,0.78);" id="pmDesc">Description</div>
-      <div style="display:flex; gap:10px;">
+      <div style="color: rgba(11,27,43,0.74);" id="pmDesc">Description</div>
+      <div style="display:flex; gap:10px; flex-wrap:wrap;">
         <button class="btn btn--primary" id="pmAdd" type="button" data-add="">Add to cart</button>
-        <a class="btn btn--ghost" href="./index.html#consultation">Need help? Book a consult</a>
+        <a class="btn btn--ghost" href="./index.html#consultation">Book a session</a>
       </div>
     </div>
   </dialog>

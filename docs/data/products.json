@@ -10,7 +10,8 @@
       "reviews": 126,
       "badge": "Best seller",
       "image": "./assets/product-hoodie.svg",
-      "description": "Heavyweight hoodie with premium embroidery. Built for everyday wear and merch drops."
+      "description": "Heavyweight hoodie with premium embroidery. Built for everyday wear and merch drops.",
+      "discountPct": 50
     },
     {
       "id": "wali-tee-01",
@@ -21,7 +22,8 @@
       "reviews": 210,
       "badge": "New",
       "image": "./assets/product-tee.svg",
-      "description": "Soft, modern fit tee that prints clean and holds up after washes."
+      "description": "Soft, modern fit tee that prints clean and holds up after washes.",
+      "discountPct": 60
     },
     {
       "id": "wali-hat-01",
@@ -32,7 +34,8 @@
       "reviews": 78,
       "badge": "",
       "image": "./assets/product-hat.svg",
-      "description": "Structured cap with adjustable strap. Perfect for brand visibility."
+      "description": "Structured cap with adjustable strap. Perfect for brand visibility.",
+      "discountPct": 50
     },
     {
       "id": "wali-tote-01",
@@ -43,7 +46,8 @@
       "reviews": 44,
       "badge": "",
       "image": "./assets/product-tote.svg",
-      "description": "Durable tote for events, pop-ups, and everyday carry."
+      "description": "Durable tote for events, pop-ups, and everyday carry.",
+      "discountPct": 60
     },
     {
       "id": "wali-sweats-01",
@@ -54,7 +58,8 @@
       "reviews": 59,
       "badge": "",
       "image": "./assets/product-joggers.svg",
-      "description": "Tapered joggers with a premium hand-feel. Great for bundles."
+      "description": "Tapered joggers with a premium hand-feel. Great for bundles.",
+      "discountPct": 50
     },
     {
       "id": "wali-crewneck-01",
@@ -65,7 +70,8 @@
       "reviews": 88,
       "badge": "",
       "image": "./assets/product-crewneck.svg",
-      "description": "Classic crewneck with clean prints and consistent sizing."
+      "description": "Classic crewneck with clean prints and consistent sizing.",
+      "discountPct": 60
     },
     {
       "id": "wali-stickers-01",
@@ -76,7 +82,8 @@
       "reviews": 302,
       "badge": "Fan favorite",
       "image": "./assets/product-stickers.svg",
-      "description": "Matte + glossy mix. Great add-on to increase AOV."
+      "description": "Matte + glossy mix. Great add-on to increase AOV.",
+      "discountPct": 50
     },
     {
       "id": "wali-mug-01",
@@ -87,7 +94,8 @@
       "reviews": 31,
       "badge": "",
       "image": "./assets/product-mug.svg",
-      "description": "Ceramic mug for creators who build brands (and drink coffee)."
+      "description": "Ceramic mug for creators who build brands (and drink coffee).",
+      "discountPct": 60
     },
     {
       "id": "wali-poster-01",
@@ -98,7 +106,8 @@
       "reviews": 22,
       "badge": "Limited",
       "image": "./assets/product-poster.svg",
-      "description": "High-quality print for your studio or space."
+      "description": "High-quality print for your studio or space.",
+      "discountPct": 50
     }
   ]
 }

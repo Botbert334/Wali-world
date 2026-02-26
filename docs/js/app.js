@@ -68,30 +68,37 @@ function setQty(id, qty){
   renderCartDrawer();
 }
 
-function renderProducts(list){
-  const grid = qs('#productsGrid');
-  if (!grid) return;
-  grid.innerHTML = '';
+function discountPct(p){
+  const d = Number(p.discountPct);
+  if (Number.isFinite(d) && d > 0) return Math.min(90, Math.max(5, d));
+  return 50; // demo default
+}
 
-  list.forEach(p => {
-    const card = document.createElement('article');
-    card.className = 'product';
-    card.innerHTML = `
+function compareAt(price, pct){
+  const p = Number(price);
+  const d = Number(pct);
+  if (!Number.isFinite(p) || !Number.isFinite(d) || d <= 0) return null;
+  return Math.round((p / (1 - d/100)) * 100) / 100;
+}
+
+function productCardHTML(p){
+  const pct = discountPct(p);
+  const cmp = compareAt(p.price, pct);
+  return `
+    <article class="product">
       <div class="product__img" aria-hidden="true">
+        <span class="discount">${pct}%<br/>OFF</span>
         <img src="${p.image}" alt="" loading="lazy" decoding="async" />
       </div>
       <div class="product__body">
-        <div class="product__top">
-          <div style="min-width:0;">
-            <p class="product__name">${escapeHtml(p.name)}</p>
-            <div class="product__meta">${escapeHtml(p.category)} • <span class="product__price">${money(p.price)}</span></div>
-          </div>
-          ${p.badge ? `<span class="badge">${escapeHtml(p.badge)}</span>` : ''}
-        </div>
+        <p class="product__name">${escapeHtml(p.name)}</p>
+        <div class="product__meta">${escapeHtml(p.category)}</div>
+        <div class="price"><b>${money(p.price)}</b>${cmp ? `<s>${money(cmp)}</s>` : ''}</div>
+        <div class="save">Save up to ${money((cmp||p.price) - p.price)}</div>
 
         <div class="rating" aria-label="Rating">
           <span aria-hidden="true">★★★★★</span>
-          <b>${Number(p.rating).toFixed(1)}</b>
+          <b>${Number(p.rating||0).toFixed(1)}</b>
           <span>(${Number(p.reviews||0)})</span>
         </div>
 
@@ -100,19 +107,19 @@ function renderProducts(list){
           <button class="btn btn--ghost btn--pill" data-view="${p.id}">Details</button>
         </div>
       </div>
-    `;
-    grid.appendChild(card);
-  });
+    </article>
+  `;
+}
 
-  // Bind only inside the products grid to avoid collisions with other pages
-  qsa('#productsGrid [data-add]').forEach(btn => {
+function bindProductActions(rootSel){
+  qsa(`${rootSel} [data-add]`).forEach(btn => {
     btn.addEventListener('click', () => {
       addToCart(btn.getAttribute('data-add'), 1);
       openDrawer();
     });
   });
 
-  qsa('#productsGrid [data-view]').forEach(btn => {
+  qsa(`${rootSel} [data-view]`).forEach(btn => {
     btn.addEventListener('click', () => {
       const id = btn.getAttribute('data-view');
       const p = STATE.products.find(x => x.id === id);
@@ -121,40 +128,19 @@ function renderProducts(list){
   });
 }
 
-function renderFeatured(count=6){
-  const grid = qs('#featuredGrid');
+function renderProducts(list){
+  const grid = qs('#productsGrid');
   if (!grid) return;
+  grid.innerHTML = list.map(productCardHTML).join('');
+  bindProductActions('#productsGrid');
+}
 
-  const featured = [...STATE.products]
-    .sort((a,b) => (b.rating||0) - (a.rating||0))
-    .slice(0, count);
-
-  grid.innerHTML = featured.map(p => `
-    <article class="product product--compact">
-      <div class="product__img" aria-hidden="true">
-        <img src="${p.image}" alt="" loading="lazy" decoding="async" />
-      </div>
-      <div class="product__body">
-        <div class="product__top">
-          <div style="min-width:0;">
-            <p class="product__name">${escapeHtml(p.name)}</p>
-            <div class="product__meta">${escapeHtml(p.category)} • <span class="product__price">${money(p.price)}</span></div>
-          </div>
-        </div>
-        <div class="product__actions">
-          <a class="btn btn--ghost btn--pill" href="./shop.html?cat=${encodeURIComponent(p.category)}">Shop category</a>
-          <button class="btn btn--primary btn--pill" data-add="${p.id}">Add</button>
-        </div>
-      </div>
-    </article>
-  `).join('');
-
-  qsa('#featuredGrid [data-add]').forEach(btn => {
-    btn.addEventListener('click', () => {
-      addToCart(btn.getAttribute('data-add'), 1);
-      openDrawer();
-    });
-  });
+function renderDeals(count=6){
+  const el = qs('#dealCarousel');
+  if (!el) return;
+  const deals = [...STATE.products].slice(0, count);
+  el.innerHTML = deals.map(productCardHTML).join('');
+  bindProductActions('#dealCarousel');
 }
 
 function escapeHtml(s){
@@ -377,13 +363,17 @@ async function boot(){
   STATE.products = data.products || [];
   STATE.currency = data.currency || 'USD';
 
+  // Keep nav search input in sync with URL query
+  const qp = getQueryParams();
+  if (qp.q && qs('#navSearch')) qs('#navSearch').value = qp.q;
+
   // Only initialize shop UI if this page has the shop elements
   if (qs('#productsGrid') && qs('#filterCategory') && qs('#filterSort') && qs('#filterPrice')){
     initFilters();
   }
 
-  // Home page: render featured products if present
-  renderFeatured(6);
+  // Home page: render deals carousel if present
+  renderDeals(6);
 
   renderCartDrawer();
 

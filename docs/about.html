@@ -3,13 +3,13 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="theme-color" content="#070A0F" />
+  <meta name="theme-color" content="#F5F7FB" />
   <title>Wali World — About</title>
-  <meta name="description" content="About Wali World — premium shop + merch creation + consultation." />
+  <meta name="description" content="About Wali World." />
 
   <meta property="og:type" content="website" />
   <meta property="og:title" content="Wali World — About" />
-  <meta property="og:description" content="Who we are, what we do, and how we help creators launch merch drops." />
+  <meta property="og:description" content="Who we are and what we offer." />
   <meta property="og:image" content="https://botbert334.github.io/Wali-world/assets/og-image.svg" />
   <meta property="og:url" content="https://botbert334.github.io/Wali-world/about.html" />
 
@@ -24,120 +24,144 @@
 </head>
 <body>
   <header class="nav" role="banner">
+    <div class="topbar">
+      <div class="container topbar__row">
+        <div>Welcome to Wali World</div>
+        <div class="topbar__right">
+          <a class="topbar__link" href="./index.html#consultation">Book a session</a>
+          <span class="topbar__sep">•</span>
+          <a class="topbar__link" href="./index.html#contact">Support</a>
+        </div>
+      </div>
+    </div>
+
     <div class="container nav__row">
+      <button class="iconbtn nav__toggle" id="openMenu" type="button" aria-label="Open menu">☰</button>
+
       <a class="brand" href="./index.html" aria-label="Home">
         <span class="brand__mark" aria-hidden="true"><img src="./assets/logo.svg" alt="" decoding="async" /></span>
         <span class="brand__meta">
           <div class="brand__name">Wali World</div>
-          <div class="brand__tag">Shop • Merch creation • Consultation</div>
+          <div class="brand__tag">Shop • Coaching • Consultations</div>
         </span>
       </a>
 
-      <nav class="nav__links" aria-label="Primary">
-        <a href="./index.html">Home</a>
-        <a href="./about.html" aria-current="page">About</a>
-        <a href="./shop.html">Shop</a>
-        <a href="./faq.html">FAQ</a>
-      </nav>
+      <form class="search" id="siteSearch" action="./shop.html" method="get" role="search" aria-label="Site search">
+        <input class="search__input" name="q" id="navSearch" placeholder="Search essentials, sessions, and more…" />
+        <button class="iconbtn search__btn" type="submit" aria-label="Search">⌕</button>
+      </form>
 
-      <div class="nav__cta">
-        <button class="btn btn--ghost btn--small nav__toggle" id="openMenu" type="button" aria-label="Open menu"><span>Menu</span> ☰</button>
-        <a class="btn btn--ghost btn--small" href="./shop.html"><span>Shop Products</span></a>
-        <a class="btn btn--primary btn--small" href="./index.html#consultation"><span>Book Consultation</span></a>
-        <a class="btn btn--ghost btn--small cartbtn" href="#" id="openCart" aria-label="Open cart">
-          <span>Cart</span>
+      <div class="nav__actions">
+        <a class="navlink" href="./about.html">About</a>
+        <a class="navlink" href="./faq.html">FAQ</a>
+        <a class="iconbtn" href="#" aria-label="Account">👤</a>
+        <a class="iconbtn cartbtn" href="#" id="openCart" aria-label="Open cart">🛒
           <span class="cartcount" id="cartCount" style="display:none;">0</span>
         </a>
       </div>
+    </div>
+
+    <div class="container catnav" aria-label="Categories">
+      <a class="catpill" href="./shop.html">All</a>
+      <a class="catpill" href="./shop.html?cat=Tees">Tees</a>
+      <a class="catpill" href="./shop.html?cat=Hoodies">Hoodies</a>
+      <a class="catpill" href="./shop.html?cat=Hats">Hats</a>
+      <a class="catpill" href="./shop.html?cat=Accessories">Accessories</a>
+      <a class="catpill" href="./shop.html?cat=Prints">Prints</a>
     </div>
   </header>
 
   <main class="section" role="main">
     <div class="container">
-      <p class="eyebrow">About</p>
-      <h1 style="margin:0 0 10px; font-family:Poppins, Inter, system-ui; letter-spacing:-0.04em;">Built for creators who want a real brand</h1>
-      <p class="lead">Wali World combines a clean storefront with hands-on merch creation and strategy support—so you can launch drops with confidence, not guesswork.</p>
-
-      <div class="grid grid-3" style="margin-top:18px;">
-        <div class="card card--soft">
-          <div class="eyebrow">Credibility</div>
-          <div style="font-weight:950; font-size:26px; letter-spacing:-0.03em;">120+ brands launched</div>
-          <div style="margin-top:8px; color: rgba(255,255,255,0.74);">Replace with real numbers.</div>
-        </div>
-        <div class="card card--glass">
-          <div class="eyebrow">Quality</div>
-          <div style="font-weight:900;">Consistent QC</div>
-          <div style="margin-top:8px; color: rgba(255,255,255,0.74);">Samples, print checks, packaging options.</div>
-        </div>
-        <div class="card card--glass">
-          <div class="eyebrow">Support</div>
-          <div style="font-weight:900;">Design + guidance</div>
-          <div style="margin-top:8px; color: rgba(255,255,255,0.74);">We’ll help you pick products and price for profit.</div>
-        </div>
-      </div>
-
-
-      <div class="grid grid-2" style="margin-top:18px;">
-        <div class="card card--glass">
-          <b>What we do</b>
-          <ul style="margin:10px 0 0; padding-left:18px; color: rgba(255,255,255,0.76);">
-            <li>Sell stocked products through the shop</li>
-            <li>Produce custom merch for creators/brands</li>
-            <li>Consultation for drop planning + offer clarity</li>
-          </ul>
-        </div>
-        <div class="card card--soft">
-          <b>Our process</b>
-          <ol style="margin:10px 0 0; padding-left:18px; color: rgba(255,255,255,0.76);">
-            <li>Align on the drop goal (profit / community / launch)</li>
-            <li>Choose products + finalize design</li>
-            <li>Produce, QC, pack, and ship</li>
-          </ol>
-          <div style="margin-top:14px;">
-            <a class="btn btn--primary" href="./index.html#consultation">Book a consultation</a>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <footer class="footer" role="contentinfo" style="margin-top:44px;">
-      <div class="container footer__grid">
+      <div class="rowhead">
         <div>
-          <div class="brand" style="min-width:0;">
-            <span class="brand__mark" aria-hidden="true"><img src="./assets/logo.svg" alt="" loading="lazy" /></span>
-            <span class="brand__meta">
-              <div class="brand__name">Wali World</div>
-              <div class="brand__tag">Premium shop + merch creation + consulting</div>
-            </span>
-          </div>
-          <small>© <span id="year"></span> Wali World.</small>
+          <div class="eyebrow">About</div>
+          <h2 class="h2">A premium community platform</h2>
+          <p class="lead">Wali World blends a clean storefront with coaching + consultation options so people can buy, learn, and improve in one place.</p>
         </div>
-        <div style="text-align:left;">
-          <small><b>Contact</b><br/>hello@waliworld.example<br/>(000) 000-0000</small>
+        <a href="./index.html#consultation">Book a session →</a>
+      </div>
+
+      <div class="grid grid-3" style="margin-top:16px;">
+        <div class="card">
+          <div style="font-weight:950; letter-spacing:-0.02em;">Premium experience</div>
+          <div style="margin-top:8px; color: rgba(11,27,43,0.68);">Clean UI, fast pages, and simple checkout flow (Stripe-ready).</div>
+        </div>
+        <div class="card">
+          <div style="font-weight:950; letter-spacing:-0.02em;">Coaching + sessions</div>
+          <div style="margin-top:8px; color: rgba(11,27,43,0.68);">Pick the session type that fits your goal and submit a request.</div>
+        </div>
+        <div class="card">
+          <div style="font-weight:950; letter-spacing:-0.02em;">Community-first</div>
+          <div style="margin-top:8px; color: rgba(11,27,43,0.68);">Built for creators and people who want to level up.</div>
         </div>
       </div>
-    </footer>
 
-    <div class="floating-cta" aria-label="Mobile shop button">
-      <a class="btn btn--primary" href="./shop.html">Shop Products</a>
+      <div class="card" style="margin-top:16px;">
+        <div style="font-weight:950; letter-spacing:-0.02em;">What to customize next</div>
+        <ul style="margin:10px 0 0; padding-left:18px; color: rgba(11,27,43,0.72);">
+          <li>Replace demo products in <code>docs/data/products.json</code></li>
+          <li>Add real images (PNG/JPG) for banners + products</li>
+          <li>Connect booking widget (Calendly) and payments (Stripe)</li>
+        </ul>
+      </div>
     </div>
   </main>
 
+  <footer class="footer" role="contentinfo" id="contact">
+    <div class="container footer__grid">
+      <div class="footer__brand">
+        <div class="brand" style="min-width:0;">
+          <span class="brand__mark" aria-hidden="true"><img src="./assets/logo.svg" alt="" loading="lazy" /></span>
+          <span class="brand__meta">
+            <div class="brand__name">Wali World</div>
+            <div class="brand__tag">A premium community e‑commerce + coaching platform.</div>
+          </span>
+        </div>
+        <div class="footer__contact">
+          <div><b>Contact</b></div>
+          <div>hello@waliworld.example</div>
+          <div>(000) 000-0000</div>
+        </div>
+      </div>
+
+      <div class="footer__cols">
+        <div>
+          <div class="footer__head">Most Popular</div>
+          <a class="footer__link" href="./shop.html?cat=Tees">Tees</a>
+          <a class="footer__link" href="./shop.html?cat=Hoodies">Hoodies</a>
+          <a class="footer__link" href="./shop.html?cat=Accessories">Accessories</a>
+          <a class="footer__link" href="./shop.html?cat=Prints">Prints</a>
+        </div>
+        <div>
+          <div class="footer__head">Customer Services</div>
+          <a class="footer__link" href="./about.html">About</a>
+          <a class="footer__link" href="./faq.html">FAQ</a>
+          <a class="footer__link" href="#">Privacy Policy</a>
+          <a class="footer__link" href="#">Terms &amp; Conditions</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="container footer__bottom">
+      <small>© <span id="year"></span> Wali World. All rights reserved.</small>
+    </div>
+  </footer>
 
   <!-- Mobile menu -->
   <div class="mnav-backdrop" id="menuBackdrop" aria-hidden="true"></div>
   <aside class="mnav" id="mobileMenu" aria-label="Mobile menu">
-    <div class="mnav__head"><b>Menu</b><button class="btn btn--ghost btn--small" id="closeMenu" type="button">Close</button></div>
+    <div class="mnav__head"><b>Menu</b><button class="iconbtn" id="closeMenu" type="button" aria-label="Close menu">✕</button></div>
     <div class="mnav__body">
       <a href="./index.html">Home</a>
-      <a href="./about.html">About</a>
       <a href="./shop.html">Shop</a>
+      <a href="./about.html">About</a>
       <a href="./faq.html">FAQ</a>
-            <a href="./index.html#consultation">Consultation</a>
+      <a href="./index.html#consultation">Book a Session</a>
     </div>
     <div class="mnav__foot">
       <a class="btn btn--primary" href="./shop.html">Shop Products</a>
-      <a class="btn btn--ghost" href="./index.html#consultation">Book Consultation</a>
+      <a class="btn btn--ghost" href="./index.html#consultation">Book a Session</a>
     </div>
   </aside>
 
@@ -152,7 +176,7 @@
     <div class="drawer__foot">
       <div class="totals"><span>Subtotal</span><span id="cartSubtotal">$0.00</span></div>
       <button class="btn btn--primary" id="checkoutBtn" type="button">Checkout</button>
-      <small style="color: rgba(255,255,255,0.68);">Taxes/shipping calculated at checkout (placeholder).</small>
+      <small style="color: rgba(11,27,43,0.62);">Taxes/shipping calculated at checkout (placeholder).</small>
     </div>
   </aside>
 
