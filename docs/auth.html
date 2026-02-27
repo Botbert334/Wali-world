@@ -4,14 +4,14 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="theme-color" content="#F5F7FB" />
-  <title>Wali World — Shop</title>
-  <meta name="description" content="Shop Wali World products. Add to cart and checkout (placeholder)." />
+  <title>Wali World — Sign in</title>
+  <meta name="description" content="Sign in or create a Wali World account." />
 
   <meta property="og:type" content="website" />
-  <meta property="og:title" content="Wali World — Shop" />
-  <meta property="og:description" content="Browse products and add to cart." />
+  <meta property="og:title" content="Wali World — Sign in" />
+  <meta property="og:description" content="Sign in or create a Wali World account." />
   <meta property="og:image" content="https://botbert334.github.io/Wali-world/assets/og-image.svg" />
-  <meta property="og:url" content="https://botbert334.github.io/Wali-world/shop.html" />
+  <meta property="og:url" content="https://botbert334.github.io/Wali-world/auth.html" />
 
   <link rel="icon" type="image/svg+xml" href="./assets/logo.svg" />
   <link rel="apple-touch-icon" href="./assets/logo.svg" />
@@ -47,7 +47,7 @@
         <span class="brand__mark" aria-hidden="true"><img src="./assets/logo.svg" alt="" decoding="async" /></span>
         <span class="brand__meta">
           <div class="brand__name">Wali World</div>
-          <div class="brand__tag">Shop • Coaching • Consultations</div>
+          <div class="brand__tag">Sign in • Create account</div>
         </span>
       </a>
 
@@ -69,57 +69,59 @@
     <!-- Category pills removed -->
   </header>
 
-  <main class="section" role="main" id="shop">
+  <main class="section" role="main">
     <div class="container">
       <div class="rowhead">
         <div>
-          <div class="eyebrow">Shop</div>
-          <h2 class="h2">Browse products</h2>
-          <p class="lead">Filter, search, and add to cart. Checkout is a placeholder (Stripe-ready later).</p>
+          <div class="eyebrow">Account</div>
+          <h2 class="h2">Sign in / Sign up</h2>
+          <p class="lead">This is a demo page for now. If you want real sign-in, we can wire this to Supabase Auth next.</p>
         </div>
-        <a href="./index.html#consultation">Book a session →</a>
+        <a href="./shop.html">Back to shop →</a>
       </div>
 
-      <div class="card" style="margin-top:16px;">
-        <div class="rowhead">
-          <div style="font-weight:950; letter-spacing:-0.02em;">Filters</div>
-          <a href="./shop.html">Reset</a>
+      <div class="grid grid-2" style="margin-top:16px;">
+        <div class="card" id="signin">
+          <b style="font-size:16px;">Sign in</b>
+          <form id="signinForm" style="margin-top:14px; display:grid; gap:12px;">
+            <div>
+              <label class="label" for="siEmail">Email</label>
+              <input class="input" id="siEmail" type="email" autocomplete="email" required placeholder="you@example.com" />
+            </div>
+            <div>
+              <label class="label" for="siPass">Password</label>
+              <input class="input" id="siPass" type="password" autocomplete="current-password" required placeholder="••••••••" />
+            </div>
+            <button class="btn btn--primary" type="submit">Sign in (demo)</button>
+            <small style="color: rgba(11,27,43,0.62);">No credentials are stored yet.</small>
+          </form>
         </div>
 
-        <div class="filters-grid">
-          <div>
-            <label class="label" for="filterCategory">Category</label>
-            <select id="filterCategory"></select>
-          </div>
-          <div>
-            <label class="label" for="filterPrice">Price</label>
-            <select id="filterPrice">
-              <option value="">All prices</option>
-              <option value="0-20">Under $20</option>
-              <option value="20-35">$20–$35</option>
-              <option value="35-60">$35–$60</option>
-              <option value="60-999">$60+</option>
-            </select>
-          </div>
-          <div>
-            <label class="label" for="filterSort">Sort</label>
-            <select id="filterSort">
-              <option value="featured" selected>Featured</option>
-              <option value="rating">Top rated</option>
-              <option value="price-asc">Price: low → high</option>
-              <option value="price-desc">Price: high → low</option>
-            </select>
-          </div>
-          <div>
-            <label class="label" for="filterSearch">Search</label>
-            <input class="input" id="filterSearch" placeholder="Search products…" />
-          </div>
+        <div class="card" id="signup">
+          <b style="font-size:16px;">Create account</b>
+          <form id="signupForm" style="margin-top:14px; display:grid; gap:12px;">
+            <div>
+              <label class="label" for="suName">Name</label>
+              <input class="input" id="suName" autocomplete="name" required placeholder="Your name" />
+            </div>
+            <div>
+              <label class="label" for="suEmail">Email</label>
+              <input class="input" id="suEmail" type="email" autocomplete="email" required placeholder="you@example.com" />
+            </div>
+            <div>
+              <label class="label" for="suPass">Password</label>
+              <input class="input" id="suPass" type="password" autocomplete="new-password" required placeholder="Create a password" />
+            </div>
+            <button class="btn btn--primary" type="submit">Create account (demo)</button>
+            <small style="color: rgba(11,27,43,0.62);">Next step: connect Supabase Auth to enable real accounts.</small>
+          </form>
         </div>
       </div>
 
-      <div class="productgrid" id="productsGrid" aria-label="Product grid"></div>
-
-      <div style="margin-top:16px; color: rgba(11,27,43,0.62); font-weight:800;">Checkout is a placeholder. We can integrate Stripe next.</div>
+      <div class="card" style="margin-top:16px;" aria-live="polite">
+        <b>Status</b>
+        <div id="authMsg" style="margin-top:8px; color: rgba(11,27,43,0.72);">Ready.</div>
+      </div>
     </div>
   </main>
 
@@ -163,10 +165,6 @@
     </div>
   </footer>
 
-  <div class="floating-cta" aria-label="Mobile cart button">
-    <a class="btn btn--primary" href="#" id="openCart2">Open Cart</a>
-  </div>
-
   <!-- Mobile menu -->
   <div class="mnav-backdrop" id="menuBackdrop" aria-hidden="true"></div>
   <aside class="mnav" id="mobileMenu" aria-label="Mobile menu">
@@ -176,11 +174,11 @@
       <a href="./shop.html">Shop</a>
       <a href="./about.html">About</a>
       <a href="./faq.html">FAQ</a>
-      <a href="./index.html#consultation">Book a Session</a>
+      <a href="./auth.html">Sign in / Sign up</a>
     </div>
     <div class="mnav__foot">
       <a class="btn btn--primary" href="./shop.html">Shop Products</a>
-      <a class="btn btn--ghost" href="./index.html#consultation">Book a Session</a>
+      <a class="btn btn--ghost" href="./auth.html#signup">Create Account</a>
     </div>
   </aside>
 
@@ -199,33 +197,16 @@
     </div>
   </aside>
 
-  <!-- Product modal -->
-  <dialog id="productModal" style="border:none; border-radius:18px; width:min(680px, 92vw); background: rgba(255,255,255,0.98); color: var(--text); box-shadow: var(--shadow);">
-    <div style="padding:16px; display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid rgba(11,27,43,0.10);">
-      <b id="pmTitle">Product</b>
-      <button class="btn btn--ghost btn--small" id="pmClose" type="button">Close</button>
-    </div>
-    <div style="padding:16px; display:grid; gap:12px;">
-      <div style="display:flex; gap:14px; align-items:center;">
-        <img id="pmImg" src="" alt="" style="width:72px; height:72px;" />
-        <div>
-          <div style="color: rgba(11,27,43,0.66);" id="pmCategory">Category</div>
-          <div style="font-weight:950; font-size:18px;" id="pmPrice">$0.00</div>
-        </div>
-      </div>
-      <div style="color: rgba(11,27,43,0.74);" id="pmDesc">Description</div>
-      <div style="display:flex; gap:10px; flex-wrap:wrap;">
-        <button class="btn btn--primary" id="pmAdd" type="button" data-add="">Add to cart</button>
-        <a class="btn btn--ghost" href="./index.html#consultation">Book a session</a>
-      </div>
-    </div>
-  </dialog>
-
   <script>
     document.getElementById('year').textContent = String(new Date().getFullYear());
-    document.getElementById('openCart2')?.addEventListener('click', (e)=>{
+    const msg = document.getElementById('authMsg');
+    document.getElementById('signinForm')?.addEventListener('submit', (e)=>{
       e.preventDefault();
-      document.getElementById('openCart')?.click();
+      msg.textContent = 'Sign in is not wired yet (demo). Want Supabase Auth?';
+    });
+    document.getElementById('signupForm')?.addEventListener('submit', (e)=>{
+      e.preventDefault();
+      msg.textContent = 'Sign up is not wired yet (demo). Want Supabase Auth?';
     });
   </script>
   <script src="./js/app.js" defer></script>
