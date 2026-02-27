@@ -10,6 +10,7 @@
       "reviews": 126,
       "badge": "Best seller",
       "image": "./assets/product-hoodie.svg",
+      "imageHover": "./assets/product-crewneck.svg",
       "description": "Heavyweight hoodie with premium embroidery. Built for everyday wear and merch drops.",
       "discountPct": 50
     },
@@ -22,6 +23,7 @@
       "reviews": 210,
       "badge": "New",
       "image": "./assets/product-tee.svg",
+      "imageHover": "./assets/product-hoodie.svg",
       "description": "Soft, modern fit tee that prints clean and holds up after washes.",
       "discountPct": 60
     },
@@ -34,6 +36,7 @@
       "reviews": 78,
       "badge": "",
       "image": "./assets/product-hat.svg",
+      "imageHover": "./assets/product-tote.svg",
       "description": "Structured cap with adjustable strap. Perfect for brand visibility.",
       "discountPct": 50
     },
@@ -46,6 +49,7 @@
       "reviews": 44,
       "badge": "",
       "image": "./assets/product-tote.svg",
+      "imageHover": "./assets/product-stickers.svg",
       "description": "Durable tote for events, pop-ups, and everyday carry.",
       "discountPct": 60
     },
@@ -58,6 +62,7 @@
       "reviews": 59,
       "badge": "",
       "image": "./assets/product-joggers.svg",
+      "imageHover": "./assets/product-hoodie.svg",
       "description": "Tapered joggers with a premium hand-feel. Great for bundles.",
       "discountPct": 50
     },
@@ -70,6 +75,7 @@
       "reviews": 88,
       "badge": "",
       "image": "./assets/product-crewneck.svg",
+      "imageHover": "./assets/product-tee.svg",
       "description": "Classic crewneck with clean prints and consistent sizing.",
       "discountPct": 60
     },
@@ -82,6 +88,7 @@
       "reviews": 302,
       "badge": "Fan favorite",
       "image": "./assets/product-stickers.svg",
+      "imageHover": "./assets/product-mug.svg",
       "description": "Matte + glossy mix. Great add-on to increase AOV.",
       "discountPct": 50
     },
@@ -94,6 +101,7 @@
       "reviews": 31,
       "badge": "",
       "image": "./assets/product-mug.svg",
+      "imageHover": "./assets/product-poster.svg",
       "description": "Ceramic mug for creators who build brands (and drink coffee).",
       "discountPct": 60
     },
@@ -106,6 +114,7 @@
       "reviews": 22,
       "badge": "Limited",
       "image": "./assets/product-poster.svg",
+      "imageHover": "./assets/product-stickers.svg",
       "description": "High-quality print for your studio or space.",
       "discountPct": 50
     }

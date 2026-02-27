@@ -84,11 +84,15 @@ function compareAt(price, pct){
 function productCardHTML(p){
   const pct = discountPct(p);
   const cmp = compareAt(p.price, pct);
+  const main = p.image;
+  const alt = p.imageHover || p.imageAlt || '';
+
   return `
     <article class="product">
       <div class="product__img" aria-hidden="true">
         <span class="discount">${pct}%<br/>OFF</span>
-        <img src="${p.image}" alt="" loading="lazy" decoding="async" />
+        <img class="product__imgMain" src="${main}" alt="" loading="lazy" decoding="async" />
+        ${alt ? `<img class="product__imgAlt" src="${alt}" alt="" loading="lazy" decoding="async" />` : ''}
       </div>
       <div class="product__body">
         <p class="product__name">${escapeHtml(p.name)}</p>
