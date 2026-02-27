@@ -478,7 +478,20 @@ function initHeroSlider(){
   start();
 }
 
+function syncNavHeight(){
+  const nav = qs('header.nav');
+  if (!nav) return;
+  // Use CSS var to offset body + anchor scrolling for fixed header
+  document.documentElement.style.setProperty('--navH', `${nav.offsetHeight}px`);
+}
+
 async function boot(){
+  syncNavHeight();
+  // Recalc after layout settles
+  requestAnimationFrame(syncNavHeight);
+  window.setTimeout(syncNavHeight, 150);
+  window.addEventListener('resize', syncNavHeight);
+
   initHeroSlider();
   loadCart();
   setCartCountUI();
