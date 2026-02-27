@@ -482,6 +482,68 @@ function initHeroSlider(){
   start();
 }
 
+/* Continuous marquee for Home "Brands" row */
+function initBrandsMarquee(){
+  const el = qs('#brandsMarquee');
+  if (!el) return;
+
+  const prefersReduced = !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+  if (prefersReduced) return;
+
+  const kids = Array.from(el.children);
+  if (kids.length < 2) return;
+
+  // Duplicate once for seamless wrap
+  kids.forEach(k => el.appendChild(k.cloneNode(true)));
+
+  // Width of the original set (before duplication)
+  const last = kids[kids.length - 1];
+  const originalWidth = (last.offsetLeft + last.offsetWidth) - kids[0].offsetLeft;
+  if (!Number.isFinite(originalWidth) || originalWidth <= 0) return;
+
+  // Start in the middle so we can scroll "right" (decreasing scrollLeft) and wrap cleanly.
+  el.scrollLeft = originalWidth;
+
+  let raf = null;
+  let lastT = performance.now();
+  let paused = false;
+  let pauseUntil = 0;
+  const speed = 26; // px/sec (tweak for desired motion)
+
+  const pauseTemporarily = (ms=1400) => {
+    pauseUntil = performance.now() + ms;
+  };
+
+  const tick = (t) => {
+    const dt = Math.min(34, t - lastT);
+    lastT = t;
+
+    if (!paused && t >= pauseUntil){
+      el.scrollLeft -= (speed * dt) / 1000;
+      if (el.scrollLeft <= 0) el.scrollLeft += originalWidth;
+      if (el.scrollLeft >= originalWidth * 2) el.scrollLeft -= originalWidth;
+    }
+
+    raf = requestAnimationFrame(tick);
+  };
+
+  raf = requestAnimationFrame(tick);
+
+  // Pause on interaction
+  el.addEventListener('mouseenter', () => { paused = true; });
+  el.addEventListener('mouseleave', () => { paused = false; lastT = performance.now(); });
+  el.addEventListener('focusin', () => { paused = true; });
+  el.addEventListener('focusout', () => { paused = false; lastT = performance.now(); });
+  el.addEventListener('touchstart', () => pauseTemporarily(2200), {passive:true});
+  el.addEventListener('wheel', () => pauseTemporarily(1600), {passive:true});
+
+  // If user drags/scrolls manually, pause briefly so it doesn't fight them
+  el.addEventListener('scroll', () => pauseTemporarily(1200), {passive:true});
+
+  // Cleanup (rare; single-page static) — kept for completeness
+  window.addEventListener('beforeunload', () => { if (raf) cancelAnimationFrame(raf); });
+}
+
 function syncNavHeight(){
   const nav = qs('header.nav');
   if (!nav) return;
@@ -497,6 +559,7 @@ async function boot(){
   window.addEventListener('resize', syncNavHeight);
 
   initHeroSlider();
+  initBrandsMarquee();
   loadCart();
   setCartCountUI();
 

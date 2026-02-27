@@ -327,6 +327,17 @@ a{color:inherit; text-decoration:none;}
 /* Brand cards */
 .brands{display:grid; grid-auto-flow:column; grid-auto-columns: minmax(260px, 1fr); gap:14px; overflow:auto; padding: 14px 6px 10px; -webkit-overflow-scrolling: touch; scroll-snap-type:x mandatory;}
 .brands::-webkit-scrollbar{display:none;}
+
+/* Continuous marquee mode (Home > Brands) */
+.brands--marquee{scroll-snap-type:none; scroll-behavior:auto;}
+.brands--marquee{mask-image: linear-gradient(90deg, transparent 0, #000 8%, #000 92%, transparent 100%);} 
+@media(max-width:520px){
+  .brands--marquee{mask-image: linear-gradient(90deg, transparent 0, #000 6%, #000 94%, transparent 100%);} 
+}
+@media (prefers-reduced-motion: reduce){
+  .brands--marquee{mask-image:none;}
+}
+
 .brandcard{border-radius: 18px; border:1px solid rgba(11,27,43,0.10); background: var(--surface);
   box-shadow: var(--shadow2); padding:14px; display:flex; align-items:center; justify-content:space-between; gap:14px; scroll-snap-align:start;}
 .brandcard__left{display:grid; gap:6px;}
