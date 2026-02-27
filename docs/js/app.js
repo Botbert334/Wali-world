@@ -337,7 +337,149 @@ function initAnchors(){
   });
 }
 
+/* Home hero slider */
+function initHeroSlider(){
+  const root = qs('#heroSlider');
+  if (!root) return;
+
+  const k = qs('#heroK');
+  const t = qs('#heroT');
+  const sub = qs('#heroSub');
+  const img = qs('#heroImg');
+  const cta1 = qs('#heroCta1');
+  const cta2 = qs('#heroCta2');
+  const dots = qsa('#heroDots .dot');
+  const prevBtn = qs('#heroPrev');
+  const nextBtn = qs('#heroNext');
+
+  if (!k || !t || !sub || !img || !cta1 || !cta2 || !dots.length) return;
+
+  const slides = [
+    {
+      k: 'Best deal online on creator essentials',
+      t: 'LEVEL UP YOUR BRAND.',
+      sub: 'Shop drops-ready pieces + book a session to plan your next move.',
+      img: './assets/product-hoodie.svg',
+      cta1: { text: 'Book a Session', href: '#consultation' },
+      cta2: { text: 'Browse Shop', href: './shop.html' },
+    },
+    {
+      k: 'New drop: everyday merch that ships fast',
+      t: 'DROP DAY READY.',
+      sub: 'Tees, hats, and stickers to ship with every order.',
+      img: './assets/product-tee.svg',
+      cta1: { text: 'Shop Tees', href: './shop.html?cat=Tees' },
+      cta2: { text: 'Shop Accessories', href: './shop.html?cat=Accessories' },
+    },
+    {
+      k: 'Coaching + consultations',
+      t: 'BUILD A REAL PLAN.',
+      sub: 'Book a session and leave with a clear 30‑day game plan.',
+      img: './assets/product-mug.svg',
+      cta1: { text: 'Book a Session', href: '#consultation' },
+      cta2: { text: 'Read FAQ', href: './faq.html' },
+    },
+  ];
+
+  let idx = 0;
+  let timer = null;
+
+  const prefersReduced = !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+
+  function setActiveDot(i){
+    dots.forEach((d, n) => {
+      const on = n === i;
+      d.classList.toggle('is-on', on);
+      d.setAttribute('aria-selected', on ? 'true' : 'false');
+      d.tabIndex = on ? 0 : -1;
+    });
+  }
+
+  function render(i){
+    const next = ((i % slides.length) + slides.length) % slides.length;
+    idx = next;
+
+    root.classList.add('is-fading');
+    window.setTimeout(() => root.classList.remove('is-fading'), 160);
+
+    const s = slides[idx];
+    k.textContent = s.k;
+    t.textContent = s.t;
+    sub.textContent = s.sub;
+    img.setAttribute('src', s.img);
+    cta1.textContent = s.cta1.text;
+    cta1.setAttribute('href', s.cta1.href);
+    cta2.textContent = s.cta2.text;
+    cta2.setAttribute('href', s.cta2.href);
+
+    setActiveDot(idx);
+  }
+
+  function next(){ render(idx + 1); }
+  function prev(){ render(idx - 1); }
+
+  dots.forEach(d => {
+    d.addEventListener('click', () => {
+      const n = Number(d.getAttribute('data-slide'));
+      if (Number.isFinite(n)) render(n);
+      restart();
+    });
+
+    d.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowLeft') { e.preventDefault(); prev(); restart(); }
+      if (e.key === 'ArrowRight') { e.preventDefault(); next(); restart(); }
+    });
+  });
+
+  prevBtn?.addEventListener('click', () => { prev(); restart(); });
+  nextBtn?.addEventListener('click', () => { next(); restart(); });
+
+  // Simple swipe on mobile
+  let startX = null;
+  root.addEventListener('touchstart', (e) => {
+    startX = e.touches?.[0]?.clientX ?? null;
+  }, {passive:true});
+  root.addEventListener('touchend', (e) => {
+    const endX = e.changedTouches?.[0]?.clientX ?? null;
+    if (startX == null || endX == null) return;
+    const dx = endX - startX;
+    if (Math.abs(dx) > 40) (dx < 0 ? next() : prev());
+    restart();
+    startX = null;
+  });
+
+  function stop(){
+    if (timer) window.clearInterval(timer);
+    timer = null;
+  }
+
+  function start(){
+    if (prefersReduced) return;
+    stop();
+    timer = window.setInterval(next, 6500);
+  }
+
+  function restart(){
+    stop();
+    start();
+  }
+
+  root.addEventListener('mouseenter', stop);
+  root.addEventListener('mouseleave', start);
+  root.addEventListener('focusin', stop);
+  root.addEventListener('focusout', start);
+
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden) stop();
+    else start();
+  });
+
+  render(0);
+  start();
+}
+
 async function boot(){
+  initHeroSlider();
   loadCart();
   setCartCountUI();
 

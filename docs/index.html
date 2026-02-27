@@ -86,25 +86,29 @@
   <main role="main">
     <section class="hero">
       <div class="container">
-        <div class="banner" aria-label="Hero banner">
+        <div class="banner" id="heroSlider" aria-label="Hero slider">
+          <button class="banner__arrow banner__arrow--prev" type="button" aria-label="Previous slide" id="heroPrev">‹</button>
+          <button class="banner__arrow banner__arrow--next" type="button" aria-label="Next slide" id="heroNext">›</button>
+
           <div class="banner__inner">
             <div>
-              <div class="banner__k">Best deal online on creator essentials</div>
-              <div class="banner__t">LEVEL UP YOUR BRAND.</div>
-              <div class="banner__sub">Shop drops-ready pieces + book a session to plan your next move.</div>
+              <div class="banner__k" id="heroK">Best deal online on creator essentials</div>
+              <div class="banner__t" id="heroT">LEVEL UP YOUR BRAND.</div>
+              <div class="banner__sub" id="heroSub">Shop drops-ready pieces + book a session to plan your next move.</div>
               <div style="margin-top:14px; display:flex; gap:10px; flex-wrap:wrap;">
-                <a class="btn btn--primary" href="#consultation">Book a Session</a>
-                <a class="btn btn--ghost" href="./shop.html">Browse Shop</a>
+                <a class="btn btn--primary" id="heroCta1" href="#consultation">Book a Session</a>
+                <a class="btn btn--ghost" id="heroCta2" href="./shop.html">Browse Shop</a>
               </div>
             </div>
             <div class="banner__img" aria-hidden="true">
-              <img src="./assets/product-hoodie.svg" alt="" />
+              <img id="heroImg" src="./assets/product-hoodie.svg" alt="" />
             </div>
           </div>
-          <div class="banner__dots" aria-hidden="true">
-            <span class="dot is-on"></span>
-            <span class="dot"></span>
-            <span class="dot"></span>
+
+          <div class="banner__dots" id="heroDots" role="tablist" aria-label="Hero slides">
+            <button class="dot is-on" type="button" data-slide="0" role="tab" aria-label="Slide 1" aria-selected="true"></button>
+            <button class="dot" type="button" data-slide="1" role="tab" aria-label="Slide 2" aria-selected="false"></button>
+            <button class="dot" type="button" data-slide="2" role="tab" aria-label="Slide 3" aria-selected="false"></button>
           </div>
         </div>
       </div>

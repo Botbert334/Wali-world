@@ -155,7 +155,8 @@ a{color:inherit; text-decoration:none;}
 /* Hero banner / carousel */
 .hero{padding: 22px 0 8px;}
 .banner{position:relative; border-radius: 22px; overflow:hidden; background: #1B2B47; color:#fff; box-shadow: var(--shadow);}
-.banner__inner{display:grid; grid-template-columns: 1fr; gap:14px; padding: 22px; min-height: 180px;}
+.banner__inner{display:grid; grid-template-columns: 1fr; gap:14px; padding: 22px; min-height: 180px; transition: opacity 240ms ease;}
+.banner.is-fading .banner__inner{opacity:0.25;}
 .banner__k{opacity:0.92; font-weight:700;}
 .banner__t{font-family: Poppins, Inter, system-ui; font-weight:800; letter-spacing:-0.03em; font-size: clamp(26px, 4vw, 44px); margin:6px 0 0;}
 .banner__sub{opacity:0.86; margin-top:6px;}
@@ -166,9 +167,44 @@ a{color:inherit; text-decoration:none;}
   .banner__img{display:flex;}
 }
 
-.banner__dots{position:absolute; left:22px; bottom:14px; display:flex; gap:8px;}
-.dot{width:8px; height:8px; border-radius:999px; background: rgba(255,255,255,0.42);} 
+.banner__dots{position:absolute; left:22px; bottom:14px; display:flex; gap:8px; z-index:3;}
+.dot{
+  width:8px;
+  height:8px;
+  border-radius:999px;
+  background: rgba(255,255,255,0.42);
+  border:0;
+  padding:0;
+  cursor:pointer;
+}
 .dot.is-on{background:#fff; width:18px;}
+.dot:focus-visible{outline:none; box-shadow: 0 0 0 4px rgba(255,255,255,0.22);}
+
+.banner__arrow{
+  position:absolute;
+  top:50%;
+  transform: translateY(-50%);
+  z-index:3;
+  width:44px;
+  height:44px;
+  border-radius:14px;
+  border:1px solid rgba(255,255,255,0.18);
+  background: rgba(255,255,255,0.10);
+  color:#fff;
+  font-size:26px;
+  line-height:1;
+  display:grid;
+  place-items:center;
+  cursor:pointer;
+  backdrop-filter: blur(8px);
+}
+.banner__arrow:hover{background: rgba(255,255,255,0.16);}
+.banner__arrow:focus-visible{outline:none; box-shadow: 0 0 0 4px rgba(255,255,255,0.22);} 
+.banner__arrow--prev{left:14px;}
+.banner__arrow--next{right:14px;}
+@media(max-width:520px){
+  .banner__arrow{display:none;}
+}
 
 /* Section header row */
 .rowhead{display:flex; align-items:flex-end; justify-content:space-between; gap:12px;}
