@@ -1,233 +1,677 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="theme-color" content="#F5F7FB" />
-  <title>Wali World — Shop</title>
-  <meta name="description" content="Shop Wali World products. Add to cart and checkout (placeholder)." />
-
-  <meta property="og:type" content="website" />
-  <meta property="og:title" content="Wali World — Shop" />
-  <meta property="og:description" content="Browse products and add to cart." />
-  <meta property="og:image" content="https://botbert334.github.io/Wali-world/assets/og-image.svg" />
-  <meta property="og:url" content="https://botbert334.github.io/Wali-world/shop.html" />
-
-  <link rel="icon" type="image/svg+xml" href="./assets/logo.svg" />
-  <link rel="apple-touch-icon" href="./assets/logo.svg" />
-
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
-
-  <link rel="stylesheet" href="./css/styles.css" />
-
-  <!-- Supabase CDN (Option B) -->
-  <script src="https://unpkg.com/@supabase/supabase-js@2" defer></script>
-  <script src="./js/supabase-config.js" defer></script>
-  <script src="./js/supabase-client.js" defer></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shop - Wali World Premium Store</title>
+    
+    <!-- Animation Libraries -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+    <script src="https://unpkg.com/scrollreveal@4.0.9/dist/scrollreveal.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@babylonjs/core@5.0.0/babylon.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@babylonjs/loaders@5.0.0/babylon.loaders.min.js"></script>
+    
+    <!-- Fonts & Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        
+        /* Header with Sticky Navigation */
+        header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.1);
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        /* Filter Sidebar */
+        .filters {
+            background: white;
+            padding: 2rem;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 100px;
+        }
+        
+        .filter-group {
+            margin-bottom: 2rem;
+        }
+        
+        .filter-title {
+            font-weight: 600;
+            margin-bottom: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+        }
+        
+        /* Price Range Slider */
+        .price-slider {
+            -webkit-appearance: none;
+            width: 100%;
+            height: 8px;
+            border-radius: 5px;
+            background: linear-gradient(to right, #667eea 0%, #764ba2 100%);
+            outline: none;
+            opacity: 0.7;
+            transition: opacity 0.3s;
+        }
+        
+        .price-slider:hover {
+            opacity: 1;
+        }
+        
+        /* Product Grid with Animations */
+        .shop-container {
+            display: grid;
+            grid-template-columns: 250px 1fr;
+            gap: 2rem;
+            max-width: 1400px;
+            margin: 2rem auto;
+            padding: 0 2rem;
+        }
+        
+        .products-area {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+        
+        .product-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            position: relative;
+            cursor: pointer;
+            transform-style: preserve-3d;
+            transition: transform 0.6s;
+        }
+        
+        .product-card:hover {
+            transform: rotateY(10deg) scale(1.05);
+        }
+        
+        .product-badge {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: #ff4757;
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            z-index: 2;
+        }
+        
+        .product-image-container {
+            position: relative;
+            height: 300px;
+            overflow: hidden;
+        }
+        
+        .product-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+        
+        .product-card:hover .product-image {
+            transform: scale(1.2);
+        }
+        
+        /* Quick View Overlay */
+        .quick-view {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.8);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        
+        .product-card:hover .quick-view {
+            opacity: 1;
+        }
+        
+        .quick-view-btn {
+            background: white;
+            color: #333;
+            padding: 1rem 2rem;
+            border-radius: 30px;
+            font-weight: 600;
+            transform: translateY(20px);
+            transition: transform 0.3s;
+        }
+        
+        .product-card:hover .quick-view-btn {
+            transform: translateY(0);
+        }
+        
+        /* 3D Product Modal */
+        .modal-3d {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.9);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        #babylon-canvas {
+            width: 800px;
+            height: 600px;
+            border-radius: 20px;
+        }
+        
+        /* Cart Sidebar */
+        .cart-sidebar {
+            position: fixed;
+            right: -400px;
+            top: 0;
+            width: 400px;
+            height: 100vh;
+            background: white;
+            box-shadow: -10px 0 30px rgba(0,0,0,0.2);
+            transition: right 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            z-index: 1001;
+            overflow-y: auto;
+        }
+        
+        .cart-sidebar.active {
+            right: 0;
+        }
+        
+        /* Floating Action Buttons */
+        .fab-container {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            z-index: 99;
+        }
+        
+        .fab {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: white;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+        
+        .fab:hover {
+            transform: scale(1.1) rotate(5deg);
+        }
+        
+        /* Loading Skeleton */
+        .skeleton {
+            background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+            background-size: 200% 100%;
+            animation: loading 1.5s infinite;
+        }
+        
+        @keyframes loading {
+            0% { background-position: 200% 0; }
+            100% { background-position: -200% 0; }
+        }
+        
+        /* Sort Dropdown */
+        .sort-container {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            justify-content: flex-end;
+        }
+        
+        .sort-select {
+            padding: 0.8rem 1.5rem;
+            border: 2px solid #667eea;
+            border-radius: 30px;
+            background: white;
+            font-family: 'Poppins', sans-serif;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .sort-select:hover {
+            background: #667eea;
+            color: white;
+        }
+    </style>
 </head>
 <body>
-  <header class="nav" role="banner">
-    <div class="topbar">
-      <div class="container topbar__row">
-        <div>Welcome to Wali World</div>
-        <div class="topbar__right">
-          <a class="topbar__link" href="./index.html#consultation">Book a session</a>
-          <span class="topbar__sep">•</span>
-          <a class="topbar__link" href="./index.html#contact">Support</a>
+    <!-- Header -->
+    <header>
+        <div class="header-content">
+            <h1 style="background: linear-gradient(45deg, #667eea, #764ba2); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">
+                Wali World Shop
+            </h1>
+            <div style="display: flex; gap: 2rem; align-items: center;">
+                <div class="search-box" style="position: relative;">
+                    <input type="text" placeholder="Search products..." style="padding: 0.8rem 2rem; border: 2px solid #667eea; border-radius: 30px; width: 300px;">
+                    <i class="fas fa-search" style="position: absolute; right: 1rem; top: 50%; transform: translateY(-50%); color: #667eea;"></i>
+                </div>
+                <div style="position: relative; cursor: pointer;" onclick="toggleCart()">
+                    <i class="fas fa-shopping-cart fa-lg" style="color: #667eea;"></i>
+                    <span class="cart-count" style="position: absolute; top: -8px; right: -8px; background: #ff4757; color: white; border-radius: 50%; width: 20px; height: 20px; display: flex; align-items: center; justify-content: center; font-size: 12px;">0</span>
+                </div>
+            </div>
         </div>
-      </div>
+    </header>
+    
+    <!-- Shop Container -->
+    <div class="shop-container">
+        <!-- Filters Sidebar -->
+        <aside class="filters">
+            <h3 style="margin-bottom: 2rem; color: #333;">Filters</h3>
+            
+            <div class="filter-group">
+                <div class="filter-title">
+                    Categories
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="filter-options">
+                    <label style="display: block; margin: 0.5rem 0; cursor: pointer;">
+                        <input type="checkbox" style="margin-right: 0.5rem;"> Electronics
+                    </label>
+                    <label style="display: block; margin: 0.5rem 0; cursor: pointer;">
+                        <input type="checkbox" style="margin-right: 0.5rem;"> Fashion
+                    </label>
+                    <label style="display: block; margin: 0.5rem 0; cursor: pointer;">
+                        <input type="checkbox" style="margin-right: 0.5rem;"> Accessories
+                    </label>
+                    <label style="display: block; margin: 0.5rem 0; cursor: pointer;">
+                        <input type="checkbox" style="margin-right: 0.5rem;"> Home & Living
+                    </label>
+                </div>
+            </div>
+            
+            <div class="filter-group">
+                <div class="filter-title">
+                    Price Range
+                    <span id="price-value">$0 - $500</span>
+                </div>
+                <input type="range" min="0" max="1000" value="500" class="price-slider" id="price-slider">
+            </div>
+            
+            <div class="filter-group">
+                <div class="filter-title">
+                    Brand
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="filter-options">
+                    <label style="display: block; margin: 0.5rem 0; cursor: pointer;">
+                        <input type="checkbox" style="margin-right: 0.5rem;"> Premium Brand
+                    </label>
+                    <label style="display: block; margin: 0.5rem 0; cursor: pointer;">
+                        <input type="checkbox" style="margin-right: 0.5rem;"> Designer Label
+                    </label>
+                    <label style="display: block; margin: 0.5rem 0; cursor: pointer;">
+                        <input type="checkbox" style="margin-right: 0.5rem;"> Eco Friendly
+                    </label>
+                </div>
+            </div>
+            
+            <button style="width: 100%; padding: 1rem; background: linear-gradient(45deg, #667eea, #764ba2); color: white; border: none; border-radius: 30px; font-weight: 600; cursor: pointer; margin-top: 1rem;">
+                Apply Filters
+            </button>
+        </aside>
+        
+        <!-- Products Area -->
+        <main>
+            <div class="sort-container">
+                <select class="sort-select">
+                    <option>Sort by: Featured</option>
+                    <option>Price: Low to High</option>
+                    <option>Price: High to Low</option>
+                    <option>Newest First</option>
+                    <option>Best Sellers</option>
+                </select>
+                <button class="sort-select" style="border: none; background: linear-gradient(45deg, #667eea, #764ba2); color: white;">
+                    <i class="fas fa-th-large" style="margin-right: 0.5rem;"></i> Grid View
+                </button>
+            </div>
+            
+            <div class="products-area" id="products-area">
+                <!-- Products will be loaded here -->
+            </div>
+        </main>
     </div>
-
-    <div class="container nav__row">
-      <button class="iconbtn nav__toggle" id="openMenu" type="button" aria-label="Open menu">☰</button>
-
-      <a class="brand" href="./index.html" aria-label="Home">
-        <span class="brand__mark" aria-hidden="true"><img src="./assets/logo.svg" alt="" decoding="async" /></span>
-        <span class="brand__meta">
-          <div class="brand__name">Wali World</div>
-          <div class="brand__tag">Shop • Coaching • Consultations</div>
-        </span>
-      </a>
-
-      <form class="search" id="siteSearch" action="./shop.html" method="get" role="search" aria-label="Site search">
-        <input class="search__input" name="q" id="navSearch" placeholder="Search essentials, sessions, and more…" />
-        <button class="iconbtn search__btn" type="submit" aria-label="Search">⌕</button>
-      </form>
-
-      <div class="nav__actions">
-        <a class="navlink" href="./about.html">About</a>
-        <a class="navlink" href="./faq.html">FAQ</a>
-        <a class="iconbtn" href="./auth.html" aria-label="Account">👤</a>
-        <a class="iconbtn cartbtn" href="#" id="openCart" aria-label="Open cart">🛒
-          <span class="cartcount" id="cartCount" style="display:none;">0</span>
-        </a>
-      </div>
-    </div>
-
-    <!-- Category pills removed -->
-  </header>
-
-  <main class="section" role="main" id="shop">
-    <div class="container">
-      <div class="rowhead">
-        <div>
-          <div class="eyebrow">Shop</div>
-          <h2 class="h2">Browse products</h2>
-          <p class="lead">Filter, search, and add to cart. Checkout is a placeholder (Stripe-ready later).</p>
+    
+    <!-- Cart Sidebar -->
+    <div class="cart-sidebar" id="cart-sidebar">
+        <div style="padding: 2rem;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
+                <h2>Your Cart</h2>
+                <i class="fas fa-times" style="cursor: pointer; font-size: 1.5rem;" onclick="toggleCart()"></i>
+            </div>
+            <div id="cart-items">
+                <!-- Cart items will be displayed here -->
+            </div>
+            <div style="border-top: 2px solid #eee; margin-top: 2rem; padding-top: 2rem;">
+                <div style="display: flex; justify-content: space-between; margin-bottom: 1rem;">
+                    <h3>Total:</h3>
+                    <h3 id="cart-total">$0</h3>
+                </div>
+                <button style="width: 100%; padding: 1rem; background: linear-gradient(45deg, #2ecc71, #27ae60); color: white; border: none; border-radius: 30px; font-weight: 600; cursor: pointer;">
+                    Proceed to Checkout
+                </button>
+            </div>
         </div>
-        <!-- removed Book a session link -->
-      </div>
-
-      <div class="card" style="margin-top:16px;">
-        <div class="rowhead">
-          <div style="font-weight:950; letter-spacing:-0.02em;">Filters</div>
-          <a href="./shop.html">Reset</a>
+    </div>
+    
+    <!-- 3D Product Modal -->
+    <div class="modal-3d" id="modal-3d">
+        <div style="position: relative;">
+            <canvas id="babylon-canvas"></canvas>
+            <button onclick="closeModal3D()" style="position: absolute; top: -40px; right: 0; background: white; border: none; padding: 0.5rem 1rem; border-radius: 20px; cursor: pointer;">
+                Close 3D View
+            </button>
         </div>
-
-        <div class="filters-grid">
-          <div>
-            <label class="label" for="filterCategory">Category</label>
-            <select id="filterCategory"></select>
-          </div>
-          <div>
-            <label class="label" for="filterPrice">Price</label>
-            <select id="filterPrice">
-              <option value="">All prices</option>
-              <option value="0-20">Under $20</option>
-              <option value="20-35">$20–$35</option>
-              <option value="35-60">$35–$60</option>
-              <option value="60-999">$60+</option>
-            </select>
-          </div>
-          <div>
-            <label class="label" for="filterSort">Sort</label>
-            <select id="filterSort">
-              <option value="featured" selected>Featured</option>
-              <option value="rating">Top rated</option>
-              <option value="price-asc">Price: low → high</option>
-              <option value="price-desc">Price: high → low</option>
-            </select>
-          </div>
-          <div>
-            <label class="label" for="filterSearch">Search</label>
-            <input class="input" id="filterSearch" placeholder="Search products…" />
-          </div>
+    </div>
+    
+    <!-- Floating Action Buttons -->
+    <div class="fab-container">
+        <div class="fab" onclick="toggleCart()">
+            <i class="fas fa-shopping-cart" style="color: #667eea; font-size: 1.5rem;"></i>
         </div>
-      </div>
-
-      <div class="productgrid" id="productsGrid" aria-label="Product grid"></div>
-
-      <div style="margin-top:16px; color: rgba(11,27,43,0.62); font-weight:800;">Checkout is a placeholder. We can integrate Stripe next.</div>
-    </div>
-  </main>
-
-  <footer class="footer" role="contentinfo" id="contact">
-    <div class="container footer__grid">
-      <div class="footer__brand">
-        <div class="brand" style="min-width:0;">
-          <span class="brand__mark" aria-hidden="true"><img src="./assets/logo.svg" alt="" loading="lazy" /></span>
-          <span class="brand__meta">
-            <div class="brand__name">Wali World</div>
-            <div class="brand__tag">A premium community e‑commerce + coaching platform.</div>
-          </span>
+        <div class="fab" onclick="scrollToTop()">
+            <i class="fas fa-arrow-up" style="color: #764ba2; font-size: 1.5rem;"></i>
         </div>
-        <div class="footer__contact">
-          <div><b>Contact</b></div>
-          <div>hello@waliworld.example</div>
-          <div>(000) 000-0000</div>
-        </div>
-      </div>
-
-      <div class="footer__cols">
-        <div>
-          <div class="footer__head">Most Popular</div>
-          <a class="footer__link" href="./shop.html?cat=Tees">Tees</a>
-          <a class="footer__link" href="./shop.html?cat=Hoodies">Hoodies</a>
-          <a class="footer__link" href="./shop.html?cat=Accessories">Accessories</a>
-          <a class="footer__link" href="./shop.html?cat=Prints">Prints</a>
-        </div>
-        <div>
-          <div class="footer__head">Customer Services</div>
-          <a class="footer__link" href="./about.html">About</a>
-          <a class="footer__link" href="./faq.html">FAQ</a>
-          <a class="footer__link" href="#">Privacy Policy</a>
-          <a class="footer__link" href="#">Terms &amp; Conditions</a>
-        </div>
-      </div>
     </div>
-
-    <div class="container footer__bottom">
-      <small>© <span id="year"></span> Wali World. All rights reserved.</small>
-    </div>
-  </footer>
-
-  <div class="floating-cta" aria-label="Mobile cart button">
-    <a class="btn btn--primary" href="#" id="openCart2">Open Cart</a>
-  </div>
-
-  <!-- Mobile menu -->
-  <div class="mnav-backdrop" id="menuBackdrop" aria-hidden="true"></div>
-  <aside class="mnav" id="mobileMenu" aria-label="Mobile menu">
-    <div class="mnav__head"><b>Menu</b><button class="iconbtn" id="closeMenu" type="button" aria-label="Close menu">✕</button></div>
-    <div class="mnav__body">
-      <a href="./index.html">Home</a>
-      <a href="./shop.html">Shop</a>
-      <a href="./about.html">About</a>
-      <a href="./faq.html">FAQ</a>
-      <a href="./index.html#consultation">Book a Session</a>
-    </div>
-    <div class="mnav__foot">
-      <a class="btn btn--primary" href="./shop.html">Shop Products</a>
-      <a class="btn btn--ghost" href="./index.html#consultation">Book a Session</a>
-    </div>
-  </aside>
-
-  <!-- Cart drawer -->
-  <div class="drawer__backdrop" id="drawerBackdrop" aria-hidden="true"></div>
-  <aside class="drawer" id="cartDrawer" aria-label="Cart drawer">
-    <div class="drawer__head">
-      <h3>Your cart</h3>
-      <button class="btn btn--ghost btn--small" id="closeDrawer" type="button">Close</button>
-    </div>
-    <div class="drawer__body" id="cartItems"></div>
-    <div class="drawer__foot">
-      <div class="totals"><span>Subtotal</span><span id="cartSubtotal">$0.00</span></div>
-      <button class="btn btn--primary" id="checkoutBtn" type="button">Checkout</button>
-      <small style="color: rgba(11,27,43,0.62);">Taxes/shipping calculated at checkout (placeholder).</small>
-    </div>
-  </aside>
-
-  <!-- Product modal -->
-  <dialog id="productModal" style="border:none; border-radius:18px; width:min(680px, 92vw); background: rgba(255,255,255,0.98); color: var(--text); box-shadow: var(--shadow);">
-    <div style="padding:16px; display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid rgba(11,27,43,0.10);">
-      <b id="pmTitle">Product</b>
-      <button class="btn btn--ghost btn--small" id="pmClose" type="button">Close</button>
-    </div>
-    <div style="padding:16px; display:grid; gap:12px;">
-      <div style="display:flex; gap:14px; align-items:center;">
-        <img id="pmImg" src="" alt="" style="width:72px; height:72px;" />
-        <div>
-          <div style="color: rgba(11,27,43,0.66);" id="pmCategory">Category</div>
-          <div style="font-weight:950; font-size:18px;" id="pmPrice">$0.00</div>
-        </div>
-      </div>
-      <div style="color: rgba(11,27,43,0.74);" id="pmDesc">Description</div>
-      <div style="display:flex; gap:10px; flex-wrap:wrap;">
-        <button class="btn btn--primary" id="pmAdd" type="button" data-add="">Add to cart</button>
-        <a class="btn btn--ghost" href="./index.html#consultation">Book a session</a>
-      </div>
-    </div>
-  </dialog>
-
-  <script>
-    document.getElementById('year').textContent = String(new Date().getFullYear());
-    document.getElementById('openCart2')?.addEventListener('click', (e)=>{
-      e.preventDefault();
-      document.getElementById('openCart')?.click();
-    });
-  </script>
-  <script src="./js/app.js" defer></script>
+    
+    <script>
+        // Sample Products Data
+        const products = [
+            { id: 1, name: 'Smart Watch Pro', price: 299, category: 'Electronics', image: 'https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=400', badge: 'New' },
+            { id: 2, name: 'Designer Sneakers', price: 199, category: 'Fashion', image: 'https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=400', badge: 'Sale' },
+            { id: 3, name: 'Leather Handbag', price: 499, category: 'Fashion', image: 'https://images.unsplash.com/photo-1584917865442-de89df76afd3?w=400', badge: 'Limited' },
+            { id: 4, name: 'Wireless Headphones', price: 149, category: 'Electronics', image: 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=400' },
+            { id: 5, name: 'Luxury Perfume', price: 89, category: 'Fashion', image: 'https://images.unsplash.com/photo-1541643600914-78b084683601?w=400' },
+            { id: 6, name: 'Premium Sunglasses', price: 129, category: 'Accessories', image: 'https://images.unsplash.com/photo-1572635196237-14b3f281503f?w=400' },
+            { id: 7, name: 'Minimalist Wallet', price: 79, category: 'Accessories', image: 'https://images.unsplash.com/photo-1627123424574-724758594e93?w=400' },
+            { id: 8, name: 'Ceramic Vase Set', price: 159, category: 'Home & Living', image: 'https://images.unsplash.com/photo-1581783898377-1c85bf937427?w=400', badge: 'Trending' }
+        ];
+        
+        let cart = [];
+        
+        // Load Products with Animation
+        function loadProducts() {
+            const productsArea = document.getElementById('products-area');
+            
+            products.forEach((product, index) => {
+                const card = document.createElement('div');
+                card.className = 'product-card';
+                card.innerHTML = `
+                    ${product.badge ? `<span class="product-badge">${product.badge}</span>` : ''}
+                    <div class="product-image-container">
+                        <img src="${product.image}" alt="${product.name}" class="product-image">
+                        <div class="quick-view">
+                            <button class="quick-view-btn" onclick="view3D(${product.id})">
+                                <i class="fas fa-cube"></i> View in 3D
+                            </button>
+                        </div>
+                    </div>
+                    <div style="padding: 1.5rem;">
+                        <h3 style="font-size: 1.2rem; margin-bottom: 0.5rem;">${product.name}</h3>
+                        <p style="color: #999; font-size: 0.9rem; margin-bottom: 1rem;">${product.category}</p>
+                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                            <span style="font-size: 1.5rem; font-weight: 700; color: #667eea;">$${product.price}</span>
+                            <button class="add-to-cart-btn" onclick="addToCart(${product.id})" style="
+                                padding: 0.8rem 1.5rem;
+                                background: linear-gradient(45deg, #667eea, #764ba2);
+                                color: white;
+                                border: none;
+                                border-radius: 20px;
+                                cursor: pointer;
+                                font-weight: 600;
+                                transition: transform 0.3s;
+                            ">
+                                <i class="fas fa-cart-plus"></i> Add
+                            </button>
+                        </div>
+                    </div>
+                `;
+                
+                productsArea.appendChild(card);
+                
+                // GSAP Stagger Animation
+                gsap.from(card, {
+                    duration: 0.8,
+                    y: 100,
+                    opacity: 0,
+                    delay: index * 0.1,
+                    ease: 'power3.out'
+                });
+            });
+        }
+        
+        // Add to Cart with Animation
+        function addToCart(productId) {
+            const product = products.find(p => p.id === productId);
+            cart.push(product);
+            updateCart();
+            
+            // Animate cart icon
+            anime({
+                targets: '.cart-count',
+                scale: [1, 1.5, 1],
+                duration: 500,
+                easing: 'easeInOutQuad'
+            });
+            
+            // Show notification
+            const notification = document.createElement('div');
+            notification.innerHTML = `✅ ${product.name} added to cart!`;
+            notification.style.cssText = `
+                position: fixed;
+                top: 100px;
+                right: 20px;
+                background: white;
+                padding: 1rem 2rem;
+                border-radius: 30px;
+                box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+                z-index: 1000;
+            `;
+            document.body.appendChild(notification);
+            
+            anime({
+                targets: notification,
+                translateX: [-100, 0],
+                opacity: [0, 1],
+                duration: 500,
+                easing: 'easeOutElastic(1, .8)',
+                complete: function() {
+                    setTimeout(() => {
+                        anime({
+                            targets: notification,
+                            translateX: [0, 100],
+                            opacity: [1, 0],
+                            duration: 500,
+                            easing: 'easeInQuad',
+                            complete: function() {
+                                notification.remove();
+                            }
+                        });
+                    }, 2000);
+                }
+            });
+        }
+        
+        // Update Cart Display
+        function updateCart() {
+            const cartCount = document.querySelector('.cart-count');
+            const cartItems = document.getElementById('cart-items');
+            const cartTotal = document.getElementById('cart-total');
+            
+            cartCount.textContent = cart.length;
+            
+            cartItems.innerHTML = '';
+            let total = 0;
+            
+            cart.forEach(item => {
+                total += item.price;
+                cartItems.innerHTML += `
+                    <div style="display: flex; gap: 1rem; margin-bottom: 1rem; padding: 1rem; background: #f8f9fa; border-radius: 10px;">
+                        <img src="${item.image}" style="width: 60px; height: 60px; object-fit: cover; border-radius: 10px;">
+                        <div style="flex: 1;">
+                            <h4>${item.name}</h4>
+                            <p style="color: #667eea; font-weight: 600;">$${item.price}</p>
+                        </div>
+                    </div>
+                `;
+            });
+            
+            cartTotal.textContent = `$${total}`;
+        }
+        
+        // Toggle Cart Sidebar
+        function toggleCart() {
+            const cartSidebar = document.getElementById('cart-sidebar');
+            cartSidebar.classList.toggle('active');
+        }
+        
+        // 3D Product View with Babylon.js
+        function view3D(productId) {
+            const modal = document.getElementById('modal-3d');
+            modal.style.display = 'flex';
+            
+            const canvas = document.getElementById('babylon-canvas');
+            const engine = new BABYLON.Engine(canvas, true);
+            
+            const createScene = function() {
+                const scene = new BABYLON.Scene(engine);
+                scene.clearColor = new BABYLON.Color3(0.95, 0.95, 0.95);
+                
+                const camera = new BABYLON.ArcRotateCamera('camera', 0, 0, 10, BABYLON.Vector3.Zero(), scene);
+                camera.setPosition(new BABYLON.Vector3(0, 0, -10));
+                camera.attachControl(canvas, true);
+                
+                const light = new BABYLON.HemisphericLight('light', new BABYLON.Vector3(0, 1, 0), scene);
+                
+                // Create a box as product placeholder
+                const box = BABYLON.MeshBuilder.CreateBox('box', {size: 3}, scene);
+                const material = new BABYLON.PBRMaterial('mat', scene);
+                material.albedoColor = new BABYLON.Color3(0.4, 0.49, 0.92);
+                material.metallic = 0.5;
+                material.roughness = 0.2;
+                box.material = material;
+                
+                // Animate rotation
+                scene.registerBeforeRender(function() {
+                    box.rotation.y += 0.01;
+                });
+                
+                return scene;
+            };
+            
+            const scene = createScene();
+            
+            engine.runRenderLoop(function() {
+                scene.render();
+            });
+            
+            window.addEventListener('resize', function() {
+                engine.resize();
+            });
+        }
+        
+        // Close 3D Modal
+        function closeModal3D() {
+            const modal = document.getElementById('modal-3d');
+            modal.style.display = 'none';
+        }
+        
+        // Price Range Slider
+        const priceSlider = document.getElementById('price-slider');
+        const priceValue = document.getElementById('price-value');
+        
+        priceSlider.addEventListener('input', function() {
+            priceValue.textContent = `$0 - $${this.value}`;
+        });
+        
+        // Scroll to Top
+        function scrollToTop() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        }
+        
+        // Initialize
+        loadProducts();
+        
+        // Intersection Observer for Scroll Animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+        
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    anime({
+                        targets: entry.target,
+                        translateY: [30, 0],
+                        opacity: [0, 1],
+                        duration: 800,
+                        easing: 'easeOutQuad'
+                    });
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+        
+        // Observe product cards
+        setTimeout(() => {
+            document.querySelectorAll('.product-card').forEach(card => {
+                observer.observe(card);
+            });
+        }, 1000);
+    </script>
 </body>
 </html>

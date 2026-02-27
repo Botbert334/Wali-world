@@ -1,370 +1,191 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="theme-color" content="#F5F7FB" />
-  <title>Wali World — Home</title>
-  <meta name="description" content="Wali World: a modern storefront with coaching & consultations." />
-
-  <!-- OpenGraph / Twitter preview -->
-  <meta property="og:type" content="website" />
-  <meta property="og:title" content="Wali World" />
-  <meta property="og:description" content="Shop products, book sessions, and join the community." />
-  <meta property="og:image" content="https://botbert334.github.io/Wali-world/assets/og-image.svg" />
-  <meta property="og:url" content="https://botbert334.github.io/Wali-world/" />
-  <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Wali World" />
-  <meta name="twitter:description" content="Modern e‑commerce + coaching." />
-  <meta name="twitter:image" content="https://botbert334.github.io/Wali-world/assets/og-image.svg" />
-
-  <!-- Icons -->
-  <link rel="icon" type="image/svg+xml" href="./assets/logo.svg" />
-  <link rel="apple-touch-icon" href="./assets/logo.svg" />
-
-  <!-- Fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
-
-  <link rel="stylesheet" href="./css/styles.css" />
-
-  <!-- Supabase CDN (Option B) -->
-  <script src="https://unpkg.com/@supabase/supabase-js@2" defer></script>
-  <script src="./js/supabase-config.js" defer></script>
-  <script src="./js/supabase-client.js" defer></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wali World | Premium E-Commerce Experience</title>
+    
+    <!-- Core Styles -->
+    <link rel="stylesheet" href="css/styles.css">
+    
+    <!-- Animation Libraries -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
+    <script src="https://unpkg.com/scrollreveal@4.0.9/dist/scrollreveal.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+    
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
 <body>
-  <header class="nav" role="banner" id="top">
-    <div class="topbar">
-      <div class="container topbar__row">
-        <div>Welcome to Wali World</div>
-        <div class="topbar__right">
-          <a class="topbar__link" href="#consultation">Book a session</a>
-          <span class="topbar__sep">•</span>
-          <a class="topbar__link" href="#contact">Support</a>
-        </div>
-      </div>
+    <!-- Particles Background -->
+    <div id="particles-js"></div>
+    
+    <!-- Loading Animation -->
+    <div class="loader" id="loader">
+        <lottie-player src="https://assets2.lottiefiles.com/packages/lf20_p8bfn5to.json" 
+                       background="transparent" speed="1" 
+                       style="width: 300px; height: 300px;" 
+                       loop autoplay>
+        </lottie-player>
     </div>
-
-    <div class="container nav__row">
-      <button class="iconbtn nav__toggle" id="openMenu" type="button" aria-label="Open menu">☰</button>
-
-      <a class="brand" href="./index.html" aria-label="Home">
-        <span class="brand__mark" aria-hidden="true"><img src="./assets/logo.svg" alt="" decoding="async" /></span>
-        <span class="brand__meta">
-          <div class="brand__name">Wali World</div>
-          <div class="brand__tag">Shop • Coaching • Consultations</div>
-        </span>
-      </a>
-
-      <form class="search" id="siteSearch" action="./shop.html" method="get" role="search" aria-label="Site search">
-        <input class="search__input" name="q" id="navSearch" placeholder="Search essentials, sessions, and more…" />
-        <button class="iconbtn search__btn" type="submit" aria-label="Search">⌕</button>
-      </form>
-
-      <div class="nav__actions">
-        <a class="navlink" href="./about.html">About</a>
-        <a class="navlink" href="./faq.html">FAQ</a>
-        <a class="iconbtn" href="./auth.html" aria-label="Account">👤</a>
-        <a class="iconbtn cartbtn" href="#" id="openCart" aria-label="Open cart">🛒
-          <span class="cartcount" id="cartCount" style="display:none;">0</span>
-        </a>
-      </div>
-    </div>
-
-    <!-- Category pills removed -->
-  </header>
-
-  <main role="main">
-    <section class="hero">
-      <div class="container">
-        <div class="banner" id="heroSlider" aria-label="Hero slider">
-          <button class="banner__arrow banner__arrow--prev" type="button" aria-label="Previous slide" id="heroPrev">‹</button>
-          <button class="banner__arrow banner__arrow--next" type="button" aria-label="Next slide" id="heroNext">›</button>
-
-          <div class="banner__inner">
-            <div>
-              <div class="banner__k" id="heroK">Best deal online on creator essentials</div>
-              <div class="banner__t" id="heroT">LEVEL UP YOUR BRAND.</div>
-              <div class="banner__sub" id="heroSub">Shop drops-ready pieces + book a session to plan your next move.</div>
-              <div style="margin-top:14px; display:flex; gap:10px; flex-wrap:wrap;">
-                <a class="btn btn--primary" id="heroCta1" href="#consultation">Book a Session</a>
-                <a class="btn btn--ghost" id="heroCta2" href="./shop.html">Browse Shop</a>
-              </div>
+    
+    <!-- Navigation with Micro-interactions -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <div class="logo-container">
+                <h1 class="logo">WALI WORLD</h1>
+                <span class="logo-tagline">Premium Shopping Experience</span>
             </div>
-            <div class="banner__img" aria-hidden="true">
-              <img id="heroImg" src="./assets/product-hoodie.svg" alt="" />
+            <ul class="nav-links">
+                <li><a href="index.html" class="nav-link active">Home</a></li>
+                <li><a href="shop.html" class="nav-link">Shop</a></li>
+                <li><a href="about.html" class="nav-link">About</a></li>
+                <li><a href="faq.html" class="nav-link">FAQ</a></li>
+                <li><a href="auth.html" class="nav-link">Account</a></li>
+            </ul>
+            <div class="cart-container">
+                <div class="cart-icon">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span class="cart-count" id="cartCount">0</span>
+                </div>
             </div>
-          </div>
-
-          <div class="banner__dots" id="heroDots" role="tablist" aria-label="Hero slides">
-            <button class="dot is-on" type="button" data-slide="0" role="tab" aria-label="Slide 1" aria-selected="true"></button>
-            <button class="dot" type="button" data-slide="1" role="tab" aria-label="Slide 2" aria-selected="false"></button>
-            <button class="dot" type="button" data-slide="2" role="tab" aria-label="Slide 3" aria-selected="false"></button>
-          </div>
         </div>
-      </div>
+    </nav>
+    
+    <!-- Hero Section with 3D Product Display -->
+    <section class="hero-section">
+        <div class="hero-content">
+            <h1 class="hero-title">
+                <span class="title-word">Discover</span>
+                <span class="title-word">Premium</span>
+                <span class="title-word">Products</span>
+            </h1>
+            <p class="hero-subtitle">Experience shopping like never before with interactive 3D views</p>
+            <button class="cta-button" id="exploreBtn">
+                <span class="button-text">Explore Collection</span>
+                <span class="button-icon"><i class="fas fa-arrow-right"></i></span>
+            </button>
+        </div>
+        <div class="hero-3d-container" id="hero3D">
+            <!-- Three.js 3D Product Display -->
+        </div>
     </section>
-
-    <section class="section" aria-label="Deals">
-      <div class="container">
-        <div class="rowhead">
-          <div>
-            <div class="eyebrow">Deals</div>
-            <h2 class="h2">Grab the best deal</h2>
-          </div>
-          <a href="./shop.html">View all →</a>
+    
+    <!-- Featured Products with Scroll Reveal -->
+    <section class="featured-section">
+        <h2 class="section-title" data-reveal>Featured Products</h2>
+        <div class="products-grid" id="featuredProducts">
+            <!-- Dynamic product cards will be inserted here -->
         </div>
-
-        <div class="carousel" id="dealCarousel" aria-label="Deal carousel"></div>
-      </div>
     </section>
-
-    <section class="section section--tight" aria-label="Top categories">
-      <div class="container">
-        <div class="rowhead">
-          <div>
-            <div class="eyebrow">Categories</div>
-            <h2 class="h2">Shop from top categories</h2>
-          </div>
-          <a href="./shop.html">View all →</a>
+    
+    <!-- Categories with Hover Effects -->
+    <section class="categories-section">
+        <h2 class="section-title" data-reveal>Shop by Category</h2>
+        <div class="categories-grid">
+            <div class="category-card" data-category="electronics">
+                <div class="category-icon">
+                    <i class="fas fa-laptop"></i>
+                </div>
+                <h3>Electronics</h3>
+                <p>Latest gadgets and tech</p>
+            </div>
+            <div class="category-card" data-category="fashion">
+                <div class="category-icon">
+                    <i class="fas fa-tshirt"></i>
+                </div>
+                <h3>Fashion</h3>
+                <p>Trending styles</p>
+            </div>
+            <div class="category-card" data-category="home">
+                <div class="category-icon">
+                    <i class="fas fa-home"></i>
+                </div>
+                <h3>Home & Living</h3>
+                <p>Transform your space</p>
+            </div>
+            <div class="category-card" data-category="sports">
+                <div class="category-icon">
+                    <i class="fas fa-football-ball"></i>
+                </div>
+                <h3>Sports</h3>
+                <p>Gear up for adventure</p>
+            </div>
         </div>
-
-        <div class="cats" role="list">
-          <a class="cat" role="listitem" href="./shop.html?cat=Tees">
-            <span class="cat__icon" aria-hidden="true"><img src="./assets/product-tee.svg" alt="" /></span>
-            <span class="cat__name">Tees</span>
-          </a>
-          <a class="cat" role="listitem" href="./shop.html?cat=Hoodies">
-            <span class="cat__icon" aria-hidden="true"><img src="./assets/product-hoodie.svg" alt="" /></span>
-            <span class="cat__name">Hoodies</span>
-          </a>
-          <a class="cat" role="listitem" href="./shop.html?cat=Hats">
-            <span class="cat__icon" aria-hidden="true"><img src="./assets/product-hat.svg" alt="" /></span>
-            <span class="cat__name">Hats</span>
-          </a>
-          <a class="cat" role="listitem" href="./shop.html?cat=Accessories">
-            <span class="cat__icon" aria-hidden="true"><img src="./assets/product-stickers.svg" alt="" /></span>
-            <span class="cat__name">Accessories</span>
-          </a>
-          <a class="cat" role="listitem" href="./shop.html?cat=Bottoms">
-            <span class="cat__icon" aria-hidden="true"><img src="./assets/product-joggers.svg" alt="" /></span>
-            <span class="cat__name">Bottoms</span>
-          </a>
-          <a class="cat" role="listitem" href="./shop.html?cat=Sweatshirts">
-            <span class="cat__icon" aria-hidden="true"><img src="./assets/product-crewneck.svg" alt="" /></span>
-            <span class="cat__name">Sweatshirts</span>
-          </a>
-          <a class="cat" role="listitem" href="./shop.html?cat=Prints">
-            <span class="cat__icon" aria-hidden="true"><img src="./assets/product-poster.svg" alt="" /></span>
-            <span class="cat__name">Prints</span>
-          </a>
-        </div>
-      </div>
     </section>
-
-    <section class="section" aria-label="Top brands">
-      <div class="container">
-        <div class="rowhead">
-          <div>
-            <div class="eyebrow">Brands</div>
-            <h2 class="h2">Top picks</h2>
-          </div>
-          <a href="./shop.html">View all →</a>
+    
+    <!-- Promotional Banner with Lottie Animation -->
+    <section class="promo-section">
+        <div class="promo-content">
+            <div class="promo-text">
+                <h2>Limited Time Offer</h2>
+                <p>Get 30% off on all premium products</p>
+                <button class="promo-button">Shop Now</button>
+            </div>
+            <div class="promo-animation">
+                <lottie-player src="https://assets3.lottiefiles.com/packages/lf20_ystsffqy.json"
+                               background="transparent" speed="1"
+                               style="width: 400px; height: 400px;"
+                               loop autoplay>
+                </lottie-player>
+            </div>
         </div>
-
-        <div class="brands brands--marquee" id="brandsMarquee" aria-label="Brand cards">
-          <div class="brandcard">
-            <div class="brandcard__left">
-              <span class="brandcard__tag">UP TO 80% OFF</span>
-              <div class="brandcard__t">Creator Essentials</div>
-              <div style="color: rgba(11,27,43,0.68); font-weight:800; font-size:13px;">Limited-time bundle deals</div>
-            </div>
-            <div class="brandcard__img" aria-hidden="true"><img src="./assets/product-tee.svg" alt="" /></div>
-          </div>
-          <div class="brandcard">
-            <div class="brandcard__left">
-              <span class="brandcard__tag">UP TO 60% OFF</span>
-              <div class="brandcard__t">Drop Day Hoodies</div>
-              <div style="color: rgba(11,27,43,0.68); font-weight:800; font-size:13px;">Best sellers this week</div>
-            </div>
-            <div class="brandcard__img" aria-hidden="true"><img src="./assets/product-hoodie.svg" alt="" /></div>
-          </div>
-          <div class="brandcard">
-            <div class="brandcard__left">
-              <span class="brandcard__tag">UP TO 50% OFF</span>
-              <div class="brandcard__t">Accessories</div>
-              <div style="color: rgba(11,27,43,0.68); font-weight:800; font-size:13px;">Add-ons to boost AOV</div>
-            </div>
-            <div class="brandcard__img" aria-hidden="true"><img src="./assets/product-stickers.svg" alt="" /></div>
-          </div>
-        </div>
-      </div>
     </section>
-
-    <!-- Build your stack section removed -->
-
-    <section class="section" id="consultation" aria-label="Consultation booking">
-      <div class="container grid grid-2">
-        <div class="card">
-          <div class="eyebrow">Consultations</div>
-          <h2 class="h2">Book a session</h2>
-          <p class="lead">Pick a session type and submit your request. (Demo form — we can wire this to Calendly/Stripe later.)</p>
-          <div style="margin-top:14px; height:220px; border-radius: var(--r-md); border:1px dashed rgba(11,27,43,0.18); display:grid; place-items:center; color: rgba(11,27,43,0.70);">
-            Booking widget placeholder
-          </div>
-        </div>
-
-        <div class="card">
-          <b>Request a session</b>
-          <form style="margin-top:14px; display:grid; gap:12px;" id="consultForm">
-            <div>
-              <label class="label" for="cName">Name</label>
-              <input class="input" id="cName" required placeholder="Your name" />
-            </div>
-            <div>
-              <label class="label" for="cEmail">Email</label>
-              <input class="input" id="cEmail" type="email" required placeholder="you@example.com" />
-            </div>
-            <div>
-              <label class="label" for="cPhone">Phone</label>
-              <input class="input" id="cPhone" placeholder="(000) 000-0000" />
-            </div>
-            <div>
-              <label class="label" for="cType">Session type</label>
-              <select id="cType" class="input" required>
-                <option value="" selected disabled>Choose one…</option>
-                <option>Private 30min Consultation</option>
-                <option>1:1 Coaching</option>
-                <option>Discovery Session</option>
-                <option>Self-Improvement Session</option>
-              </select>
-            </div>
-            <div>
-              <label class="label" for="cTimeline">Timeline</label>
-              <input class="input" id="cTimeline" placeholder="This week / next month…" />
-            </div>
-            <div>
-              <label class="label" for="cNotes">What do you want help with?</label>
-              <textarea id="cNotes" placeholder="Goal, current situation, what you want to change…"></textarea>
-            </div>
-            <button class="btn btn--primary" type="submit">Submit request (demo)</button>
-            <small style="color: rgba(11,27,43,0.62);">This demo doesn’t send emails yet.</small>
-          </form>
-        </div>
-      </div>
+    
+    <!-- Newsletter with Animated Input -->
+    <section class="newsletter-section">
+        <h2 data-reveal>Stay Connected</h2>
+        <p data-reveal>Subscribe for exclusive deals and new arrivals</p>
+        <form class="newsletter-form" id="newsletterForm">
+            <input type="email" placeholder="Enter your email" class="newsletter-input" required>
+            <button type="submit" class="newsletter-button">
+                <span>Subscribe</span>
+                <i class="fas fa-paper-plane"></i>
+            </button>
+        </form>
     </section>
-
-    <footer class="footer" role="contentinfo" id="contact">
-      <div class="container footer__grid">
-        <div class="footer__brand">
-          <div class="brand" style="min-width:0;">
-            <span class="brand__mark" aria-hidden="true"><img src="./assets/logo.svg" alt="" loading="lazy" /></span>
-            <span class="brand__meta">
-              <div class="brand__name">Wali World</div>
-              <div class="brand__tag">A premium community e‑commerce + coaching platform.</div>
-            </span>
-          </div>
-          <div class="footer__contact">
-            <div><b>Contact</b></div>
-            <div>hello@waliworld.example</div>
-            <div>(000) 000-0000</div>
-          </div>
+    
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>About Wali World</h3>
+                <p>Your premium destination for quality products and exceptional shopping experience.</p>
+            </div>
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="shop.html">Shop</a></li>
+                    <li><a href="about.html">About Us</a></li>
+                    <li><a href="faq.html">FAQ</a></li>
+                    <li><a href="checkout.html">Checkout</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Follow Us</h3>
+                <div class="social-icons">
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
         </div>
-
-        <div class="footer__cols">
-          <div>
-            <div class="footer__head">Most Popular</div>
-            <a class="footer__link" href="./shop.html?cat=Tees">Tees</a>
-            <a class="footer__link" href="./shop.html?cat=Hoodies">Hoodies</a>
-            <a class="footer__link" href="./shop.html?cat=Accessories">Accessories</a>
-            <a class="footer__link" href="./shop.html?cat=Prints">Prints</a>
-          </div>
-          <div>
-            <div class="footer__head">Customer Services</div>
-            <a class="footer__link" href="./about.html">About</a>
-            <a class="footer__link" href="./faq.html">FAQ</a>
-            <a class="footer__link" href="#">Privacy Policy</a>
-            <a class="footer__link" href="#">Terms &amp; Conditions</a>
-          </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 Wali World. All rights reserved.</p>
         </div>
-      </div>
-
-      <div class="container footer__bottom">
-        <small>© <span id="year"></span> Wali World. All rights reserved.</small>
-      </div>
     </footer>
-
-    <!-- Mobile booking CTA removed -->
-  </main>
-
-  <!-- Mobile menu -->
-  <div class="mnav-backdrop" id="menuBackdrop" aria-hidden="true"></div>
-  <aside class="mnav" id="mobileMenu" aria-label="Mobile menu">
-    <div class="mnav__head"><b>Menu</b><button class="iconbtn" id="closeMenu" type="button" aria-label="Close menu">✕</button></div>
-    <div class="mnav__body">
-      <a href="./index.html">Home</a>
-      <a href="./shop.html">Shop</a>
-      <a href="./about.html">About</a>
-      <a href="./faq.html">FAQ</a>
-      <a href="#consultation">Book a Session</a>
-    </div>
-    <div class="mnav__foot">
-      <a class="btn btn--primary" href="./shop.html">Shop Products</a>
-      <a class="btn btn--ghost" href="#consultation">Book a Session</a>
-    </div>
-  </aside>
-
-  <!-- Cart drawer (shared) -->
-  <div class="drawer__backdrop" id="drawerBackdrop" aria-hidden="true"></div>
-  <aside class="drawer" id="cartDrawer" aria-label="Cart drawer">
-    <div class="drawer__head">
-      <h3>Your cart</h3>
-      <button class="btn btn--ghost btn--small" id="closeDrawer" type="button">Close</button>
-    </div>
-    <div class="drawer__body" id="cartItems"></div>
-    <div class="drawer__foot">
-      <div class="totals"><span>Subtotal</span><span id="cartSubtotal">$0.00</span></div>
-      <button class="btn btn--primary" id="checkoutBtn" type="button">Checkout</button>
-      <small style="color: rgba(11,27,43,0.62);">Taxes/shipping calculated at checkout (placeholder).</small>
-    </div>
-  </aside>
-
-  <script>
-    document.getElementById('year').textContent = String(new Date().getFullYear());
-
-    // Consultation form → Supabase (if configured). Falls back to demo alert.
-    const consultForm = document.getElementById('consultForm');
-    if (consultForm){
-      consultForm.addEventListener('submit', async (e) => {
-        e.preventDefault();
-
-        const payload = {
-          name: document.getElementById('cName')?.value?.trim() || '',
-          email: document.getElementById('cEmail')?.value?.trim() || '',
-          phone: document.getElementById('cPhone')?.value?.trim() || null,
-          session_type: document.getElementById('cType')?.value?.trim() || '',
-          timeline: document.getElementById('cTimeline')?.value?.trim() || null,
-          notes: document.getElementById('cNotes')?.value?.trim() || null,
-        };
-
-        if (window.waliSupabase?.hasSupabaseConfig?.()){
-          const res = await window.waliSupabase.supabaseInsertConsultation(payload);
-          if (res.ok){
-            alert('Request sent. We’ll reach out shortly.');
-            consultForm.reset();
-            return;
-          }
-          alert('Could not submit right now: ' + (res.error || 'unknown error'));
-          return;
-        }
-
-        alert('Captured (demo). Add Supabase keys to enable real submissions.');
-        consultForm.reset();
-      });
-    }
-  </script>
-  <script src="./js/app.js" defer></script>
+    
+    <!-- Fly to Cart Animation Container -->
+    <div id="flyToCartContainer"></div>
+    
+    <!-- Core JavaScript -->
+    <script src="js/animations.js"></script>
+    <script src="js/ecommerce.js"></script>
+    <script src="js/app.js"></script>
 </body>
 </html>
