@@ -5,203 +5,458 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Shop - Wali World Premium Store</title>
     
+    <!-- Core Styles -->
+    <link rel="stylesheet" href="css/styles.css">
+    
     <!-- Animation Libraries -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    <script src="https://cdn.babylonjs.com/babylon.js"></script>
+    <script src="https://cdn.babylonjs.com/loaders/babylonjs.loaders.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
     <script src="https://unpkg.com/scrollreveal@4.0.9/dist/scrollreveal.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@babylonjs/core@5.0.0/babylon.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@babylonjs/loaders@5.0.0/babylon.loaders.min.js"></script>
+    <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
     
-    <!-- Fonts & Icons -->
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body class="shop-page">
+    <!-- Loading Animation -->
+    <div class="loader" id="loader">
+        <lottie-player src="https://assets9.lottiefiles.com/packages/lf20_jcuhyjea.json" 
+                       background="transparent" speed="1" 
+                       style="width: 300px; height: 300px;" 
+                       loop autoplay>
+        </lottie-player>
+    </div>
     
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <div class="logo-container">
+                <h1 class="logo">WALI WORLD</h1>
+                <span class="logo-tagline">Premium Shopping Experience</span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html" class="nav-link">Home</a></li>
+                <li><a href="shop.html" class="nav-link active">Shop</a></li>
+                <li><a href="about.html" class="nav-link">About</a></li>
+                <li><a href="faq.html" class="nav-link">FAQ</a></li>
+                <li><a href="auth.html" class="nav-link">Account</a></li>
+            </ul>
+            <div class="cart-container">
+                <div class="cart-icon" id="cartIcon">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span class="cart-count" id="cartCount">0</span>
+                </div>
+            </div>
+        </div>
+    </nav>
+    
+    <!-- Shop Hero with 3D Showcase -->
+    <section class="shop-hero">
+        <div class="hero-content">
+            <h1 class="shop-title">
+                <span class="glitch" data-text="SHOP">SHOP</span>
+                <span class="subtitle">Experience Products in 3D</span>
+            </h1>
+        </div>
+        <div class="hero-3d-showcase" id="showcase3D">
+            <!-- Babylon.js 3D Showcase -->
+            <canvas id="babylonCanvas"></canvas>
+        </div>
+    </section>
+    
+    <!-- Filters and Sort -->
+    <section class="filters-section">
+        <div class="filters-container">
+            <div class="filter-group">
+                <h3>Categories</h3>
+                <div class="filter-options">
+                    <button class="filter-btn active" data-category="all">All</button>
+                    <button class="filter-btn" data-category="electronics">Electronics</button>
+                    <button class="filter-btn" data-category="fashion">Fashion</button>
+                    <button class="filter-btn" data-category="home">Home</button>
+                    <button class="filter-btn" data-category="sports">Sports</button>
+                </div>
+            </div>
+            <div class="filter-group">
+                <h3>Price Range</h3>
+                <div class="price-slider">
+                    <input type="range" min="0" max="1000" value="500" class="slider" id="priceRange">
+                    <div class="price-display">
+                        <span>$0</span>
+                        <span id="priceValue">$500</span>
+                        <span>$1000</span>
+                    </div>
+                </div>
+            </div>
+            <div class="filter-group">
+                <h3>Sort By</h3>
+                <select class="sort-select" id="sortSelect">
+                    <option value="featured">Featured</option>
+                    <option value="price-low">Price: Low to High</option>
+                    <option value="price-high">Price: High to Low</option>
+                    <option value="rating">Best Rated</option>
+                    <option value="newest">Newest</option>
+                </select>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Products Grid with Advanced Features -->
+    <section class="products-section">
+        <div class="products-container" id="productsContainer">
+            <!-- Products will be dynamically loaded here -->
+        </div>
+        
+        <!-- Load More with Infinite Scroll -->
+        <div class="load-more-container">
+            <button class="load-more-btn" id="loadMoreBtn">
+                <span>Load More Products</span>
+                <lottie-player src="https://assets10.lottiefiles.com/packages/lf20_p8bfn5to.json"
+                               background="transparent" speed="1"
+                               style="width: 30px; height: 30px; display: none;"
+                               loop autoplay>
+                </lottie-player>
+            </button>
+        </div>
+    </section>
+    
+    <!-- 3D Product Viewer Modal -->
+    <div class="viewer-3d-modal" id="viewer3DModal" style="display: none;">
+        <div class="viewer-container">
+            <button class="viewer-close" id="viewerClose">&times;</button>
+            <h2 class="viewer-title" id="viewerTitle">Product 3D View</h2>
+            <div class="viewer-canvas-container">
+                <canvas id="productCanvas3D"></canvas>
+            </div>
+            <div class="viewer-controls">
+                <button class="viewer-control" id="rotateLeft"><i class="fas fa-undo"></i></button>
+                <button class="viewer-control" id="zoomIn"><i class="fas fa-search-plus"></i></button>
+                <button class="viewer-control" id="zoomOut"><i class="fas fa-search-minus"></i></button>
+                <button class="viewer-control" id="rotateRight"><i class="fas fa-redo"></i></button>
+                <button class="viewer-control" id="resetView"><i class="fas fa-sync"></i></button>
+            </div>
+            <div class="viewer-info">
+                <p>🖱️ Drag to rotate • Scroll to zoom • Double-click to reset</p>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Shopping Cart Sidebar -->
+    <div class="cart-sidebar" id="cartSidebar">
+        <div class="cart-header">
+            <h2>Shopping Cart</h2>
+            <button class="cart-close" id="cartClose">&times;</button>
+        </div>
+        <div class="cart-items" id="cartItems">
+            <!-- Cart items will be dynamically added here -->
+        </div>
+        <div class="cart-footer">
+            <div class="cart-total">
+                <span>Total:</span>
+                <span id="cartTotal">$0.00</span>
+            </div>
+            <button class="checkout-btn" onclick="window.location.href='checkout.html'">
+                Proceed to Checkout
+            </button>
+        </div>
+    </div>
+    
+    <!-- Fly to Cart Container -->
+    <div id="flyToCartContainer"></div>
+    
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Shop Categories</h3>
+                <ul>
+                    <li><a href="#electronics">Electronics</a></li>
+                    <li><a href="#fashion">Fashion</a></li>
+                    <li><a href="#home">Home & Living</a></li>
+                    <li><a href="#sports">Sports & Outdoors</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Customer Service</h3>
+                <ul>
+                    <li><a href="faq.html">FAQ</a></li>
+                    <li><a href="#">Shipping Info</a></li>
+                    <li><a href="#">Returns</a></li>
+                    <li><a href="#">Contact Us</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Connect</h3>
+                <div class="social-icons">
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-pinterest"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+    
+    <!-- Shop Page Specific Styles -->
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
-        body {
-            font-family: 'Poppins', sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-        }
-        
-        /* Header with Sticky Navigation */
-        header {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            box-shadow: 0 2px 20px rgba(0,0,0,0.1);
-        }
-        
-        .header-content {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 1rem 2rem;
-            max-width: 1400px;
-            margin: 0 auto;
-        }
-        
-        /* Filter Sidebar */
-        .filters {
-            background: white;
-            padding: 2rem;
-            border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-            position: sticky;
-            top: 100px;
-        }
-        
-        .filter-group {
-            margin-bottom: 2rem;
-        }
-        
-        .filter-title {
-            font-weight: 600;
-            margin-bottom: 1rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            cursor: pointer;
-        }
-        
-        /* Price Range Slider */
-        .price-slider {
-            -webkit-appearance: none;
-            width: 100%;
-            height: 8px;
-            border-radius: 5px;
-            background: linear-gradient(to right, #667eea 0%, #764ba2 100%);
-            outline: none;
-            opacity: 0.7;
-            transition: opacity 0.3s;
-        }
-        
-        .price-slider:hover {
-            opacity: 1;
-        }
-        
-        /* Product Grid with Animations */
-        .shop-container {
-            display: grid;
-            grid-template-columns: 250px 1fr;
-            gap: 2rem;
-            max-width: 1400px;
-            margin: 2rem auto;
-            padding: 0 2rem;
-        }
-        
-        .products-area {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 2rem;
-        }
-        
-        .product-card {
-            background: white;
-            border-radius: 20px;
-            overflow: hidden;
+        .shop-hero {
             position: relative;
-            cursor: pointer;
-            transform-style: preserve-3d;
-            transition: transform 0.6s;
+            height: 60vh;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            margin-top: 80px;
         }
         
-        .product-card:hover {
-            transform: rotateY(10deg) scale(1.05);
-        }
-        
-        .product-badge {
-            position: absolute;
-            top: 1rem;
-            right: 1rem;
-            background: #ff4757;
+        .shop-title {
+            text-align: center;
             color: white;
-            padding: 0.5rem 1rem;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            font-weight: 600;
             z-index: 2;
         }
         
-        .product-image-container {
+        .glitch {
+            font-size: clamp(4rem, 10vw, 8rem);
+            font-weight: 900;
+            text-transform: uppercase;
             position: relative;
-            height: 300px;
-            overflow: hidden;
+            text-shadow: 2px 2px 0px #ff00ff, -2px -2px 0px #00ffff;
         }
         
-        .product-image {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.5s;
-        }
-        
-        .product-card:hover .product-image {
-            transform: scale(1.2);
-        }
-        
-        /* Quick View Overlay */
-        .quick-view {
+        .glitch::before,
+        .glitch::after {
+            content: attr(data-text);
             position: absolute;
             top: 0;
             left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0,0,0,0.8);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            opacity: 0;
-            transition: opacity 0.3s;
+            width: 100%;
+            height: 100%;
         }
         
-        .product-card:hover .quick-view {
-            opacity: 1;
+        .glitch::before {
+            animation: glitch-1 0.3s infinite;
+            color: #00ffff;
+            z-index: -1;
         }
         
-        .quick-view-btn {
+        .glitch::after {
+            animation: glitch-2 0.3s infinite;
+            color: #ff00ff;
+            z-index: -2;
+        }
+        
+        @keyframes glitch-1 {
+            0%, 100% { clip: rect(0px, 900px, 0px, 0px); }
+            25% { clip: rect(20px, 900px, 40px, 0px); }
+            50% { clip: rect(80px, 900px, 100px, 0px); }
+            75% { clip: rect(40px, 900px, 60px, 0px); }
+        }
+        
+        @keyframes glitch-2 {
+            0%, 100% { clip: rect(0px, 900px, 0px, 0px); }
+            25% { clip: rect(60px, 900px, 80px, 0px); }
+            50% { clip: rect(10px, 900px, 30px, 0px); }
+            75% { clip: rect(90px, 900px, 110px, 0px); }
+        }
+        
+        .subtitle {
+            display: block;
+            font-size: 1.5rem;
+            font-weight: 300;
+            margin-top: 1rem;
+            animation: fadeInUp 1s ease;
+        }
+        
+        #babylonCanvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+        }
+        
+        .filters-section {
             background: white;
-            color: #333;
-            padding: 1rem 2rem;
-            border-radius: 30px;
-            font-weight: 600;
-            transform: translateY(20px);
-            transition: transform 0.3s;
+            padding: 2rem 5%;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 80px;
+            z-index: 100;
         }
         
-        .product-card:hover .quick-view-btn {
-            transform: translateY(0);
+        .filters-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 2rem;
         }
         
-        /* 3D Product Modal */
-        .modal-3d {
-            display: none;
+        .filter-group h3 {
+            font-size: 0.875rem;
+            text-transform: uppercase;
+            color: #666;
+            margin-bottom: 0.5rem;
+        }
+        
+        .filter-options {
+            display: flex;
+            gap: 0.5rem;
+        }
+        
+        .filter-btn {
+            padding: 0.5rem 1rem;
+            border: 2px solid #e5e7eb;
+            background: white;
+            border-radius: 999px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: 500;
+        }
+        
+        .filter-btn:hover,
+        .filter-btn.active {
+            background: linear-gradient(135deg, #6366f1, #ec4899);
+            color: white;
+            border-color: transparent;
+        }
+        
+        .price-slider {
+            width: 200px;
+        }
+        
+        .slider {
+            width: 100%;
+            -webkit-appearance: none;
+            height: 5px;
+            border-radius: 5px;
+            background: #e5e7eb;
+            outline: none;
+        }
+        
+        .slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #6366f1, #ec4899);
+            cursor: pointer;
+        }
+        
+        .price-display {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 0.5rem;
+            font-size: 0.875rem;
+            color: #666;
+        }
+        
+        .sort-select {
+            padding: 0.5rem 1rem;
+            border: 2px solid #e5e7eb;
+            border-radius: 999px;
+            background: white;
+            cursor: pointer;
+            font-weight: 500;
+        }
+        
+        .products-section {
+            padding: 4rem 5%;
+            background: #f9fafb;
+            min-height: 100vh;
+        }
+        
+        .products-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+        
+        .viewer-3d-modal {
             position: fixed;
             top: 0;
             left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0,0,0,0.9);
-            z-index: 1000;
-            align-items: center;
+            width: 100%;
+            height: 100vh;
+            background: rgba(0, 0, 0, 0.9);
+            display: flex;
             justify-content: center;
+            align-items: center;
+            z-index: 10000;
         }
         
-        #babylon-canvas {
-            width: 800px;
-            height: 600px;
+        .viewer-container {
+            background: white;
             border-radius: 20px;
+            padding: 2rem;
+            width: 90%;
+            max-width: 1200px;
+            height: 80vh;
+            position: relative;
         }
         
-        /* Cart Sidebar */
+        .viewer-close {
+            position: absolute;
+            right: 1rem;
+            top: 1rem;
+            font-size: 2rem;
+            background: none;
+            border: none;
+            cursor: pointer;
+            z-index: 10;
+        }
+        
+        .viewer-title {
+            text-align: center;
+            margin-bottom: 1rem;
+        }
+        
+        .viewer-canvas-container {
+            width: 100%;
+            height: calc(100% - 150px);
+            position: relative;
+        }
+        
+        #productCanvas3D {
+            width: 100%;
+            height: 100%;
+            border-radius: 10px;
+        }
+        
+        .viewer-controls {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+        
+        .viewer-control {
+            padding: 0.75rem 1.5rem;
+            background: linear-gradient(135deg, #6366f1, #ec4899);
+            color: white;
+            border: none;
+            border-radius: 999px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .viewer-control:hover {
+            transform: scale(1.1);
+        }
+        
+        .viewer-info {
+            text-align: center;
+            color: #666;
+            margin-top: 1rem;
+        }
+        
         .cart-sidebar {
             position: fixed;
             right: -400px;
@@ -209,469 +464,100 @@
             width: 400px;
             height: 100vh;
             background: white;
-            box-shadow: -10px 0 30px rgba(0,0,0,0.2);
-            transition: right 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            box-shadow: -4px 0 20px rgba(0, 0, 0, 0.1);
+            transition: right 0.3s;
             z-index: 1001;
-            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
         }
         
-        .cart-sidebar.active {
+        .cart-sidebar.open {
             right: 0;
         }
         
-        /* Floating Action Buttons */
-        .fab-container {
-            position: fixed;
-            bottom: 2rem;
-            right: 2rem;
+        .cart-header {
+            padding: 1.5rem;
+            border-bottom: 1px solid #e5e7eb;
             display: flex;
-            flex-direction: column;
-            gap: 1rem;
-            z-index: 99;
-        }
-        
-        .fab {
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            background: white;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
-            display: flex;
+            justify-content: space-between;
             align-items: center;
-            justify-content: center;
+        }
+        
+        .cart-close {
+            font-size: 2rem;
+            background: none;
+            border: none;
             cursor: pointer;
-            transition: transform 0.3s;
+            color: #666;
         }
         
-        .fab:hover {
-            transform: scale(1.1) rotate(5deg);
+        .cart-items {
+            flex: 1;
+            overflow-y: auto;
+            padding: 1.5rem;
         }
         
-        /* Loading Skeleton */
-        .skeleton {
-            background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
-            background-size: 200% 100%;
-            animation: loading 1.5s infinite;
+        .cart-footer {
+            padding: 1.5rem;
+            border-top: 1px solid #e5e7eb;
         }
         
-        @keyframes loading {
-            0% { background-position: 200% 0; }
-            100% { background-position: -200% 0; }
-        }
-        
-        /* Sort Dropdown */
-        .sort-container {
+        .cart-total {
             display: flex;
-            gap: 1rem;
-            margin-bottom: 2rem;
-            justify-content: flex-end;
+            justify-content: space-between;
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
         }
         
-        .sort-select {
-            padding: 0.8rem 1.5rem;
-            border: 2px solid #667eea;
-            border-radius: 30px;
-            background: white;
-            font-family: 'Poppins', sans-serif;
+        .checkout-btn {
+            width: 100%;
+            padding: 1rem;
+            background: linear-gradient(135deg, #6366f1, #ec4899);
+            color: white;
+            border: none;
+            border-radius: 999px;
+            font-size: 1.125rem;
+            font-weight: 600;
             cursor: pointer;
             transition: all 0.3s;
         }
         
-        .sort-select:hover {
-            background: #667eea;
+        .checkout-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(99, 102, 241, 0.4);
+        }
+        
+        .load-more-container {
+            text-align: center;
+            margin-top: 2rem;
+        }
+        
+        .load-more-btn {
+            padding: 1rem 3rem;
+            background: linear-gradient(135deg, #6366f1, #ec4899);
             color: white;
+            border: none;
+            border-radius: 999px;
+            font-size: 1.125rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .load-more-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(99, 102, 241, 0.4);
         }
     </style>
-</head>
-<body>
-    <!-- Header -->
-    <header>
-        <div class="header-content">
-            <h1 style="background: linear-gradient(45deg, #667eea, #764ba2); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">
-                Wali World Shop
-            </h1>
-            <div style="display: flex; gap: 2rem; align-items: center;">
-                <div class="search-box" style="position: relative;">
-                    <input type="text" placeholder="Search products..." style="padding: 0.8rem 2rem; border: 2px solid #667eea; border-radius: 30px; width: 300px;">
-                    <i class="fas fa-search" style="position: absolute; right: 1rem; top: 50%; transform: translateY(-50%); color: #667eea;"></i>
-                </div>
-                <div style="position: relative; cursor: pointer;" onclick="toggleCart()">
-                    <i class="fas fa-shopping-cart fa-lg" style="color: #667eea;"></i>
-                    <span class="cart-count" style="position: absolute; top: -8px; right: -8px; background: #ff4757; color: white; border-radius: 50%; width: 20px; height: 20px; display: flex; align-items: center; justify-content: center; font-size: 12px;">0</span>
-                </div>
-            </div>
-        </div>
-    </header>
     
-    <!-- Shop Container -->
-    <div class="shop-container">
-        <!-- Filters Sidebar -->
-        <aside class="filters">
-            <h3 style="margin-bottom: 2rem; color: #333;">Filters</h3>
-            
-            <div class="filter-group">
-                <div class="filter-title">
-                    Categories
-                    <i class="fas fa-chevron-down"></i>
-                </div>
-                <div class="filter-options">
-                    <label style="display: block; margin: 0.5rem 0; cursor: pointer;">
-                        <input type="checkbox" style="margin-right: 0.5rem;"> Electronics
-                    </label>
-                    <label style="display: block; margin: 0.5rem 0; cursor: pointer;">
-                        <input type="checkbox" style="margin-right: 0.5rem;"> Fashion
-                    </label>
-                    <label style="display: block; margin: 0.5rem 0; cursor: pointer;">
-                        <input type="checkbox" style="margin-right: 0.5rem;"> Accessories
-                    </label>
-                    <label style="display: block; margin: 0.5rem 0; cursor: pointer;">
-                        <input type="checkbox" style="margin-right: 0.5rem;"> Home & Living
-                    </label>
-                </div>
-            </div>
-            
-            <div class="filter-group">
-                <div class="filter-title">
-                    Price Range
-                    <span id="price-value">$0 - $500</span>
-                </div>
-                <input type="range" min="0" max="1000" value="500" class="price-slider" id="price-slider">
-            </div>
-            
-            <div class="filter-group">
-                <div class="filter-title">
-                    Brand
-                    <i class="fas fa-chevron-down"></i>
-                </div>
-                <div class="filter-options">
-                    <label style="display: block; margin: 0.5rem 0; cursor: pointer;">
-                        <input type="checkbox" style="margin-right: 0.5rem;"> Premium Brand
-                    </label>
-                    <label style="display: block; margin: 0.5rem 0; cursor: pointer;">
-                        <input type="checkbox" style="margin-right: 0.5rem;"> Designer Label
-                    </label>
-                    <label style="display: block; margin: 0.5rem 0; cursor: pointer;">
-                        <input type="checkbox" style="margin-right: 0.5rem;"> Eco Friendly
-                    </label>
-                </div>
-            </div>
-            
-            <button style="width: 100%; padding: 1rem; background: linear-gradient(45deg, #667eea, #764ba2); color: white; border: none; border-radius: 30px; font-weight: 600; cursor: pointer; margin-top: 1rem;">
-                Apply Filters
-            </button>
-        </aside>
-        
-        <!-- Products Area -->
-        <main>
-            <div class="sort-container">
-                <select class="sort-select">
-                    <option>Sort by: Featured</option>
-                    <option>Price: Low to High</option>
-                    <option>Price: High to Low</option>
-                    <option>Newest First</option>
-                    <option>Best Sellers</option>
-                </select>
-                <button class="sort-select" style="border: none; background: linear-gradient(45deg, #667eea, #764ba2); color: white;">
-                    <i class="fas fa-th-large" style="margin-right: 0.5rem;"></i> Grid View
-                </button>
-            </div>
-            
-            <div class="products-area" id="products-area">
-                <!-- Products will be loaded here -->
-            </div>
-        </main>
-    </div>
-    
-    <!-- Cart Sidebar -->
-    <div class="cart-sidebar" id="cart-sidebar">
-        <div style="padding: 2rem;">
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
-                <h2>Your Cart</h2>
-                <i class="fas fa-times" style="cursor: pointer; font-size: 1.5rem;" onclick="toggleCart()"></i>
-            </div>
-            <div id="cart-items">
-                <!-- Cart items will be displayed here -->
-            </div>
-            <div style="border-top: 2px solid #eee; margin-top: 2rem; padding-top: 2rem;">
-                <div style="display: flex; justify-content: space-between; margin-bottom: 1rem;">
-                    <h3>Total:</h3>
-                    <h3 id="cart-total">$0</h3>
-                </div>
-                <button style="width: 100%; padding: 1rem; background: linear-gradient(45deg, #2ecc71, #27ae60); color: white; border: none; border-radius: 30px; font-weight: 600; cursor: pointer;">
-                    Proceed to Checkout
-                </button>
-            </div>
-        </div>
-    </div>
-    
-    <!-- 3D Product Modal -->
-    <div class="modal-3d" id="modal-3d">
-        <div style="position: relative;">
-            <canvas id="babylon-canvas"></canvas>
-            <button onclick="closeModal3D()" style="position: absolute; top: -40px; right: 0; background: white; border: none; padding: 0.5rem 1rem; border-radius: 20px; cursor: pointer;">
-                Close 3D View
-            </button>
-        </div>
-    </div>
-    
-    <!-- Floating Action Buttons -->
-    <div class="fab-container">
-        <div class="fab" onclick="toggleCart()">
-            <i class="fas fa-shopping-cart" style="color: #667eea; font-size: 1.5rem;"></i>
-        </div>
-        <div class="fab" onclick="scrollToTop()">
-            <i class="fas fa-arrow-up" style="color: #764ba2; font-size: 1.5rem;"></i>
-        </div>
-    </div>
-    
-    <script>
-        // Sample Products Data
-        const products = [
-            { id: 1, name: 'Smart Watch Pro', price: 299, category: 'Electronics', image: 'https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=400', badge: 'New' },
-            { id: 2, name: 'Designer Sneakers', price: 199, category: 'Fashion', image: 'https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=400', badge: 'Sale' },
-            { id: 3, name: 'Leather Handbag', price: 499, category: 'Fashion', image: 'https://images.unsplash.com/photo-1584917865442-de89df76afd3?w=400', badge: 'Limited' },
-            { id: 4, name: 'Wireless Headphones', price: 149, category: 'Electronics', image: 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=400' },
-            { id: 5, name: 'Luxury Perfume', price: 89, category: 'Fashion', image: 'https://images.unsplash.com/photo-1541643600914-78b084683601?w=400' },
-            { id: 6, name: 'Premium Sunglasses', price: 129, category: 'Accessories', image: 'https://images.unsplash.com/photo-1572635196237-14b3f281503f?w=400' },
-            { id: 7, name: 'Minimalist Wallet', price: 79, category: 'Accessories', image: 'https://images.unsplash.com/photo-1627123424574-724758594e93?w=400' },
-            { id: 8, name: 'Ceramic Vase Set', price: 159, category: 'Home & Living', image: 'https://images.unsplash.com/photo-1581783898377-1c85bf937427?w=400', badge: 'Trending' }
-        ];
-        
-        let cart = [];
-        
-        // Load Products with Animation
-        function loadProducts() {
-            const productsArea = document.getElementById('products-area');
-            
-            products.forEach((product, index) => {
-                const card = document.createElement('div');
-                card.className = 'product-card';
-                card.innerHTML = `
-                    ${product.badge ? `<span class="product-badge">${product.badge}</span>` : ''}
-                    <div class="product-image-container">
-                        <img src="${product.image}" alt="${product.name}" class="product-image">
-                        <div class="quick-view">
-                            <button class="quick-view-btn" onclick="view3D(${product.id})">
-                                <i class="fas fa-cube"></i> View in 3D
-                            </button>
-                        </div>
-                    </div>
-                    <div style="padding: 1.5rem;">
-                        <h3 style="font-size: 1.2rem; margin-bottom: 0.5rem;">${product.name}</h3>
-                        <p style="color: #999; font-size: 0.9rem; margin-bottom: 1rem;">${product.category}</p>
-                        <div style="display: flex; justify-content: space-between; align-items: center;">
-                            <span style="font-size: 1.5rem; font-weight: 700; color: #667eea;">$${product.price}</span>
-                            <button class="add-to-cart-btn" onclick="addToCart(${product.id})" style="
-                                padding: 0.8rem 1.5rem;
-                                background: linear-gradient(45deg, #667eea, #764ba2);
-                                color: white;
-                                border: none;
-                                border-radius: 20px;
-                                cursor: pointer;
-                                font-weight: 600;
-                                transition: transform 0.3s;
-                            ">
-                                <i class="fas fa-cart-plus"></i> Add
-                            </button>
-                        </div>
-                    </div>
-                `;
-                
-                productsArea.appendChild(card);
-                
-                // GSAP Stagger Animation
-                gsap.from(card, {
-                    duration: 0.8,
-                    y: 100,
-                    opacity: 0,
-                    delay: index * 0.1,
-                    ease: 'power3.out'
-                });
-            });
-        }
-        
-        // Add to Cart with Animation
-        function addToCart(productId) {
-            const product = products.find(p => p.id === productId);
-            cart.push(product);
-            updateCart();
-            
-            // Animate cart icon
-            anime({
-                targets: '.cart-count',
-                scale: [1, 1.5, 1],
-                duration: 500,
-                easing: 'easeInOutQuad'
-            });
-            
-            // Show notification
-            const notification = document.createElement('div');
-            notification.innerHTML = `✅ ${product.name} added to cart!`;
-            notification.style.cssText = `
-                position: fixed;
-                top: 100px;
-                right: 20px;
-                background: white;
-                padding: 1rem 2rem;
-                border-radius: 30px;
-                box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-                z-index: 1000;
-            `;
-            document.body.appendChild(notification);
-            
-            anime({
-                targets: notification,
-                translateX: [-100, 0],
-                opacity: [0, 1],
-                duration: 500,
-                easing: 'easeOutElastic(1, .8)',
-                complete: function() {
-                    setTimeout(() => {
-                        anime({
-                            targets: notification,
-                            translateX: [0, 100],
-                            opacity: [1, 0],
-                            duration: 500,
-                            easing: 'easeInQuad',
-                            complete: function() {
-                                notification.remove();
-                            }
-                        });
-                    }, 2000);
-                }
-            });
-        }
-        
-        // Update Cart Display
-        function updateCart() {
-            const cartCount = document.querySelector('.cart-count');
-            const cartItems = document.getElementById('cart-items');
-            const cartTotal = document.getElementById('cart-total');
-            
-            cartCount.textContent = cart.length;
-            
-            cartItems.innerHTML = '';
-            let total = 0;
-            
-            cart.forEach(item => {
-                total += item.price;
-                cartItems.innerHTML += `
-                    <div style="display: flex; gap: 1rem; margin-bottom: 1rem; padding: 1rem; background: #f8f9fa; border-radius: 10px;">
-                        <img src="${item.image}" style="width: 60px; height: 60px; object-fit: cover; border-radius: 10px;">
-                        <div style="flex: 1;">
-                            <h4>${item.name}</h4>
-                            <p style="color: #667eea; font-weight: 600;">$${item.price}</p>
-                        </div>
-                    </div>
-                `;
-            });
-            
-            cartTotal.textContent = `$${total}`;
-        }
-        
-        // Toggle Cart Sidebar
-        function toggleCart() {
-            const cartSidebar = document.getElementById('cart-sidebar');
-            cartSidebar.classList.toggle('active');
-        }
-        
-        // 3D Product View with Babylon.js
-        function view3D(productId) {
-            const modal = document.getElementById('modal-3d');
-            modal.style.display = 'flex';
-            
-            const canvas = document.getElementById('babylon-canvas');
-            const engine = new BABYLON.Engine(canvas, true);
-            
-            const createScene = function() {
-                const scene = new BABYLON.Scene(engine);
-                scene.clearColor = new BABYLON.Color3(0.95, 0.95, 0.95);
-                
-                const camera = new BABYLON.ArcRotateCamera('camera', 0, 0, 10, BABYLON.Vector3.Zero(), scene);
-                camera.setPosition(new BABYLON.Vector3(0, 0, -10));
-                camera.attachControl(canvas, true);
-                
-                const light = new BABYLON.HemisphericLight('light', new BABYLON.Vector3(0, 1, 0), scene);
-                
-                // Create a box as product placeholder
-                const box = BABYLON.MeshBuilder.CreateBox('box', {size: 3}, scene);
-                const material = new BABYLON.PBRMaterial('mat', scene);
-                material.albedoColor = new BABYLON.Color3(0.4, 0.49, 0.92);
-                material.metallic = 0.5;
-                material.roughness = 0.2;
-                box.material = material;
-                
-                // Animate rotation
-                scene.registerBeforeRender(function() {
-                    box.rotation.y += 0.01;
-                });
-                
-                return scene;
-            };
-            
-            const scene = createScene();
-            
-            engine.runRenderLoop(function() {
-                scene.render();
-            });
-            
-            window.addEventListener('resize', function() {
-                engine.resize();
-            });
-        }
-        
-        // Close 3D Modal
-        function closeModal3D() {
-            const modal = document.getElementById('modal-3d');
-            modal.style.display = 'none';
-        }
-        
-        // Price Range Slider
-        const priceSlider = document.getElementById('price-slider');
-        const priceValue = document.getElementById('price-value');
-        
-        priceSlider.addEventListener('input', function() {
-            priceValue.textContent = `$0 - $${this.value}`;
-        });
-        
-        // Scroll to Top
-        function scrollToTop() {
-            window.scrollTo({
-                top: 0,
-                behavior: 'smooth'
-            });
-        }
-        
-        // Initialize
-        loadProducts();
-        
-        // Intersection Observer for Scroll Animations
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -100px 0px'
-        };
-        
-        const observer = new IntersectionObserver(function(entries) {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    anime({
-                        targets: entry.target,
-                        translateY: [30, 0],
-                        opacity: [0, 1],
-                        duration: 800,
-                        easing: 'easeOutQuad'
-                    });
-                    observer.unobserve(entry.target);
-                }
-            });
-        }, observerOptions);
-        
-        // Observe product cards
-        setTimeout(() => {
-            document.querySelectorAll('.product-card').forEach(card => {
-                observer.observe(card);
-            });
-        }, 1000);
-    </script>
+    <!-- Shop Page JavaScript -->
+    <script src="js/animations.js"></script>
+    <script src="js/ecommerce.js"></script>
+    <script src="js/shop-3d.js"></script>
+    <script src="js/app.js"></script>
 </body>
 </html>
